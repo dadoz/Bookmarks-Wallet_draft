@@ -19,9 +19,17 @@ public class SampleListFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		SampleAdapter adapter = new SampleAdapter(getActivity());
-		for (int i = 0; i < 20; i++) {
-			adapter.add(new SampleItem("Sample List", android.R.drawable.ic_menu_search));
-		}
+//		for (int i = 0; i < 20; i++) {
+//			adapter.add(new SampleItem("Sample List", android.R.drawable.ic_menu_search));
+//		}
+		adapter.add(new SampleItem("LoggedIn username", android.R.drawable.ic_menu_search));
+		adapter.add(new SampleItem("Add-write a note", android.R.drawable.ic_menu_search));
+		adapter.add(new SampleItem("Note list", android.R.drawable.ic_menu_search));
+		adapter.add(new SampleItem("Links list", android.R.drawable.ic_menu_search));
+
+		adapter.add(new SampleItem("Settings", android.R.drawable.ic_menu_search));
+		adapter.add(new SampleItem("LOGOUT", android.R.drawable.ic_menu_search));
+
 		setListAdapter(adapter);
 	}
 

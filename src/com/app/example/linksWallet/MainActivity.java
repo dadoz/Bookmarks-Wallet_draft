@@ -1,7 +1,7 @@
 package com.app.example.linksWallet;
 
-import com.app.example.linksWallet.fragments.FragmentChangeActivity;
-import com.app.example.linksWallet.fragments.LoginActivity;
+//import com.app.example.linksWallet.fragments.FragmentChangeActivity;
+//import com.app.example.linksWallet.fragments.LoginActivity;
 //import com.app.example.linksWallet.fragments.LinkListContentFragment;
 import com.app.example.linksWallet.fragments.LoginFragment;
 
@@ -17,7 +17,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 //import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 //import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-
+//http://androiddrawables.com/menu.html
 public class MainActivity extends SherlockFragmentActivity {
 
     @Override

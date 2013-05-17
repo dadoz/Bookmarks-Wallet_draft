@@ -54,7 +54,7 @@
 	    
  	    <LinearLayout
 	    
-        	android:id="@+id/userProfileLayoutId"
+        	android:id="@+id/userProfileLayoutId1"
 			android:layout_width="fill_parent"
    			android:layout_height="wrap_content" 
 	    	android:padding="10dip"
@@ -85,7 +85,7 @@
  	    
  	    <LinearLayout
 	    
-        	android:id="@+id/userProfileLayout2Id"
+        	android:id="@+id/userProfileLayoutId2"
 			android:layout_width="fill_parent"
    			android:layout_height="wrap_content" 
 	    	android:padding="10dip"
@@ -108,7 +108,7 @@
 		</LinearLayout>
  	    <LinearLayout
 	    
-        	android:id="@+id/userProfileLayoutId"
+        	android:id="@+id/userProfileLayoutId2"
 			android:layout_width="fill_parent"
    			android:layout_height="wrap_content" 
 	    	android:padding="10dip"
