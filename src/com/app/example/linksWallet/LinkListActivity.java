@@ -34,7 +34,7 @@ public class LinkListActivity extends BaseActivity {
 		setBehindContentView(R.layout.menu_frame);
 		getSupportFragmentManager()
 		.beginTransaction()
-		.replace(R.id.menu_frame, new LinkListFragment())
+		.replace(R.id.menu_frame, new SampleListFragment())
 		.commit();
 		
 		// customize the SlidingMenu
