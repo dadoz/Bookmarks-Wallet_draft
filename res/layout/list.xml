@@ -5,4 +5,6 @@
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/list_padding"
     android:paddingRight="@dimen/list_padding"
-    android:background="@color/stoneBlack" />
+    android:background="@color/stoneBlack"
+    android:divider="@color/basicGrey"
+    android:dividerHeight="1dp" />
