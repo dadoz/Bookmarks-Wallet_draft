@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 
 import com.app.example.linksWallet.BaseActivity;
 import com.app.example.linksWallet.R;
+import com.app.example.linksWallet.SampleListFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 public class LinkListActivity extends BaseActivity {
@@ -35,7 +36,7 @@ public class LinkListActivity extends BaseActivity {
 		setBehindContentView(R.layout.menu_frame);
 		getSupportFragmentManager()
 		.beginTransaction()
-		.replace(R.id.menu_frame, new ListMenuFragment())
+		.replace(R.id.menu_frame, new SampleListFragment())
 		.commit();
 		
 		// customize the SlidingMenu

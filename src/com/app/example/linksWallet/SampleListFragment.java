@@ -1,18 +1,31 @@
 package com.app.example.linksWallet;
 
+
+
+import com.app.example.linksWallet.fragments.LinkListFragment;
+import com.app.example.linksWallet.fragments.LoginFragment;
+
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+//import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.util.AttributeSet;
 import android.util.Log;
+//import android.support.v4.widget.SimpleCursorAdapter;
+//import android.util.AttributeSet;
+//import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
+//import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
+//import android.widget.ListView;
 import android.widget.TextView;
+//import android.widget.Toast;
 
 public class SampleListFragment extends ListFragment {
 
@@ -78,8 +91,66 @@ public class SampleListFragment extends ListFragment {
 				convertView.setEnabled(false);
 			}
 			return convertView;
-		}
+	}
 
 	}
+	
+	@Override
+	public void onListItemClick(ListView lv, View v, int position, long id) {
+		Fragment newContent = null;
+		switch (position) {
+		case 0:
+			Log.d("debug", "case 0");
+
+//			newContent = new ColorFragment(R.color.red);
+			newContent=new LinkListFragment();
+			break;
+		case 1:
+//			newContent = new ColorFragment(R.color.green);
+			Log.d("debug", "case 1");
+			newContent=new LoginFragment();
+			break;
+//		case 2:
+//			newContent = new ColorFragment(R.color.blue);
+//			break;
+//		case 3:
+//			newContent = new ColorFragment(android.R.color.white);
+//			break;
+//		case 4:
+//			newContent = new ColorFragment(android.R.color.black);
+//			break;
+		}
+		//newContent=new LoginFragment();
+		if (newContent != null)
+			switchFragment(newContent);
+	}
+
+	// the meat of switching the above fragment
+	private void switchFragment(Fragment fragment) {
+//		if (getActivity() == null)
+//			return;
+		Log.d("debug", "whattahell do u wanna change frame");
+		FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+
+        fragmentTransaction.replace(R.id.fragment_activity_id, fragment);
+		//provide the fragment ID of your first fragment which you have given in
+		//fragment_layout_example.xml file in place of first argument
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+		
+		
+//		if (getActivity() instanceof FragmentChangeActivity) {
+//			FragmentChangeActivity fca = (FragmentChangeActivity) getActivity();
+//			fca.switchContent(fragment);
+//		}
+//		} else if (getActivity() instanceof ResponsiveUIActivity) {
+//			ResponsiveUIActivity ra = (ResponsiveUIActivity) getActivity();
+//			ra.switchContent(fragment);
+//		}
+	}
+
+
 	
 }
