@@ -1,10 +1,14 @@
 package com.app.example.linksWallet;
 
+import com.app.example.linksWallet.fragments.LoginFragment;
 import com.app.example.linksWallet.fragments.WallpaperLoginFragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 
@@ -12,7 +16,21 @@ import com.actionbarsherlock.view.MenuItem;
 //http://bashooka.com/inspiration/flat-web-ui-design/
 
 public class MainActivity extends SherlockFragmentActivity {
+	//shared preferences variable
+    public static final String PREFS_NAME = "UserCredentialFile";
 
+	//they MUST BE EQUALS TO THE ONES IN THE PHP file !!!!
+//	private static final int USERS_DB = 98;
+//	private static final int LINKS_DB = 99;
+
+	private static final String EMPTY_USERNAME="";
+	private static final String EMPTY_PASSWORD="";
+	private static final int EMPTY_USERID=-1;
+	// to store the result of MySQL query after decoding JSON
+
+	
+	
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +51,17 @@ public class MainActivity extends SherlockFragmentActivity {
 		//hide action bar on main activity
 		getActionBar().setBackgroundDrawable(new ColorDrawable(R.color.basicRed));
 		getActionBar().hide();
+
 		
-		Intent intent = new Intent(this,FragmentChangeActivity.class);
-		startActivity(intent);
+		if(userLoggedInChecker()){
+			Intent intent = new Intent(MainActivity.this, FragmentChangeActivity.class);
+			startActivity(intent);                  	  
+		}
+
+		//OTW inflate a new LoginFragm
+		ft.add(R.id.main_frameLayout_id, new LoginFragment());
+		ft.commit(); 
+		
 }
 
 	@Override
@@ -53,5 +79,32 @@ public class MainActivity extends SherlockFragmentActivity {
 //		finish();
 	}
     
+	
+	public boolean userLoggedInChecker(){
+		// Restore userLOGIN credentials even if user kill the app
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+
+		/***
+		 *	getString(key,defValue)
+		 *	key	The name of the preference to retrieve. 
+		 * 	defValue	Value to return if this preference does not exist.
+		 */
+		String usernameStored = settings.getString("usernameStored", EMPTY_USERNAME);
+   		String passwordStored = settings.getString("passwordStored", EMPTY_PASSWORD);
+   		int userIdStored=settings.getInt("userIdStored", EMPTY_USERID);
+
+   		
+	    try{
+	    	if(usernameStored!=EMPTY_USERNAME && passwordStored!=EMPTY_PASSWORD){
+	    		ApplicationCheckUserLoggedIn.newUserObjWrapper(userIdStored,usernameStored,passwordStored,true);
+	    		return true;
+	    	}
+	    }catch(Exception e){
+	    	Log.v("ON_STOP","error - " + e);
+	    }
+	    
+   		return false;
+	}
+	
 
 }
