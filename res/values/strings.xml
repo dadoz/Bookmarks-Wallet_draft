@@ -6,7 +6,19 @@
     <string name="hello_world">Hello world!</string>
     
     
-    
+    <!-- my stuff -->
+	<string name="addnewnote_string">Add new NOTE</string>
+	<string name="username_string">username</string>
+	<string name="password_string">password</string>
+	<string name="add_string">add</string>
+	<string name="search_string">search</string>
+	<string name="pleazlogin_string">Pleaz LOGIN</string>
+	<string name="login_string">LOGIN</string>
+	<string name="noteslist_string">Notes list</string>
+	<string name="settingslist_string">Settings list</string>
+	<string name="wallpaperloginpic_string">wallpaper_login_pic</string>
+	<string name="linkslist_string">Links list</string>
+							
     
     <string name="properties">SlidingMenu Properties</string>
     <string name="general">General</string>

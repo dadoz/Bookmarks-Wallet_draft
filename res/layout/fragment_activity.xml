@@ -3,11 +3,10 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <fragment
-        android:id="@+id/fragment_activity_id"
+    <FrameLayout
+        android:id="@+id/main_frameLayout_id"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:name="com.app.example.linksWallet.fragments.LoginFragment"
-         />
-    
+        android:layout_height="fill_parent"/>    
+    <!--     android:name="com.app.example.linksWallet.fragments.LoginFragment" 
+ -->    
 </LinearLayout>

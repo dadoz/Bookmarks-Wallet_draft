@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.app.example.linksWallet.BaseActivity"/>
-        <activity android:name="com.app.example.linksWallet.LinkListActivity"/>
+        <activity android:name="com.app.example.linksWallet.FragmentChangeActivity"/>
 	    <activity android:name="com.app.example.linksWallet.fragments.LoginActivity"/>
 	    <activity android:name="com.app.example.linksWallet.fragments.FragmentChangeActivity"/>
 	    	    	    	    

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+    
+	<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" 
+	    android:orientation="vertical"
+	    android:id="@+id/add_note_layout_id">
+
+	    <!-- INPUT FIELDS -->	    		
+		<LinearLayout 
+		    android:id="@+id/addNoteBoxLayoutId"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" 
+		    android:orientation="vertical"
+		    android:background="@color/icedWhite"
+		    android:layout_marginTop="10dip"
+		    android:layout_marginLeft="10dip"
+		    android:layout_marginRight="10dip">
+		    <TextView 
+		        android:id="@+id/newNoteBoxTextId"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+				android:textColor="@color/stoneBlack"
+				android:textSize="20sp"
+				android:layout_margin="10dip"
+				android:text="@string/addnewnote_string"/>
+ 		    <EditText
+		        android:id="@+id/newNoteEditTextId"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+				android:layout_margin="10dip"
+				android:padding="10dip"
+		        android:ems="14" 
+		        android:hint="@string/username_string"
+		        android:background="@color/icedWhite">
+		        <requestFocus />
+		    </EditText>
+		</LinearLayout>
+
+		<!-- ACTION BUTTON -->	    		
+	    <LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" 
+		    android:orientation="horizontal"
+		    android:background="@color/icedWhite"
+		    android:layout_marginLeft="10dip"
+		    android:layout_marginRight="10dip"
+		    android:baselineAligned="false">
+		    <LinearLayout
+		        android:id="@+id/addNoteButtonId"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+				android:layout_weight="1"
+		    	android:orientation="horizontal"
+		    	android:layout_marginRight="1dip"
+		    	android:background="@color/stoneBlack">
+		        <TextView 
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+					android:textSize="20sp"
+					android:layout_gravity="center"
+					android:textColor="@color/icedWhite"
+					android:layout_margin="10dip"
+					android:text="@string/add_string"/>
+			</LinearLayout>
+			
+		    <LinearLayout
+		        android:id="@+id/searchOnWebNoteButtonId"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+				android:layout_weight="1"
+		    	android:orientation="horizontal"
+				android:background="@color/stoneBlack">
+      		     <TextView 
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+					android:textSize="20sp"
+					android:layout_gravity="center"
+					android:layout_margin="10dip"
+					android:textColor="@color/icedWhite"
+					android:text="@string/search_string"/>
+			</LinearLayout>
+		        
+		</LinearLayout>
+	</LinearLayout>

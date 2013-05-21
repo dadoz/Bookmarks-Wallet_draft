@@ -2,9 +2,7 @@
 	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
-	    android:orientation="vertical"
-	    android:scrollbarAlwaysDrawVerticalTrack="true" 
-		android:background="@color/wallpaperGrey">
+	    android:orientation="vertical">
 	    
 <!-- 	    <LinearLayout
 	    
@@ -147,10 +145,9 @@
 	    	android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_marginLeft="10dip" 
-		   	android:textSize="20dip"
+		   	android:textSize="20sp"
 		   	android:textColor="@color/stoneBlack"
-		    android:text="Links list"
-			/>
+		    android:text="@string/linkslist_string"/>
 			    
 
 	    <ListView
@@ -163,8 +160,6 @@
 	        android:background="@color/icedWhite"
 	        android:padding="10dip"
 	        android:scrollbarAlwaysDrawVerticalTrack="false"
-	        android:scrollbars="none" >
-	        
-	    </ListView>
+	        android:scrollbars="none" />
 	    	    	    
 	</LinearLayout>

@@ -5,16 +5,16 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content" 
 	    android:orientation="vertical"
-	    >
+	    android:id="@+id/login_fragment_id">
 	    <TextView 
 	        android:id="@+id/loginBoxTextId"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 			android:textColor="@color/blue"
 				
-			android:textSize="20dip"
+			android:textSize="20sp"
 			android:layout_margin="10dip"
-			android:text="Pleaz LOGIN"/>
+			android:text="@string/pleazlogin_string"/>
 	    	    
 		<LinearLayout 
 		    android:id="@+id/loginBoxLayoutId"
@@ -34,7 +34,7 @@
 				android:padding="10dip"
 		
 		        android:ems="14" 
-		        android:hint="username"
+		        android:hint="@string/username_string"
 		        android:background="@color/icedWhite">
 		
 		        <requestFocus />
@@ -44,7 +44,7 @@
 		        android:id="@+id/passwordEditTextId"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:hint="password"
+		        android:hint="@string/password_string"
 		
 				android:layout_margin="10dip"
 				android:padding="10dip"
@@ -76,7 +76,7 @@
 					android:layout_weight="1"
 			
 					android:layout_margin="10dip"
-			        android:text="LOGIN" />
+			        android:text="@string/login_string" />
 			</LinearLayout>
 	
 	    </LinearLayout>
