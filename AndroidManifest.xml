@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.app.example.linksWallet.MainActivity"
+            android:name="com.app.example.bookmarksWallet.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,17 +30,17 @@
 	        </intent-filter>
             
         </activity>
-        <activity android:name="com.app.example.linksWallet.BaseActivity"/>
-        <activity android:name="com.app.example.linksWallet.FragmentChangeActivity"/>
-	    <activity android:name="com.app.example.linksWallet.fragments.LoginActivity"/>
-	    <activity android:name="com.app.example.linksWallet.fragments.FragmentChangeActivity"/>
-        <activity android:name="com.app.example.linksWallet.LoginActivity"/>
+        <activity android:name="com.app.example.bookmarksWallet.BaseActivity"/>
+        <activity android:name="com.app.example.bookmarksWallet.FragmentChangeActivity"/>
+	    <activity android:name="com.app.example.bookmarksWallet.fragments.LoginActivity"/>
+	    <activity android:name="com.app.example.bookmarksWallet.fragments.FragmentChangeActivity"/>
+        <activity android:name="com.app.example.bookmarksWallet.LoginActivity"/>
 	    	    	    	    	    
     </application>
     
    	<application
    	    android:allowBackup="true" 
-	    android:name=".ApplicationCheckUserLoggedIn"
+	    android:name="com.app.example.bookmarksWallet.ApplicationCheckUserLoggedIn"
 	    android:icon="@drawable/ic_launcher" 
 	   	android:label="@string/app_name">
 	</application>

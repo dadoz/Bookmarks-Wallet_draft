@@ -1,10 +1,11 @@
-package com.app.example.linksWallet;
+package com.app.example.bookmarksWallet;
 
-import com.app.example.linksWallet.fragments.AddNoteFragment;
-import com.app.example.linksWallet.fragments.LinksListFragment;
-import com.app.example.linksWallet.fragments.LogoutFragment;
-import com.app.example.linksWallet.fragments.NotesListFragment;
-import com.app.example.linksWallet.fragments.SettingsFragment;
+import com.app.example.bookmarksWallet.fragments.AddNoteFragment;
+import com.app.example.bookmarksWallet.fragments.LinksListFragment;
+//import com.app.example.bookmarksWallet.fragments.LogoutFragment;
+import com.app.example.bookmarksWallet.fragments.NotesListFragment;
+import com.app.example.bookmarksWallet.fragments.SettingsFragment;
+import com.app.example.linksWallet.R;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MenuListFragment extends ListFragment {
 
@@ -113,7 +115,7 @@ public class MenuListFragment extends ListFragment {
 			break;
 		case 5:
 			//LOGOUT
-			newContent=new LogoutFragment();
+			logoutAction();
 			break;
 		}
 		if (newContent != null)
@@ -138,5 +140,18 @@ public class MenuListFragment extends ListFragment {
         
 
 	}
-	
+	/****set logout button action***/
+	public void logoutAction(){
+		if(ApplicationCheckUserLoggedIn.logout()){
+			toastMessageWrapper("Logout Successful");
+			getActivity().finish();
+		}else{
+			toastMessageWrapper("Logout Failed :(");
+		}
+	}
+    //toast message wrapper
+	private void toastMessageWrapper(String message){
+		Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+	}
+
 }

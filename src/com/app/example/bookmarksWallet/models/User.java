@@ -1,4 +1,4 @@
-package com.app.example.linksWallet;
+package com.app.example.bookmarksWallet.models;
 
 public class User {
 	

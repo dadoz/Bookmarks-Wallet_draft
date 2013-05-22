@@ -1,10 +1,10 @@
-package com.app.example.linksWallet.fragments;
+package com.app.example.bookmarksWallet.fragments;
 
 import java.util.ArrayList;
 
-import com.app.example.linksWallet.ApplicationCheckUserLoggedIn;
-import com.app.example.linksWallet.CustomAdapter;
-import com.app.example.linksWallet.Link;
+import com.app.example.bookmarksWallet.ApplicationCheckUserLoggedIn;
+import com.app.example.bookmarksWallet.CustomAdapter;
+import com.app.example.bookmarksWallet.models.Link;
 import com.app.example.linksWallet.R;
 
 import android.os.Bundle;
@@ -21,20 +21,12 @@ import android.widget.Toast;
 public class LinksListFragment extends Fragment {
     // Debugging
     private static final String TAG = "ActivityLinksList_TAG";
-    private static final boolean D = true;
+//    private static final boolean D = true;
 
 	//they MUST BE EQUALS TO THE ONES IN THE PHP file !!!!
 //	private static final int USERS_DB = 98;
 	private static final int LINKS_DB = 99;
-
-//	private static final int SWIPE_MIN_DISTANCE = 120;
-//	private static final int SWIPE_MAX_OFF_PATH = 250;
-//	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
-//	private GestureDetector gestureDetector;
-//	View.OnTouchListener gestureListener;
 	
-	
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 			Bundle savedInstanceState) {
@@ -48,8 +40,7 @@ public class LinksListFragment extends Fragment {
 	}
 
     
-    public void createLayout()
-    {
+    public void createLayout(){
     	ArrayList<String> linksUrlArray = null;
     	ArrayList<Link> linksObjArray=null;
     	
@@ -65,51 +56,38 @@ public class LinksListFragment extends Fragment {
 	        }
         });
 */
-
-    	
     	/**CREATE ListView **/
     	try{
 			//fetch data
 			String result=ApplicationCheckUserLoggedIn.fetchDataFromDb(LINKS_DB);
 			linksObjArray = ApplicationCheckUserLoggedIn.linksParserJSONData(result);
-			
-//			linksUrlArray=ApplicationCheckUserLoggedIn.linksParserJSONData(result);
-//			for(int i=0;i<linksObjList.size();i++) {
-//				linksUrlArray.add(linksObjList.get(i).getLinkName());
-//			}
-			
-			Log.v("MY_TAG","url link to be shown"+linksObjArray.toString());
-			
-			
+			Log.d("createLayout_TAG","url link to be shown"+linksObjArray.toString());
     	}catch(Exception e){
-    		Log.e("MY_TAG","error - " + e);
+    		Log.e("createLayout_TAG","error - " + e);
     	}
     
-    	
-    	//TEST
-//    	if(D)
-//	    	if(linksUrlArray!=null)
-//	    		if(linksUrlArray.get(0).compareTo("Empty URLs list")==0)
-//	    			linksUrlArray=null;
-//    	
-    	
     	if(linksObjArray!=null){
-//    		Link(linkIdDb,iconPathDb,linkUrlDb,linkName, userIdDb,linkName,deletedLinkFlag);
+//    		public Link(int linkId,String linkIconPath,String linkName,String linkUrl,int userId,String delIcon,boolean deletedLinkFlag)
     		Log.d(getTag(),linksObjArray.toString());
 
 			//Populate the list
+    		//TODO change iconPath on DB
     		boolean deletedLinkFlag=false;
         	ArrayList<Link> linksDataList=new ArrayList<Link>();    	
-//        	for(int i=0;i<linksUrlArray.size();i++)
-//        		linksDataList.add(new Link(linkId,"ic_launcher", linksUrlArray.get(i),linkUrl,userId,"del_icon",deletedLinkFlag));
         	for(int i=0;i<linksObjArray.size();i++)
-        		linksDataList.add(new Link(linksObjArray.get(i).getLinkIdFromLinkName(linksObjArray.get(i).getLinkName()),linksObjArray.get(i).getIconPath(), linksObjArray.get(i).getLinkUrl(),linksObjArray.get(i).getLinkUrl(),linksObjArray.get(i).getUserId(),null,deletedLinkFlag));
+        		linksDataList.add(new Link(
+        				linksObjArray.get(i).getLinkIdFromLinkName(linksObjArray.get(i).getLinkName()),
+        				"ic_menu_directions", 
+        				linksObjArray.get(i).getLinkName(),
+        				linksObjArray.get(i).getLinkUrl(),
+        				linksObjArray.get(i).getUserId(),
+        				null,
+        				deletedLinkFlag));
         	
    			CustomAdapter adapter = new CustomAdapter(getActivity(),R.layout.row,linksDataList);
    			linksListView.setAdapter(adapter);
-
-   			//-------------------ONCLICK listeners------------------------   			
    			
+   			//-------------------ONCLICK listeners------------------------   			
    	    	//long click to get action menu - android JB4.1
     		linksListView.setLongClickable(true);
     		
@@ -200,9 +178,7 @@ public class LinksListFragment extends Fragment {
 						}
 			});*/
     		
-    	}
-    	else
-    	{
+    	}else{
     		Log.d(TAG,"error - no one url fetched");
 
     		boolean deletedLinkFlag=false;
@@ -233,7 +209,6 @@ public class LinksListFragment extends Fragment {
 
     	}	
     }
- 
     
     //TO BE IMPLEMENTED !!!! PLEZ take care of it
     public boolean checkURL(String urlString){
@@ -256,8 +231,8 @@ public class LinksListFragment extends Fragment {
 //    	return;
 //    }    
     //toast message wrapper
-	private void toastMessageWrapper(String message){
-		Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-	}
+//	private void toastMessageWrapper(String message){
+//		Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+//	}
 
 }

@@ -1,11 +1,11 @@
-package com.app.example.linksWallet;
+package com.app.example.bookmarksWallet;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import com.app.example.bookmarksWallet.fragments.LinksListFragment;
 import com.app.example.linksWallet.R;
-import com.app.example.linksWallet.fragments.LinksListFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 public class FragmentChangeActivity extends BaseActivity {

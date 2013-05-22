@@ -1,6 +1,10 @@
-package com.app.example.linksWallet;
+package com.app.example.bookmarksWallet;
 
 import java.util.ArrayList;
+
+import com.app.example.bookmarksWallet.models.Link;
+import com.app.example.linksWallet.R;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
@@ -17,8 +21,6 @@ public class CustomAdapter extends ArrayAdapter<Link>{
 	private LayoutInflater inflater;
 	Link data[]=null;
 
-//	private static final boolean D=true;
-//	private static final String TAG="CustomAdapterTAG";
 	protected static final int LINKS_DB = 0;
 	
 	public CustomAdapter(Context ctx, int layoutResourceId,ArrayList<Link> linksDataList) {
@@ -33,16 +35,21 @@ public class CustomAdapter extends ArrayAdapter<Link>{
 		try	{
 			convertView=inflater.inflate(layoutResourceId, null);
 			final Link linkObj=(Link) getItem(position);
+			Log.d("linkListNames_TAG",linkObj.getLinkByString());
+			
 			//LINK icon
 			ImageView linkIcon=(ImageView) convertView.findViewById(R.id.row_icon);
-			String drawPath="drawable/"+linkObj.linkIconPath;
+			String drawPath="android:drawable/"+linkObj.linkIconPath;
+//			String drawPath="drawable/"+linkObj.linkIconPath;
 			int imageResource=context.getResources().getIdentifier(drawPath,null, context.getPackageName());
 			Drawable image=context.getResources().getDrawable(imageResource);
 			linkIcon.setImageDrawable(image);
+			
 			//TITLE
 			final TextView linkName=(TextView) convertView.findViewById(R.id.row_title);
+			linkName.setTextColor(convertView.getResources().getColor(R.color.stoneBlack));
 			linkName.setText(linkObj.linkName);
-
+//			Log.d("linkListNames_TAG","linkObj.linkName");
 /*			ImageView delIcon=(ImageView) convertView.findViewById(R.id.delIconId);
 //			String drawPath2="android:drawable/"+linkObj.delIcon;
 			String drawPath2="drawable/"+linkObj.delIcon;

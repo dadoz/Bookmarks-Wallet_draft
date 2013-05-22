@@ -1,4 +1,4 @@
-package com.app.example.linksWallet;
+package com.app.example.bookmarksWallet;
 
 //import java.util.ArrayList;
 //import java.util.List;
@@ -13,6 +13,7 @@ import android.support.v4.app.ListFragment;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.app.example.linksWallet.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 

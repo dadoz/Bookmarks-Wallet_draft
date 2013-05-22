@@ -1,8 +1,9 @@
-package com.app.example.linksWallet.fragments;
+package com.app.example.bookmarksWallet.fragments;
 
 import java.util.Arrays;
 import java.util.List;
 
+import com.app.example.bookmarksWallet.FragmentChangeActivity;
 import com.app.example.linksWallet.R;
 
 import android.os.Bundle;

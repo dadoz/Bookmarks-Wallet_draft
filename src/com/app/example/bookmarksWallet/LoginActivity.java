@@ -1,4 +1,4 @@
-package com.app.example.linksWallet;
+package com.app.example.bookmarksWallet;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.app.example.linksWallet.R;
 
 public class LoginActivity extends SherlockFragmentActivity{
 
@@ -55,14 +56,9 @@ public class LoginActivity extends SherlockFragmentActivity{
             	String username = usernameText.getText().toString();  
             	String password = passwordText.getText().toString();  
 
-              //TEST
-            	username="davide";
-            	password="pswd";
-//              toastMessageWrapper(username+password);
-//              check usr and pswd user typed in 
-//              checkCredentialsOnDb(username,password);
-//              boolean checkUserLoggedIn = checkUserLoggedIn(username,password);
-
+            	//TEST
+//            	username="davide";
+//            	password="pswd";
 				if(checkUserLoggedIn(username,password)){
 					Intent intent = new Intent(LoginActivity.this, FragmentChangeActivity.class);
 					startActivity(intent);                  	  
@@ -99,8 +95,7 @@ public class LoginActivity extends SherlockFragmentActivity{
         		//fetch data
         		String result=ApplicationCheckUserLoggedIn.fetchDataFromDb(USERS_DB);
         		//get if usser is logged in - check
-        		boolean checkDataParsered=ApplicationCheckUserLoggedIn.usersParserJSONData(username, password, result);
-        		if(checkDataParsered)
+        		if(ApplicationCheckUserLoggedIn.usersParserJSONData(username,password, result))
         			userLoggedIn=ApplicationCheckUserLoggedIn.getUserLoggedIn();
         	}catch(Exception e){
         		Log.e("MY_TAG","Error - "+ e);

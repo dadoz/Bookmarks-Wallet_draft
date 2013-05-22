@@ -1,4 +1,4 @@
-package com.app.example.linksWallet;
+package com.app.example.bookmarksWallet;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import com.app.example.bookmarksWallet.models.Link;
+import com.app.example.bookmarksWallet.models.User;
 import com.app.example.http.client.CustomHttpClient;
 
 import android.annotation.SuppressLint;
@@ -110,15 +112,11 @@ public class ApplicationCheckUserLoggedIn{
     public static String fetchDataFromDb(int choicedDB){
       	String response ="";
       	String result="";
-      	
       	// call executeHttpPost method passing necessary parameters 
       	try {
-      		
-//      		String choicedDB="usersDB";
-
       		//check if db is right
       		if(choicedDB!=LINKS_DB && choicedDB!=USERS_DB)
-      			Log.e("MY_TAG", "NO DB FOUND - u must define the right database name");
+      			Log.e("fetchDataFromDb_TAG", "NO DB FOUND - u must define the right database name");
       		
       		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 
@@ -128,22 +126,22 @@ public class ApplicationCheckUserLoggedIn{
       		//add new pair of params to set userId
       		if(choicedDB==LINKS_DB){
       			//get my userId to fetch all liks I stored before
-      			int userIdTMP=userObj.getUserId();
+//      			if(userObj!=null)
+//      				userIdTMP=userObj.getUserId();
+      			int userIdTMP=1;
       			postParameters.add(new BasicNameValuePair("userId",""+userIdTMP));
       		}	
-      		
       		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
       	    StrictMode.setThreadPolicy(policy);
       		
       		// from device instead of use 127.0.0.1 u must use 10.0.2.2 
-//      		response=CustomHttpClient.executeHttpGet(DBUrl);
-    		response = CustomHttpClient.executeHttpPost(DBUrl,postParameters);
+      	    response = CustomHttpClient.executeHttpPost(DBUrl,postParameters);
       	  
       		// store the result returned by PHP script that runs MySQL query
     	    result = response.toString();  
-            
+    	    Log.d("RESULT_JSON",result);
       	}catch (Exception e) {
-      		Log.e("log_tag","Error in http connection!!" + e.toString());     
+      		Log.e("fetchDataFromDb_TAG","Error in http connection!!" + e.toString());     
       	}
       	return result;
     }
@@ -204,8 +202,8 @@ public class ApplicationCheckUserLoggedIn{
     	ArrayList<Link> linksObjList=new ArrayList<Link>();
 
     	//create list of Link object
-    	if(linksObjList==null)
-    		linksObjList=new ArrayList<Link>();
+//    	if(linksObjList==null)
+//    		linksObjList=new ArrayList<Link>();
     	
     	//var of links db
     	int linkIdDb=0;
@@ -242,11 +240,8 @@ public class ApplicationCheckUserLoggedIn{
                 linksObjList.add(new Link(linkIdDb,iconPathDb,linkName,linkUrlDb, userIdDb,delIconPathDb,deletedLinkFlag));
 
                 
-/*              try
-                {
-                	
+/*              try{
                 	URL linkURLObj=new URL(linkUrlDb);
-                	
                 	infoURL=linkURLObj.getUserInfo();
                 }
                 catch(Exception e)
@@ -312,13 +307,10 @@ public class ApplicationCheckUserLoggedIn{
 	  		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 	  	    StrictMode.setThreadPolicy(policy);
 	        
-	  	    
     		String response = CustomHttpClient.executeHttpPost(DBUrl,postParameters);
-    		
     		Log.d("MY_TAG",response);
-
 	  	}catch (Exception e) {
-	  		Log.e("log_tag","Error in http connection!!" + e.toString());     
+	  		Log.e("log_tag","Error in http connectionx!!" + e.toString());     
     		return false;
     	}
     	return true;
