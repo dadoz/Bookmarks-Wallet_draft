@@ -1,6 +1,6 @@
 package com.app.example.linksWallet;
 
-import com.app.example.linksWallet.fragments.LoginFragment;
+//import com.app.example.linksWallet.fragments.LoginFragment;
 import com.app.example.linksWallet.fragments.WallpaperLoginFragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,13 +16,7 @@ import com.actionbarsherlock.view.MenuItem;
 //http://bashooka.com/inspiration/flat-web-ui-design/
 
 public class MainActivity extends SherlockFragmentActivity {
-	//shared preferences variable
     public static final String PREFS_NAME = "UserCredentialFile";
-
-	//they MUST BE EQUALS TO THE ONES IN THE PHP file !!!!
-//	private static final int USERS_DB = 98;
-//	private static final int LINKS_DB = 99;
-
 	private static final String EMPTY_USERNAME="";
 	private static final String EMPTY_PASSWORD="";
 	private static final int EMPTY_USERID=-1;
@@ -52,15 +46,17 @@ public class MainActivity extends SherlockFragmentActivity {
 		getActionBar().setBackgroundDrawable(new ColorDrawable(R.color.basicRed));
 		getActionBar().hide();
 
-		
-		if(userLoggedInChecker()){
-			Intent intent = new Intent(MainActivity.this, FragmentChangeActivity.class);
-			startActivity(intent);                  	  
-		}
+		//IF NOT LOGGED IN
+//		if(!userLoggedInChecker()){
+//			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//			startActivity(intent);                  	  
+//		}
 
+		Intent intent = new Intent(MainActivity.this, FragmentChangeActivity.class);
+		startActivity(intent);                  	  
 		//OTW inflate a new LoginFragm
-		ft.add(R.id.main_frameLayout_id, new LoginFragment());
-		ft.commit(); 
+//		ft.add(R.id.main_frameLayout_id, new LoginFragment());
+//		ft.commit(); 
 		
 }
 

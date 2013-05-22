@@ -22,7 +22,7 @@ public class FragmentChangeActivity extends BaseActivity {
 		if (savedInstanceState != null)
 			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 		if (mContent == null)
-			mContent = new LinkListFragment();	
+			mContent = new LinksListFragment();	
 		
 		// set the Above View
 		setContentView(R.layout.content_frame);
@@ -35,7 +35,7 @@ public class FragmentChangeActivity extends BaseActivity {
 		setBehindContentView(R.layout.menu_frame);
 		getSupportFragmentManager()
 		.beginTransaction()
-		.replace(R.id.menu_frame, new LinkListFragment())
+		.replace(R.id.menu_frame, new LinksListFragment())
 		.commit();
 		
 		// customize the SlidingMenu

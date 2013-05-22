@@ -18,7 +18,7 @@ public class LoginActivity extends SherlockFragmentActivity{
 	//they MUST BE EQUALS TO THE ONES IN THE PHP file !!!!
 	private static final int USERS_DB = 98;
 //	private static final int LINKS_DB = 99;
-//
+
 //	private static final String EMPTY_USERNAME="";
 //	private static final String EMPTY_PASSWORD="";
 //	private static final int EMPTY_USERID=-1;
@@ -29,15 +29,10 @@ public class LoginActivity extends SherlockFragmentActivity{
 		setTitle(R.string.app_name);
 
         setContentView(R.layout.login_layout);
-
+        createLayoutLOGIN();
     }
 
     public void createLayoutLOGIN(){
-        //clean up all the main view
-//        ScrollView layout=(ScrollView)findViewById(R.id.mainActivityScrollViewId);
-//    	View child = getLayoutInflater().inflate( R.layout.login_layout,null);
-//    	layout.addView(child);
-    
     	//get all button from layout
     	Button cancelButton = (Button)findViewById(R.id.cancelButtonId);
     	Button loginButton = (Button)findViewById(R.id.loginButtonId);
@@ -46,39 +41,46 @@ public class LoginActivity extends SherlockFragmentActivity{
     	final EditText usernameText=(EditText)findViewById(R.id.usernameEditTextId);
     	final EditText passwordText=(EditText)findViewById(R.id.passwordEditTextId);
     	
-    	//set actions to buttons
+    	//CANCEL button
     	cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-              //clean the fields
               usernameText.setText("");
               passwordText.setText("");
             }
     	});
-    	
+
+    	//LOGIN button
     	loginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//            get usr and pswd from user
-              String username = usernameText.getText().toString();  
-              String password = passwordText.getText().toString();  
+            	String username = usernameText.getText().toString();  
+            	String password = passwordText.getText().toString();  
 
               //TEST
-//              username="username1";
-//              password="testPassword";
-              
+            	username="davide";
+            	password="pswd";
 //              toastMessageWrapper(username+password);
-              //check usr and pswd user typed in 
+//              check usr and pswd user typed in 
 //              checkCredentialsOnDb(username,password);
-              
 //              boolean checkUserLoggedIn = checkUserLoggedIn(username,password);
 
-              if(checkUserLoggedIn(username,password)){
-            	  //launch new activity
-            	  Intent intent = new Intent(LoginActivity.this, FragmentChangeActivity.class);
-                  startActivity(intent);                  	  
-              }
-              
+				if(checkUserLoggedIn(username,password)){
+					Intent intent = new Intent(LoginActivity.this, FragmentChangeActivity.class);
+					startActivity(intent);                  	  
+				}
             }
     	});
+    	
+    	
+    	
+        //TEST
+    	String username="davide";
+    	String password="pswd";
+    	
+		if(checkUserLoggedIn(username,password)){
+			Intent intent = new Intent(LoginActivity.this, FragmentChangeActivity.class);
+			startActivity(intent);                  	  
+		}
+    	
     }
 	
 
@@ -88,9 +90,7 @@ public class LoginActivity extends SherlockFragmentActivity{
 	 * @param username
 	 * @param password
 	 */
-    public boolean checkUserLoggedIn(String username,String password)
-    {
-    	//check credential typed in
+    public boolean checkUserLoggedIn(String username,String password){
     	boolean userLoggedIn=false;
 
         if(username.length() > 0 && password.length() >0){
@@ -110,7 +110,8 @@ public class LoginActivity extends SherlockFragmentActivity{
             	toastMessageWrapper("u're LOGGED IN :D");
                 return true;
             }
-           	toastMessageWrapper("Invalid username or password - plez reinsert");  
+           	toastMessageWrapper("Invalid username or password - plez reinsert");
+           	return false;
         }
         
         toastMessageWrapper("Username and pswd empty");
@@ -118,8 +119,7 @@ public class LoginActivity extends SherlockFragmentActivity{
     }
     
     //toast message wrapper
-	private void toastMessageWrapper(String message) 
-	{
+	private void toastMessageWrapper(String message){
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
     

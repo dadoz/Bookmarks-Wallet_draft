@@ -1,6 +1,5 @@
 package com.app.example.linksWallet;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
@@ -28,12 +27,10 @@ public class ApplicationCheckUserLoggedIn{
 
 	private static String EMPTY_STRING="EMPTY";
 
-	
 	private static final boolean SELECT_ALL_ROW_FROM_DB=true;
 	private static final boolean INSERT_URL_ON_DB=true;
 	private static final boolean DELETE_URL_FROM_DB=true;
 
-	
 	private static final String EMPTY_USERNAME="";
 	private static final String EMPTY_PASSWORD="";
 	private static final int EMPTY_USERID=-1;
@@ -54,64 +51,52 @@ public class ApplicationCheckUserLoggedIn{
 //	//TEST
 //	private static String infoURL="";
 	
-	public static boolean getUserLoggedIn()
-	{
+	public static boolean getUserLoggedIn(){
 		if(userObj!=null)
 			return userObj.getUserLoggedIn();
 		else
 			return false;
 	}
 	
-	public static String getDatabaseResultString()
-	{
+	public static String getDatabaseResultString(){
 		if(userObj.getUserLoggedIn()==true)	
 			return databaseResultString;
-		else
-		{
+		else{
 			Log.e("MY_TAG","u're not autorized to get this data - u must log in");
 			return "EMPTY";
 		}
 	}
 
-	public static String getLoggedInUsername()
-	{
+	public static String getLoggedInUsername(){
 		if(userObj.getUserLoggedIn()==true)	
 			return userObj.getUsername();
 		else
 			return EMPTY_USERNAME;
 	}
 
-	public static String getLoggedInPassword()
-	{
+	public static String getLoggedInPassword(){
 		if(userObj.getUserLoggedIn()==true)	
 			return userObj.getPassword();
 		else
 			return EMPTY_PASSWORD;
 	}
 	
-	public static int getLoggedInUserId()
-	{
+	public static int getLoggedInUserId(){
 		if(userObj.getUserLoggedIn()==true)	
 			return userObj.getUserId();
 		else
 			return EMPTY_USERID;
 	}
-
 	
-	public static boolean logout()
-	{
-		if(userObj.getUserLoggedIn()==true)
-		{
+	public static boolean logout(){
+		if(userObj.getUserLoggedIn()){
 			//delete the object
 			userObj=null;
 			return true;
-		}
-		else
-		{
+		}else{
 			Log.e("MY_TAG","u're not autorized to get this data - u must log in");
 			return false;
 		}
-		
 	}
 	
 	/**
@@ -122,9 +107,7 @@ public class ApplicationCheckUserLoggedIn{
 	 * @param passwordTypedIn
 	 * @return true or false - return usr and pswd typed in from user check :D
 	 */
-    public static String fetchDataFromDb(int choicedDB)
-    {
-    	
+    public static String fetchDataFromDb(int choicedDB){
       	String response ="";
       	String result="";
       	
@@ -143,8 +126,7 @@ public class ApplicationCheckUserLoggedIn{
       		postParameters.add(new BasicNameValuePair("selectAllRowFromDB",""+SELECT_ALL_ROW_FROM_DB));
       		
       		//add new pair of params to set userId
-      		if(choicedDB==LINKS_DB)
-      		{
+      		if(choicedDB==LINKS_DB){
       			//get my userId to fetch all liks I stored before
       			int userIdTMP=userObj.getUserId();
       			postParameters.add(new BasicNameValuePair("userId",""+userIdTMP));
@@ -153,8 +135,6 @@ public class ApplicationCheckUserLoggedIn{
       		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
       	    StrictMode.setThreadPolicy(policy);
       		
-      		//response = CustomHttpClient.executeHttpPost("http://127.0.0.1/sharedLinksApp/fetchDataFromDbJSON.php",postParameters);
-      		
       		// from device instead of use 127.0.0.1 u must use 10.0.2.2 
 //      		response=CustomHttpClient.executeHttpGet(DBUrl);
     		response = CustomHttpClient.executeHttpPost(DBUrl,postParameters);
@@ -162,17 +142,14 @@ public class ApplicationCheckUserLoggedIn{
       		// store the result returned by PHP script that runs MySQL query
     	    result = response.toString();  
             
-      	}
-      	catch (Exception e) {
+      	}catch (Exception e) {
       		Log.e("log_tag","Error in http connection!!" + e.toString());     
       	}
-
       	return result;
     }
 
 
-    public static boolean usersParserJSONData(String usernameTypedIn,String passwordTypedIn,String result)
-    {
+    public static boolean usersParserJSONData(String usernameTypedIn,String passwordTypedIn,String result){
 	    Log.v("JSON_TAG","this is the result" + result);
 	    //parse json data
 	    try{
@@ -182,13 +159,11 @@ public class ApplicationCheckUserLoggedIn{
 	    	int userIdDb;
 
 	    	//set false cos the user should be logged out before trying to log in again
-	    	
 	    	databaseResultString = "";
 	    	JSONArray jArray = new JSONArray(result);
 	    	for(int i=0;i<jArray.length();i++){
 	    		//getJSONObj 
 	    		JSONObject json_data = jArray.getJSONObject(i); 
-
 	    		
                 //get usr and pswd from JASON data
                 userIdDb=json_data.getInt("user_id");
@@ -198,7 +173,6 @@ public class ApplicationCheckUserLoggedIn{
                 //set databaseResultString to print out all database entries
                 databaseResultString += "\n" +"USR:" + usernameDb + "  " +"PSWD:" + passwordDb;
 
-
                 //Log all database entries
                 Log.i("log_tag","id: "+userIdDb+
                          ", usrname: "+usernameDb+
@@ -206,39 +180,29 @@ public class ApplicationCheckUserLoggedIn{
                 );
 
         	    //check usrname and pswd typed in from user
-        	    if(usernameDb.compareTo(usernameTypedIn)==0 && passwordDb.compareTo(passwordTypedIn)==0)
-        	    {
+        	    if(usernameDb.compareTo(usernameTypedIn)==0 && passwordDb.compareTo(passwordTypedIn)==0){
         	    	//create new user object
         	    	boolean userLoggedIn=true;
-        	    	
         	    	newUserObjWrapper(userIdDb,usernameDb,passwordDb,userLoggedIn);
         	    }	
-                
 	    	}
 	    	return true;
-	    }
-	    catch(JSONException e){
+	    }catch(JSONException e){
 	    	Log.e("log_tag", "Error parsing data "+e.toString());
 	      	return false;
 	    }
-
-	    //return if user is loggedIn or not
-    	
     }
 
 
-    public static void newUserObjWrapper(int userIdDb,String usernameDb,String passwordDb,boolean userLoggedIn)
-    {
+    public static void newUserObjWrapper(int userIdDb,String usernameDb,String passwordDb,boolean userLoggedIn){
     	if(userObj==null)
     		userObj=new User(userIdDb,usernameDb,passwordDb,userLoggedIn);
-
     }
     
-    public static ArrayList<String> linksParserJSONData(String result)
-    {
-    	
+    public static ArrayList<Link> linksParserJSONData(String result){
     	ArrayList<String> linksUrlArray=new ArrayList<String>();
-    
+    	ArrayList<Link> linksObjList=new ArrayList<Link>();
+
     	//create list of Link object
     	if(linksObjList==null)
     		linksObjList=new ArrayList<Link>();
@@ -255,8 +219,6 @@ public class ApplicationCheckUserLoggedIn{
     	//Log.v("JSON_TAG","this is the result" + result);
 	    //parse json data
 	    try{
-
-	    	
 	    	databaseResultString = "";
 	    	JSONArray jArray = new JSONArray(result);
 	    	for(int i=0;i<jArray.length();i++){
@@ -275,11 +237,9 @@ public class ApplicationCheckUserLoggedIn{
                 
                 //populate the list
                 linksUrlArray.add(linkName);
-
                 Log.v("JSON_links_result",""+json_data.toString());
                 
-                Link linkObjTMP=new Link(linkIdDb,iconPathDb,linkName,linkUrlDb, userIdDb,delIconPathDb,deletedLinkFlag);
-                linksObjList.add(linkObjTMP);
+                linksObjList.add(new Link(linkIdDb,iconPathDb,linkName,linkUrlDb, userIdDb,delIconPathDb,deletedLinkFlag));
 
                 
 /*              try
@@ -295,9 +255,6 @@ public class ApplicationCheckUserLoggedIn{
                 }*/
                 //set databaseResultString to print out all database entries
                 databaseResultString += result;
-
-                
-
                 //Log all database entries
                 Log.i("log_tag","id: "+linkIdDb+
                          ", iconPath: "+iconPathDb+
@@ -307,14 +264,13 @@ public class ApplicationCheckUserLoggedIn{
                 );
               
 	    	}
-	    }
-	    catch(JSONException e){
+	    }catch(JSONException e){
 	    	Log.e("log_tag", "Error parsing data "+e.toString());
 	    	linksUrlArray.add("Empty URLs list");
 	    }
 
 	    //return the list of all links
-    	return linksUrlArray;
+    	return linksObjList;
     }
 
     
@@ -323,12 +279,8 @@ public class ApplicationCheckUserLoggedIn{
 	 * @param choicedDB
 	 * @return
 	 */
-    public static boolean insertUrlEntryOnDb(int choicedDB,String urlString)
-    {
-    	
-    	try
-    	{
-
+    public static boolean insertUrlEntryOnDb(int choicedDB,String urlString){
+    	try{
 	  		//check if db is right
 	  		if(choicedDB!=LINKS_DB && choicedDB!=USERS_DB)
 	  			Log.e("MY_TAG", "NO DB FOUND - u must define the right database name");
@@ -340,8 +292,7 @@ public class ApplicationCheckUserLoggedIn{
 	  		postParameters.add(new BasicNameValuePair("insertUrlOnDb",""+INSERT_URL_ON_DB));
 	  		postParameters.add(new BasicNameValuePair("choicedDB",""+choicedDB));
 	  		
-	  		if(choicedDB==LINKS_DB)
-	  		{
+	  		if(choicedDB==LINKS_DB){
 	  			//get my userId to fetch all liks I stored before
 	  			int userIdTMP=userObj.getUserId();
 	  			postParameters.add(new BasicNameValuePair("userId",""+userIdTMP));
@@ -356,7 +307,6 @@ public class ApplicationCheckUserLoggedIn{
 	  			
 	  			if(linkNameTMP!=null)
 	  				postParameters.add(new BasicNameValuePair("linkName",""+linkNameTMP));
-
 	  		}	
 	  		
 	  		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -367,14 +317,10 @@ public class ApplicationCheckUserLoggedIn{
     		
     		Log.d("MY_TAG",response);
 
-	  	}
-	  	catch (Exception e) {
+	  	}catch (Exception e) {
 	  		Log.e("log_tag","Error in http connection!!" + e.toString());     
-    		
     		return false;
     	}
-    	
-    	
     	return true;
     }
 
@@ -385,12 +331,8 @@ public class ApplicationCheckUserLoggedIn{
 	 * @param choicedDB
 	 * @return
 	 */
-    public static boolean deleteUrlEntryFromDb(int choicedDB,String linkName)
-    {
-    	
-    	try
-    	{
-
+    public static boolean deleteUrlEntryFromDb(int choicedDB,String linkName){
+    	try{
 	  		//check if db is right
 	  		if(choicedDB!=LINKS_DB && choicedDB!=USERS_DB)
 	  			Log.e("MY_TAG", "NO DB FOUND - u must define the right database name");
@@ -409,7 +351,6 @@ public class ApplicationCheckUserLoggedIn{
   			else
   				return false;
 
-  			
   			//getLinksId to be deleted
   			int linkIdTMP=getLinkIdFromList(linkName);
   			
@@ -421,8 +362,6 @@ public class ApplicationCheckUserLoggedIn{
   				postParameters.add(new BasicNameValuePair("linkId",""+linkIdTMP));
   			else
   				return false;
-
-  			
   			
 	  		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 	  	    StrictMode.setThreadPolicy(policy);
@@ -431,25 +370,18 @@ public class ApplicationCheckUserLoggedIn{
     		String response = CustomHttpClient.executeHttpPost(DBUrl,postParameters);
     		
     		Log.d("DEL_RESULT_TAG","this is the result" + response);
-	  	}
-	  	catch (Exception e) {
+	  	}catch (Exception e) {
 	  		Log.e("log_tag","Error in http connection!!" + e.toString());     
-    		
     		return false;
     	}
-    	
-    	
     	return true;
     }
 
-    public static int getLinkIdFromList(String value)
-    {
+    public static int getLinkIdFromList(String value){
     	int linkId=EMPTY_LINKID;
-    	if(linksObjList!=null)
-    	{
-    		for(int i=0;i<linksObjList.size();i++)
-    		{
-    			linkId=linksObjList.get(i).getLinkId(value);
+    	if(linksObjList!=null){
+    		for(int i=0;i<linksObjList.size();i++){
+    			linkId=linksObjList.get(i).getLinkIdFromLinkName(value);
     			
 //    			Log.v("linkID_TAG",""+linkId);
     			if(linkId!=EMPTY_LINKID)
@@ -459,17 +391,13 @@ public class ApplicationCheckUserLoggedIn{
     	}
     	else
     		return EMPTY_LINKID;
-
     }
     
-    public static String findUrlFromLinkName(String linkName)
-    {
-    	for(int i=0;i<linksObjList.size();i++)
-    	{
+    public static String findUrlFromLinkName(String linkName){
+    	for(int i=0;i<linksObjList.size();i++){
     		if(linksObjList.get(i).findLinkNameBool(linkName)!=false)
     			return linksObjList.get(i).getLinkUrl();
     	}
-    	
     	return null;
     }
     
@@ -480,13 +408,10 @@ public class ApplicationCheckUserLoggedIn{
 	 * @param URLString
 	 * @return
 	 */
-    public static String getUrlTitle(String URLString)
-    {
+    public static String getUrlTitle(String URLString){
     	//URL title 
     	String URLTitleString;
-
-    	try
-    	{
+    	try{
 	    	Document doc = Jsoup.connect(URLString).get();
 	
 	    	Elements URLtitle=doc.select("title");
@@ -495,15 +420,9 @@ public class ApplicationCheckUserLoggedIn{
 	    	Log.v("JSOUP_TAG",URLTitleString);
 	    	
 	    	return URLTitleString;
-    	}
-    	catch(Exception e)
-    	{
+    	}catch(Exception e){
 	    	Log.v("JSOUP_TAG",""+e);
-    		
     	}
-    	
     	return EMPTY_STRING;
     }
-    
-    
 }

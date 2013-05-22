@@ -70,7 +70,7 @@ public class Link {
 			return false;
 	}
 	
-	public int getLinkId(String value)
+	public int getLinkIdFromLinkName(String value)
 	{
 		Log.v("linkID_TAG",""+this.linkName+" "+value);
 //		Log.v("getLinkId_TAG",""+this.linkId);
