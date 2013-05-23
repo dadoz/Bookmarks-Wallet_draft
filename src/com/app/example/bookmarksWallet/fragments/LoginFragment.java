@@ -3,7 +3,7 @@ package com.app.example.bookmarksWallet.fragments;
 
 import com.app.example.bookmarksWallet.ApplicationCheckUserLoggedIn;
 import com.app.example.bookmarksWallet.FragmentChangeActivity;
-import com.app.example.linksWallet.R;
+import com.app.example.bookmarksWallet.R;
 
 import android.content.Intent;
 import android.os.Bundle;

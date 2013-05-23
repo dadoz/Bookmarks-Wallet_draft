@@ -2,7 +2,6 @@ package com.app.example.bookmarksWallet;
 
 //import com.app.example.linksWallet.fragments.LoginFragment;
 import com.app.example.bookmarksWallet.fragments.WallpaperLoginFragment;
-import com.app.example.linksWallet.R;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
@@ -44,14 +43,14 @@ public class MainActivity extends SherlockFragmentActivity {
 		ft.commit(); 
 		
 		//hide action bar on main activity
-		getActionBar().setBackgroundDrawable(new ColorDrawable(R.color.basicRed));
+		getActionBar().setBackgroundDrawable(new ColorDrawable(R.color.cobaltGreen));
 		getActionBar().hide();
 
 		//IF NOT LOGGED IN
-		if(!userLoggedInChecker()){
-			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-			startActivity(intent);                  	  
-		}
+//		if(!userLoggedInChecker()){
+//			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//			startActivity(intent);                  	  
+//		}
 
 		Intent intent = new Intent(MainActivity.this, FragmentChangeActivity.class);
 		startActivity(intent);                  	  

@@ -3,7 +3,6 @@ package com.app.example.bookmarksWallet;
 import java.util.ArrayList;
 
 import com.app.example.bookmarksWallet.models.Link;
-import com.app.example.linksWallet.R;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -82,7 +81,7 @@ public class CustomAdapter extends ArrayAdapter<Link>{
     		});
 			delIcon.setVisibility(View.INVISIBLE);*/
 		}catch(Exception e){
-			Log.e("errorTAG",""+e);
+			Log.e("getView_CustomAdapter_TAG",""+e);
 		}
 		return convertView;
 	}

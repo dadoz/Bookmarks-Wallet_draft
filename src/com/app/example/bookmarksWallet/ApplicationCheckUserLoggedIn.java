@@ -16,7 +16,6 @@ import com.app.example.bookmarksWallet.models.User;
 import com.app.example.http.client.CustomHttpClient;
 
 import android.annotation.SuppressLint;
-//import android.app.Application;
 import android.os.StrictMode;
 import android.util.Log;
 
@@ -91,14 +90,18 @@ public class ApplicationCheckUserLoggedIn{
 	}
 	
 	public static boolean logout(){
-		if(userObj.getUserLoggedIn()){
-			//delete the object
-			userObj=null;
-			return true;
-		}else{
-			Log.e("MY_TAG","u're not autorized to get this data - u must log in");
-			return false;
-		}
+		if(userObj!=null)
+			if(userObj.getUserLoggedIn()){
+				//delete the object
+				userObj=null;
+				//set loggedin status to false
+	//			userObj.setUserLoggedIn(false);
+				return true;
+			}else{
+				Log.e("MY_TAG","u're not autorized to get this data - u must log in");
+				return false;
+			}
+		return false;
 	}
 	
 	/**
@@ -172,7 +175,7 @@ public class ApplicationCheckUserLoggedIn{
                 databaseResultString += "\n" +"USR:" + usernameDb + "  " +"PSWD:" + passwordDb;
 
                 //Log all database entries
-                Log.i("log_tag","id: "+userIdDb+
+                Log.i("usersParserJSONData_TAG","id: "+userIdDb+
                          ", usrname: "+usernameDb+
                          ", pswd: "+passwordDb
                 );
@@ -186,7 +189,7 @@ public class ApplicationCheckUserLoggedIn{
 	    	}
 	    	return true;
 	    }catch(JSONException e){
-	    	Log.e("log_tag", "Error parsing data "+e.toString());
+	    	Log.e("usersParserJSONData_TAG", "Error parsing data "+e.toString());
 	      	return false;
 	    }
     }
@@ -251,7 +254,7 @@ public class ApplicationCheckUserLoggedIn{
                 //set databaseResultString to print out all database entries
                 databaseResultString += result;
                 //Log all database entries
-                Log.i("log_tag","id: "+linkIdDb+
+                Log.i("linksParserJSONData_TAG","id: "+linkIdDb+
                          ", iconPath: "+iconPathDb+
                          ", linkUrl: "+linkUrlDb+
                          ", userId: "+userIdDb+
@@ -260,7 +263,7 @@ public class ApplicationCheckUserLoggedIn{
               
 	    	}
 	    }catch(JSONException e){
-	    	Log.e("log_tag", "Error parsing data "+e.toString());
+	    	Log.e("linksParserJSONData_TAG", "Error parsing data "+e.toString());
 	    	linksUrlArray.add("Empty URLs list");
 	    }
 
@@ -310,7 +313,7 @@ public class ApplicationCheckUserLoggedIn{
     		String response = CustomHttpClient.executeHttpPost(DBUrl,postParameters);
     		Log.d("MY_TAG",response);
 	  	}catch (Exception e) {
-	  		Log.e("log_tag","Error in http connectionx!!" + e.toString());     
+	  		Log.e("insertUrlEntryOnDb_TAG","Error in http connectionx!!" + e.toString());     
     		return false;
     	}
     	return true;
@@ -363,7 +366,7 @@ public class ApplicationCheckUserLoggedIn{
     		
     		Log.d("DEL_RESULT_TAG","this is the result" + response);
 	  	}catch (Exception e) {
-	  		Log.e("log_tag","Error in http connection!!" + e.toString());     
+	  		Log.e("deleteUrlEntryFromDb_TAG","Error in http connection!!" + e.toString());     
     		return false;
     	}
     	return true;

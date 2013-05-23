@@ -3,9 +3,8 @@ package com.app.example.bookmarksWallet.fragments;
 import java.util.ArrayList;
 
 import com.app.example.bookmarksWallet.ApplicationCheckUserLoggedIn;
-import com.app.example.bookmarksWallet.CustomAdapter;
+import com.app.example.bookmarksWallet.R;
 import com.app.example.bookmarksWallet.models.Link;
-import com.app.example.linksWallet.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,8 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -45,7 +44,9 @@ public class LinksListFragment extends Fragment {
     	ArrayList<Link> linksObjArray=null;
     	
     	/**get all view I need**/
-    	final ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
+//    	final ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
+//    	final LinearLayout linksListView = (LinearLayout)getActivity().findViewById(R.id.linksListId);
+    	final LinearLayout linksListView = (LinearLayout)getActivity().findViewById(R.id.linksListId);
 
     	/****set get your links layout action***/
 //    	LinearLayout userProfile=(LinearLayout)getActivity().findViewById(R.id.userProfileLayoutId);
@@ -66,7 +67,8 @@ public class LinksListFragment extends Fragment {
     		Log.e("createLayout_TAG","error - " + e);
     	}
     
-    	if(linksObjArray!=null){
+//    	linksObjArray=null;
+    	if(linksObjArray!=null && linksObjArray.size()>0){
 //    		public Link(int linkId,String linkIconPath,String linkName,String linkUrl,int userId,String delIcon,boolean deletedLinkFlag)
     		Log.d(getTag(),linksObjArray.toString());
 
@@ -74,7 +76,7 @@ public class LinksListFragment extends Fragment {
     		//TODO change iconPath on DB
     		boolean deletedLinkFlag=false;
         	ArrayList<Link> linksDataList=new ArrayList<Link>();    	
-        	for(int i=0;i<linksObjArray.size();i++)
+        	for(int i=0;i<linksObjArray.size();i++){
         		linksDataList.add(new Link(
         				linksObjArray.get(i).getLinkIdFromLinkName(linksObjArray.get(i).getLinkName()),
         				"ic_menu_directions", 
@@ -83,8 +85,35 @@ public class LinksListFragment extends Fragment {
         				linksObjArray.get(i).getUserId(),
         				null,
         				deletedLinkFlag));
+        		
+	    		View view =getActivity().getLayoutInflater().inflate(R.layout.link_row,null);
+	        	Link linkObj = linksDataList.get(i);
+	//        	view.findViewById(R.id.link_icon_id);
+	        	TextView linkTitle = (TextView)view.findViewById(R.id.link_title_id);
+	        	linkTitle.setText(linkObj.getLinkName());
+	//        	view.findViewById(R.id.preview_icon_id);
+	        	linksListView.addView(view);
+	        	
+	        	//attach event to actionLayout and preview layout
+				view.findViewById(R.id.link_action_layout_id).setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						toastMessageWrapper("get links action bottom menu");						
+					}
+				});
+	        	//attach event to actionLayout and preview layout
+				view.findViewById(R.id.link_preview_layout_id).setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						toastMessageWrapper("get links preview");						
+					}
+				});
+	        	
+        	}
         	
-   			CustomAdapter adapter = new CustomAdapter(getActivity(),R.layout.row,linksDataList);
+        	
+        	
+ /*  			CustomAdapter adapter = new CustomAdapter(getActivity(),R.layout.row,linksDataList);
    			linksListView.setAdapter(adapter);
    			
    			//-------------------ONCLICK listeners------------------------   			
@@ -98,7 +127,7 @@ public class LinksListFragment extends Fragment {
 					// TODO Auto-generated method stub
 				}
     			
-    		});
+    		});*/
     		
     		
     		/*    		 
@@ -193,23 +222,44 @@ public class LinksListFragment extends Fragment {
     		linksUrlArray.add("pop");
     		linksUrlArray.add("heavy metal");
     		
-        	//TEST
-    		Log.d(TAG,linksUrlArray.toString());
         	int linkId=0;
         	String linkUrl="http://www.google.it";
         	int userId=0;
         	
         	ArrayList<Link> linksDataList=new ArrayList<Link>();
-        	for(int i=0;i<linksUrlArray.size();i++)
+        	for(int i=0;i<linksUrlArray.size();i++){
         		linksDataList.add(new Link(linkId,"ic_launcher", linksUrlArray.get(i),linkUrl,userId,"del_icon",deletedLinkFlag));
 
-   			CustomAdapter adapter = new CustomAdapter(getActivity(),R.layout.row,linksDataList);
+        		View view =getActivity().getLayoutInflater().inflate(R.layout.link_row,null);
+	        	Link linkObj = linksDataList.get(i);
+	//        	view.findViewById(R.id.link_icon_id);
+	        	TextView linkTitle = (TextView)view.findViewById(R.id.link_title_id);
+	        	linkTitle.setText(linkObj.getLinkName());
+	//        	view.findViewById(R.id.preview_icon_id);
+	        	linksListView.addView(view);
+	        	
+	        	//attach event to actionLayout and preview layout
+				view.findViewById(R.id.link_action_layout_id).setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						toastMessageWrapper("get links action bottom menu");						
+					}
+				});
+	        	//attach event to actionLayout and preview layout
+				view.findViewById(R.id.link_preview_layout_id).setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						toastMessageWrapper("get links preview");						
+					}
+				});
+        	}        	
+//   			CustomAdapter adapter = new CustomAdapter(getActivity(),R.layout.row,linksDataList);
 //        	ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,linksUrlArray);
-   			linksListView.setAdapter(adapter);
+//   			linksListView.setAdapter(adapter);
 
     	}	
     }
-    
+        
     //TO BE IMPLEMENTED !!!! PLEZ take care of it
     public boolean checkURL(String urlString){
     	//check URL with regex
@@ -230,9 +280,13 @@ public class LinksListFragment extends Fragment {
 //    	Log.v("MY_TAG","back_pressed");
 //    	return;
 //    }    
-    //toast message wrapper
-//	private void toastMessageWrapper(String message){
-//		Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-//	}
+//    toast message wrapper
+	private void toastMessageWrapper(String message){
+		Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+	}
+	
+	
+	
+	
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.app.example.linksWallet"
+    package="com.app.example.bookmarksWallet"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -16,11 +16,10 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.app.example.bookmarksWallet.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -30,18 +29,19 @@
 	        </intent-filter>
             
         </activity>
-        <activity android:name="com.app.example.bookmarksWallet.BaseActivity"/>
-        <activity android:name="com.app.example.bookmarksWallet.FragmentChangeActivity"/>
-	    <activity android:name="com.app.example.bookmarksWallet.fragments.LoginActivity"/>
-	    <activity android:name="com.app.example.bookmarksWallet.fragments.FragmentChangeActivity"/>
-        <activity android:name="com.app.example.bookmarksWallet.LoginActivity"/>
-	    	    	    	    	    
+        <activity android:name=".BaseActivity"/>
+        <activity android:name=".FragmentChangeActivity"/>
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".fragments.FragmentChangeActivity"/>
+        
     </application>
     
    	<application
    	    android:allowBackup="true" 
-	    android:name="com.app.example.bookmarksWallet.ApplicationCheckUserLoggedIn"
+	    android:name=".ApplicationCheckUserLoggedIn"
 	    android:icon="@drawable/ic_launcher" 
 	   	android:label="@string/app_name">
 	</application>
 </manifest>
+
+

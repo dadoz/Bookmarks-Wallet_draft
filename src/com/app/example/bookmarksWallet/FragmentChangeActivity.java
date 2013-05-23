@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.app.example.bookmarksWallet.fragments.LinksListFragment;
-import com.app.example.linksWallet.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 public class FragmentChangeActivity extends BaseActivity {
@@ -21,8 +20,8 @@ public class FragmentChangeActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 
 		//set actionbar color 
-		int basicRedColor = (getResources().getColor(R.color.basicRed));
-		getActionBar().setBackgroundDrawable(new ColorDrawable(basicRedColor));
+		int cobaltGreenColor = (getResources().getColor(R.color.cobaltGreen));
+		getActionBar().setBackgroundDrawable(new ColorDrawable(cobaltGreenColor));
 		
 		// set the Above View
 		if (savedInstanceState != null)

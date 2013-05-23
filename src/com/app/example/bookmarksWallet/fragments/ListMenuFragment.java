@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.app.example.bookmarksWallet.FragmentChangeActivity;
-import com.app.example.linksWallet.R;
+import com.app.example.bookmarksWallet.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.app.example.linksWallet.R;
 
 public class LoginActivity extends SherlockFragmentActivity{
 

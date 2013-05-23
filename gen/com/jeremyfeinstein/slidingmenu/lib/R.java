@@ -9,8 +9,8 @@ package com.jeremyfeinstein.slidingmenu.lib;
 public final class R {
 	public static final class id {
 		public static final int fullscreen = 0x7f040003;
-		public static final int slidingmenumain = 0x7f04004e;
-		public static final int action_settings = 0x7f04004f;
+		public static final int slidingmenumain = 0x7f040053;
+		public static final int action_settings = 0x7f040054;
 		public static final int selected_view = 0x7f040004;
 		public static final int margin = 0x7f040002;
 		public static final int left = 0x7f040000;
@@ -29,7 +29,7 @@ public final class R {
 		public static final int main = 0x7f0c0000;
 	}
 	public static final class layout {
-		public static final int slidingmenumain = 0x7f030025;
+		public static final int slidingmenumain = 0x7f030026;
 		public static final int activity_main = 0x7f030017;
 	}
 	public static final class styleable {
@@ -50,7 +50,7 @@ public final class R {
 		public static final int SlidingMenu_viewBehind = 2;
 	}
 	public static final class drawable {
-		public static final int ic_launcher = 0x7f020070;
+		public static final int ic_launcher = 0x7f020071;
 	}
 	public static final class attr {
 		public static final int shadowWidth = 0x7f010009;

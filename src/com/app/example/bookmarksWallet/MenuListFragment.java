@@ -5,7 +5,6 @@ import com.app.example.bookmarksWallet.fragments.LinksListFragment;
 //import com.app.example.bookmarksWallet.fragments.LogoutFragment;
 import com.app.example.bookmarksWallet.fragments.NotesListFragment;
 import com.app.example.bookmarksWallet.fragments.SettingsFragment;
-import com.app.example.linksWallet.R;
 
 import android.content.Context;
 import android.os.Bundle;

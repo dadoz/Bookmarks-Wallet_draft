@@ -1,6 +1,7 @@
 package com.app.example.bookmarksWallet.fragments;
 
-import com.app.example.linksWallet.R;
+
+import com.app.example.bookmarksWallet.R;
 
 import android.app.Activity;
 import android.os.Bundle;

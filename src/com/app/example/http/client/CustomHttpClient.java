@@ -153,7 +153,7 @@ public static String executeHttpPost(String url,
 
    } catch (IOException e) {
 
-    Log.e("log_tag", "Error converting result "+e.toString()); 
+    Log.e("executeHttpPost_tag", "Error converting result "+e.toString()); 
 
     e.printStackTrace();
 
@@ -228,7 +228,7 @@ public static String executeHttpGet(String url) throws Exception {
 
    } catch (IOException e) {
 
-    Log.e("log_tag", "Error converting result "+e.toString()); 
+    Log.e("executeHttpGet_tag", "Error converting result "+e.toString()); 
 
     e.printStackTrace();
 

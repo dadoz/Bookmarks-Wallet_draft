@@ -1,6 +1,5 @@
 package com.app.example.bookmarksWallet;
 
-import com.app.example.linksWallet.R;
 
 import android.app.Activity;
 import android.os.Bundle;
