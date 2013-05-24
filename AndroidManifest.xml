@@ -32,7 +32,6 @@
         <activity android:name=".BaseActivity"/>
         <activity android:name=".FragmentChangeActivity"/>
         <activity android:name=".LoginActivity"/>
-        <activity android:name=".fragments.FragmentChangeActivity"/>
         
     </application>
     

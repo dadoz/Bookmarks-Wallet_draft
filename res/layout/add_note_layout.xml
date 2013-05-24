@@ -1,30 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-    
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">    
 	<LinearLayout
-		xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent" 
 	    android:orientation="vertical"
 	    android:id="@+id/add_note_layout_id">
 
+	    <TextView 
+	        android:id="@+id/newNoteBoxTextId"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+			android:textColor="@color/stoneBlack"
+			android:textSize="20sp"
+			android:layout_marginTop="40dip"
+		    android:layout_marginLeft="10dip"
+		    android:layout_marginRight="10dip"
+			android:text="@string/addnewnote_string"/>
+	    
+	    		<!-- ACTION BUTTON -->	    		
+	    <LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" 
+		    android:orientation="horizontal"
+			android:layout_marginTop="40dp"
+		    android:layout_marginLeft="10dip"
+		    android:layout_marginRight="10dip"
+		    android:background="@color/cobaltGreen"
+		    android:baselineAligned="false">
+    	    <ImageView
+		        android:id="@+id/preview_icon_id"
+				android:contentDescription="preview_icon_id"
+		        android:layout_width="25dp"
+		        android:layout_height="25dp"
+		        android:layout_margin="15dp"
+		        android:src="@drawable/preview_icon" />
+ 		    <EditText
+		        android:id="@+id/newNoteTitleEditTextId"
+		        android:layout_width="wrap_content"
+		        android:layout_height="fill_parent"
+				android:layout_margin="10dip"
+				android:padding="10dip"
+		        android:ems="14" 
+		        android:hint="note title">
+		        <requestFocus />
+		    </EditText>
+	        	        
+	    </LinearLayout>
+	    
 	    <!-- INPUT FIELDS -->	    		
 		<LinearLayout 
 		    android:id="@+id/addNoteBoxLayoutId"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content" 
 		    android:orientation="vertical"
-		    android:background="@color/icedWhite"
-		    android:layout_marginTop="10dip"
+		    android:background="@drawable/layout_border"
 		    android:layout_marginLeft="10dip"
 		    android:layout_marginRight="10dip">
-		    <TextView 
-		        android:id="@+id/newNoteBoxTextId"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-				android:textColor="@color/stoneBlack"
-				android:textSize="20sp"
-				android:layout_margin="10dip"
-				android:text="@string/addnewnote_string"/>
  		    <EditText
 		        android:id="@+id/newNoteEditTextId"
 		        android:layout_width="wrap_content"
@@ -32,14 +66,14 @@
 				android:layout_margin="10dip"
 				android:padding="10dip"
 		        android:ems="14" 
-		        android:hint="@string/username_string"
+		        android:hint="note content"
 		        android:background="@color/icedWhite">
 		        <requestFocus />
 		    </EditText>
 		</LinearLayout>
 
 		<!-- ACTION BUTTON -->	    		
-	    <LinearLayout 
+	    <!-- <LinearLayout 
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content" 
 		    android:orientation="horizontal"
@@ -82,5 +116,6 @@
 					android:text="@string/search_string"/>
 			</LinearLayout>
 		        
-		</LinearLayout>
+		</LinearLayout>-->
 	</LinearLayout>
+</ScrollView>

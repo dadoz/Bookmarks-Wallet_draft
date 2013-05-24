@@ -56,8 +56,8 @@ public class LoginActivity extends SherlockFragmentActivity{
             	String password = passwordText.getText().toString();  
 
             	//TEST
-//            	username="davide";
-//            	password="pswd";
+            	username="davide";
+            	password="pswd";
 				if(checkUserLoggedIn(username,password)){
 					Intent intent = new Intent(LoginActivity.this, FragmentChangeActivity.class);
 					startActivity(intent);                  	  

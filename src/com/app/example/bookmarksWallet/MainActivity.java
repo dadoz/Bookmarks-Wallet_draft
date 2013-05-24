@@ -20,16 +20,11 @@ public class MainActivity extends SherlockFragmentActivity {
 	private static final String EMPTY_USERNAME="";
 	private static final String EMPTY_PASSWORD="";
 	private static final int EMPTY_USERID=-1;
-	// to store the result of MySQL query after decoding JSON
 
-	
-	
-	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 		setTitle(R.string.app_name);
-
         setContentView(R.layout.fragment_activity);
        
         //STATIC handling of fragment - REMEMBER u could not change it in this way
@@ -47,10 +42,10 @@ public class MainActivity extends SherlockFragmentActivity {
 		getActionBar().hide();
 
 		//IF NOT LOGGED IN
-//		if(!userLoggedInChecker()){
-//			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//			startActivity(intent);                  	  
-//		}
+		if(!userLoggedInChecker()){
+			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+			startActivity(intent);                  	  
+		}
 
 		Intent intent = new Intent(MainActivity.this, FragmentChangeActivity.class);
 		startActivity(intent);                  	  
@@ -58,8 +53,7 @@ public class MainActivity extends SherlockFragmentActivity {
 //		ft.add(R.id.main_frameLayout_id, new LoginFragment());
 //		ft.commit(); 
 		
-}
-
+    }
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -74,7 +68,6 @@ public class MainActivity extends SherlockFragmentActivity {
 		super.onPause();
 //		finish();
 	}
-    
 	
 	public boolean userLoggedInChecker(){
 		// Restore userLOGIN credentials even if user kill the app
@@ -89,7 +82,6 @@ public class MainActivity extends SherlockFragmentActivity {
    		String passwordStored = settings.getString("passwordStored", EMPTY_PASSWORD);
    		int userIdStored=settings.getInt("userIdStored", EMPTY_USERID);
 
-   		
 	    try{
 	    	if(usernameStored!=EMPTY_USERNAME && passwordStored!=EMPTY_PASSWORD){
 	    		ApplicationCheckUserLoggedIn.newUserObjWrapper(userIdStored,usernameStored,passwordStored,true);
@@ -98,9 +90,6 @@ public class MainActivity extends SherlockFragmentActivity {
 	    }catch(Exception e){
 	    	Log.v("ON_STOP","error - " + e);
 	    }
-	    
    		return false;
 	}
-	
-
 }

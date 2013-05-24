@@ -16,17 +16,17 @@
 	    <ImageView
 	        android:id="@+id/link_icon_id"
 			android:contentDescription="link_icon_id"
-	        android:layout_width="60dp"
-	        android:layout_height="60dp"
-	        android:padding="10dp"
+	        android:layout_width="20dp"
+	        android:layout_height="20dp"
+	        android:layout_margin="20dp"
 	        android:src="@drawable/comment_link" />
 	
 	    <TextView
 	        android:id="@+id/link_title_id"
 	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
+	        android:layout_height="fill_parent"
 	        android:gravity="center_vertical"
+	        android:layout_weight="1"
 	        android:padding="10dp"
 	        android:text="Medium Text"
 	        android:textColor="@color/stoneBlack"
