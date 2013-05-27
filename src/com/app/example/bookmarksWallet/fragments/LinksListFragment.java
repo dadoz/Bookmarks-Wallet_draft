@@ -7,16 +7,15 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.app.example.bookmarksWallet.ApplicationCheckUserLoggedIn;
 import com.app.example.bookmarksWallet.FragmentChangeActivity;
 import com.app.example.bookmarksWallet.R;
 import com.app.example.bookmarksWallet.models.Link;
+import com.app.example.db.lib.DatabaseCommon;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-//import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,8 +58,8 @@ public class LinksListFragment extends SherlockFragment {
     	/**CREATE ListView **/
     	try{
 			//fetch data
-			String result=ApplicationCheckUserLoggedIn.fetchDataFromDb(LINKS_DB);
-			linksObjArray = ApplicationCheckUserLoggedIn.linksParserJSONData(result);
+			String result=DatabaseCommon.fetchDataFromDb(LINKS_DB);
+			linksObjArray = DatabaseCommon.linksParserJSONData(result);
 			Log.d("createLayout_TAG","url link to be shown"+linksObjArray.toString());
     	}catch(Exception e){
     		Log.e("createLayout_TAG","error - " + e);
@@ -144,111 +143,9 @@ public class LinksListFragment extends SherlockFragment {
 				}
 			});
     	}
-
     	
+    	//add to SharedData static
     	
-    	
-    	/*
-//    	linksObjArray=null;
-    	if(linksObjArray!=null && linksObjArray.size()>0){
-//    		public Link(int linkId,String linkIconPath,String linkName,String linkUrl,int userId,String delIcon,boolean deletedLinkFlag)
-    		Log.d(getTag(),linksObjArray.toString());
-
-			//Populate the list
-    		//TODO change iconPath on DB
-    		boolean deletedLinkFlag=false;
-        	ArrayList<Link> linksDataList=new ArrayList<Link>();    	
-        	for(int i=0;i<linksObjArray.size();i++){
-        		linksDataList.add(new Link(
-        				linksObjArray.get(i).getLinkIdFromLinkName(linksObjArray.get(i).getLinkName()),
-        				"ic_menu_directions", 
-        				linksObjArray.get(i).getLinkName(),
-        				linksObjArray.get(i).getLinkUrl(),
-        				linksObjArray.get(i).getUserId(),
-        				null,
-        				deletedLinkFlag));
-        		
-	    		View view =getActivity().getLayoutInflater().inflate(R.layout.link_row,null);
-	        	Link linkObj = linksDataList.get(i);
-	//        	view.findViewById(R.id.link_icon_id);
-	        	TextView linkTitle = (TextView)view.findViewById(R.id.link_title_id);
-	        	linkTitle.setText(linkObj.getLinkName());
-	//        	view.findViewById(R.id.preview_icon_id);
-	        	linksListView.addView(view);
-	        	
-	        	//attach event to actionLayout and preview layout
-				view.findViewById(R.id.link_action_layout_id).setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						toastMessageWrapper("get links action bottom menu");						
-					}
-				});
-	        	//attach event to actionLayout and preview layout
-				view.findViewById(R.id.link_preview_layout_id).setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						toastMessageWrapper("get links preview - only if u have time");						
-					}
-				});
-	        	
-        	}
-        	
-    	}else{
-    		Log.d(TAG,"error - no one url fetched");
-
-    		boolean deletedLinkFlag=false;
-    		
-        	linksUrlArray=new ArrayList<String>();
-    		linksUrlArray.add("heavy metal");
-    		linksUrlArray.add("pop");
-    		linksUrlArray.add("underground");
-    		linksUrlArray.add("heavy metal");
-    		linksUrlArray.add("underground");
-    		linksUrlArray.add("hey_ure_fkin_my_shitty_dog_are_u_sure_u_want_to_cose_ure_crazy");
-    		linksUrlArray.add("pop");
-    		linksUrlArray.add("heavy metal");
-    		
-        	int linkId=0;
-        	final String linkUrl="http://www.google.it";
-        	int userId=0;
-        	
-        	ArrayList<Link> linksDataList=new ArrayList<Link>();
-        	for(int i=0;i<linksUrlArray.size();i++){
-        		linksDataList.add(new Link(linkId,"ic_launcher", linksUrlArray.get(i),linkUrl,userId,"del_icon",deletedLinkFlag));
-
-        		View view =getActivity().getLayoutInflater().inflate(R.layout.link_row,null);
-	        	Link linkObj = linksDataList.get(i);
-	//        	view.findViewById(R.id.link_icon_id);
-	        	TextView linkTitle = (TextView)view.findViewById(R.id.link_title_id);
-	        	linkTitle.setText(linkObj.getLinkName());
-	//        	view.findViewById(R.id.preview_icon_id);
-	        	linksListView.addView(view);
-	        	
-	        	//attach event to actionLayout and preview layout
-				view.findViewById(R.id.link_action_layout_id).setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						toastMessageWrapper("get links action bottom menu");
-						Activity activity = getActivity();
-						if(activity instanceof FragmentChangeActivity) {
-						    ((FragmentChangeActivity) activity).getLinkActionBar();
-						}
-
-					}
-				});
-	        	//attach event to actionLayout and preview layout
-				view.findViewById(R.id.link_preview_layout_id).setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						openLinkOnBrowser(linkUrl);
-					}
-				});
-        	}        	
-//   			CustomAdapter adapter = new CustomAdapter(getActivity(),R.layout.row,linksDataList);
-//        	ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,linksUrlArray);
-//   			linksListView.setAdapter(adapter);
-
-    	}	*/
     }
         
     //TO BE IMPLEMENTED !!!! PLEZ take care of it
@@ -305,7 +202,7 @@ public class LinksListFragment extends SherlockFragment {
 		
 //		parentView.showContextMenuForChild(linksListView);
 		if(linkName!=null){
-			boolean check=ApplicationCheckUserLoggedIn.deleteUrlEntryFromDb(LINKS_DB,linkName);
+			boolean check=DatabaseCommon.deleteUrlEntryFromDb(LINKS_DB,linkName);
 			if(check)
 				toastMessageWrapper("ITEM DELETED - plez refresh");
 			else
@@ -335,15 +232,15 @@ public class LinksListFragment extends SherlockFragment {
 
 		 menu.add(0,(index++),order++,"Edit")
 		    .setIcon(android.R.drawable.ic_menu_edit)
-		    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		 
 		 menu.add(0,index++,order++,"Save")
 		 .setIcon(android.R.drawable.ic_menu_add)
-		 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		
 		 menu.add(0,index++,order++,"Delete")
 		    .setIcon( android.R.drawable.ic_menu_delete)
-		    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	 }
 
     @Override

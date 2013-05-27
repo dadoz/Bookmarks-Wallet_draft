@@ -5,6 +5,7 @@ import com.app.example.bookmarksWallet.fragments.LinksListFragment;
 //import com.app.example.bookmarksWallet.fragments.LogoutFragment;
 import com.app.example.bookmarksWallet.fragments.NotesListFragment;
 import com.app.example.bookmarksWallet.fragments.SettingsFragment;
+import com.app.example.common.lib.SharedData;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -141,7 +142,7 @@ public class MenuListFragment extends ListFragment {
 	}
 	/****set logout button action***/
 	public void logoutAction(){
-		if(ApplicationCheckUserLoggedIn.logout()){
+		if(SharedData.setUserLogout()){
 			toastMessageWrapper("Logout Successful");
 			getActivity().finish();
 		}else{

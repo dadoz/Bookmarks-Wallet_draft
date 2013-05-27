@@ -1,5 +1,7 @@
 package com.app.example.bookmarksWallet.models;
 
+import com.app.example.common.lib.SharedData;
+
 import android.util.Log;
 
 public class Link {
@@ -11,8 +13,6 @@ public class Link {
 	public String linkName;	
 	public String delIcon;
 	public boolean deletedLinkFlag;
-
-	private static final int EMPTY_LINKID=-1;
 
 	public Link(int linkId,String linkIconPath,String linkName,String linkUrl,int userId,String delIcon,boolean deletedLinkFlag){
 		this.linkId=linkId;
@@ -63,17 +63,19 @@ public class Link {
 	
 	public int getLinkIdFromLinkName(String value){
 		Log.v("linkID_TAG",""+this.linkName+" "+value);
-//		Log.v("getLinkId_TAG",""+this.linkId);
-		//compare name of link to the value
 		if((this.linkName).compareTo(value)==0)
 			return this.linkId;
-
-		return EMPTY_LINKID;
+		return SharedData.EMPTY_LINKID;
 	}
 
 	public String getLinkByString(){
 		return ""+this.linkId+" - "+this.linkIconPath+" - "+this.linkName+
 				" - "+this.linkUrl+" - "+this.userId+" - "+this.delIcon+
 				" - "+this.linkName+" - "+this.userId+" - "+this.deletedLinkFlag;
+	}
+
+	public int getLinkId() {
+		// TODO Auto-generated method stub
+		return this.linkId;
 	}
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/note_preview_layout_id"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="60dip"
+    android:orientation="horizontal" 
+    android:background="@drawable/layout_grey_bottom_border"
+    android:layout_marginBottom="10dip">
+	
+    <TextView
+        android:id="@+id/note_preview_text_id"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:text="Medium Text"
+        android:textColor="@color/stoneBlack"/>
+</LinearLayout>

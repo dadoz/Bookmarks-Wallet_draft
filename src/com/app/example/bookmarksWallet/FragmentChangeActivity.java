@@ -3,7 +3,7 @@ package com.app.example.bookmarksWallet;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import com.app.example.bookmarksWallet.fragments.LinksListFragment;
+import com.app.example.bookmarksWallet.fragments.NotesListFragment;
 import com.app.example.common.lib.ActionModeForActionOverflowBar;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -27,7 +27,7 @@ public class FragmentChangeActivity extends BaseActivity {
 		if (savedInstanceState != null)
 			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 		if (mContent == null)
-			mContent = new LinksListFragment();	
+			mContent = new NotesListFragment();	
 		
 		// set the Above View
 		setContentView(R.layout.content_frame);

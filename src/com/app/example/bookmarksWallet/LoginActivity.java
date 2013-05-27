@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.app.example.common.lib.SharedData;
+import com.app.example.db.lib.DatabaseCommon;
 
 public class LoginActivity extends SherlockFragmentActivity{
 
@@ -92,10 +94,10 @@ public class LoginActivity extends SherlockFragmentActivity{
         	//check user password and username to log him in 
         	try{
         		//fetch data
-        		String result=ApplicationCheckUserLoggedIn.fetchDataFromDb(USERS_DB);
+        		String result=DatabaseCommon.fetchDataFromDb(USERS_DB);
         		//get if usser is logged in - check
-        		if(ApplicationCheckUserLoggedIn.usersParserJSONData(username,password, result))
-        			userLoggedIn=ApplicationCheckUserLoggedIn.getUserLoggedIn();
+        		if(DatabaseCommon.usersParserJSONData(username,password, result))
+        			userLoggedIn=SharedData.isUserLoggedIn();
         	}catch(Exception e){
         		Log.e("MY_TAG","Error - "+ e);
         	}

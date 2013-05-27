@@ -1,9 +1,10 @@
 package com.app.example.bookmarksWallet.fragments;
 
 
-import com.app.example.bookmarksWallet.ApplicationCheckUserLoggedIn;
 import com.app.example.bookmarksWallet.FragmentChangeActivity;
 import com.app.example.bookmarksWallet.R;
+import com.app.example.common.lib.SharedData;
+import com.app.example.db.lib.DatabaseCommon;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -104,11 +105,11 @@ public class LoginFragment extends Fragment {
         	//check user password and username to log him in 
         	try{
         		//fetch data
-        		String result=ApplicationCheckUserLoggedIn.fetchDataFromDb(USERS_DB);
+        		String result=DatabaseCommon.fetchDataFromDb(USERS_DB);
         		//get if usser is logged in - check
-        		boolean checkDataParsered=ApplicationCheckUserLoggedIn.usersParserJSONData(username, password, result);
+        		boolean checkDataParsered=DatabaseCommon.usersParserJSONData(username, password, result);
         		if(checkDataParsered)
-        			userLoggedIn=ApplicationCheckUserLoggedIn.getUserLoggedIn();
+        			userLoggedIn=SharedData.isUserLoggedIn();
         	}catch(Exception e){
         		Log.e("MY_TAG","Error - "+ e);
         	}

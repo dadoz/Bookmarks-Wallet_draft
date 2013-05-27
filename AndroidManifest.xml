@@ -37,10 +37,21 @@
     
    	<application
    	    android:allowBackup="true" 
-	    android:name=".ApplicationCheckUserLoggedIn"
-	    android:icon="@drawable/ic_launcher" 
-	   	android:label="@string/app_name">
+	    android:name="com.app.example.db.lib.DatabaseCommon">
 	</application>
+   	<application
+   	    android:allowBackup="true" 
+	    android:name="com.app.example.common.lib.ActionModeForActionOverflowBar">
+	</application>
+   	<application
+   	    android:allowBackup="true" 
+	    android:name="com.app.example.common.lib.SharedData">
+	</application>
+   	<application
+   	    android:allowBackup="true" 
+	    android:name="com.app.example.http.client.CustomHttpClient">
+	</application>
+   		
 </manifest>
 
 

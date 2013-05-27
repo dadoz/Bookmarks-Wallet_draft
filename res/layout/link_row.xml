@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:minHeight="60dip"
     android:orientation="horizontal" 
-    android:background="@drawable/layout_border"
+    android:background="@drawable/layout_bottom_border"
     android:layout_marginBottom="10dip">
 	<LinearLayout
 	    android:id="@+id/link_action_layout_id" 
@@ -37,9 +37,10 @@
 	    android:layout_width="60dip"
 	    android:layout_height="fill_parent"
 	    android:orientation="horizontal"
-	    android:layout_marginTop="1dip"
+	    android:layout_marginBottom="5dip"
+	    android:layout_marginTop="5dip"
 	    android:layout_marginRight="1dip"
-	    android:background="@color/cobaltGreen">
+	    android:background="@drawable/button_border">
 	    <ImageView
 	        android:id="@+id/preview_icon_id"
 			android:contentDescription="preview_icon_id"
