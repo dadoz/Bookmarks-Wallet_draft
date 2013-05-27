@@ -1,4 +1,4 @@
-package com.app.example.linksWallet;
+package com.app.example.bookmarksWallet;
 
 
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class BaseActivity extends SlidingFragmentActivity {
-
+	
 	private int mTitleRes;
 	protected ListFragment mFrag;
 
@@ -62,4 +62,5 @@ public class BaseActivity extends SlidingFragmentActivity {
 		getSupportMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+
 }

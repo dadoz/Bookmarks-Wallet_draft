@@ -1,11 +1,10 @@
-package com.app.example.linksWallet;
+package com.app.example.bookmarksWallet;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-
-import com.app.example.linksWallet.R;
-import com.app.example.linksWallet.fragments.LinksListFragment;
+import com.app.example.bookmarksWallet.fragments.LinksListFragment;
+import com.app.example.common.lib.ActionModeForActionOverflowBar;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 public class FragmentChangeActivity extends BaseActivity {
@@ -21,8 +20,8 @@ public class FragmentChangeActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 
 		//set actionbar color 
-		int basicRedColor = (getResources().getColor(R.color.basicRed));
-		getActionBar().setBackgroundDrawable(new ColorDrawable(basicRedColor));
+		int cobaltGreenColor = (getResources().getColor(R.color.cobaltGreen));
+		getActionBar().setBackgroundDrawable(new ColorDrawable(cobaltGreenColor));
 		
 		// set the Above View
 		if (savedInstanceState != null)
@@ -55,19 +54,17 @@ public class FragmentChangeActivity extends BaseActivity {
 	}
 	
 	public void switchContent(Fragment fragment) {
-//      FragmentTransaction fragmentTransaction = getFragmentManager()
-//      .beginTransaction();
-//provide the fragment ID of your first fragment which you have given in
-//fragment_layout_example.xml file in place of first argument
-//fragmentTransaction.replace(R.id.content_frame, fragment);
-//fragmentTransaction.addToBackStack(null);
-//fragmentTransaction.commit();
 		mContent = fragment;
+		mContent.setHasOptionsMenu(true); //here
 		getSupportFragmentManager()
 		.beginTransaction()
 		.replace(R.id.content_frame, fragment)
 		.commit();
 		getSlidingMenu().showContent();
+	}
+	
+	public void getLinkActionBar(){
+		startActionMode(new ActionModeForActionOverflowBar());
 	}
 
 }

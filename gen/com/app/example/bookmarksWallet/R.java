@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.app.example.linksWallet;
+package com.app.example.bookmarksWallet;
 
 public final class R {
     public static final class array {
@@ -800,21 +800,23 @@ containing a value of this type.
         public static final int abs__bright_foreground_inverse_holo_dark=0x7f090006;
         public static final int abs__bright_foreground_inverse_holo_light=0x7f090007;
         public static final int abs__holo_blue_light=0x7f090008;
-        public static final int abs__primary_text_disable_only_holo_dark=0x7f090015;
-        public static final int abs__primary_text_disable_only_holo_light=0x7f090016;
-        public static final int abs__primary_text_holo_dark=0x7f090017;
-        public static final int abs__primary_text_holo_light=0x7f090018;
+        public static final int abs__primary_text_disable_only_holo_dark=0x7f090017;
+        public static final int abs__primary_text_disable_only_holo_light=0x7f090018;
+        public static final int abs__primary_text_holo_dark=0x7f090019;
+        public static final int abs__primary_text_holo_light=0x7f09001a;
         public static final int basicGrey=0x7f09000f;
-        public static final int basicRed=0x7f090014;
+        public static final int basicRed=0x7f090015;
         public static final int black=0x7f09000d;
         public static final int blue=0x7f09000b;
-        public static final int cobaltBlue=0x7f090012;
+        public static final int borderGrey=0x7f090010;
+        public static final int cobaltBlue=0x7f090013;
+        public static final int cobaltGreen=0x7f090016;
         public static final int green=0x7f09000a;
         public static final int icedWhite=0x7f09000e;
-        public static final int lightGrey=0x7f090011;
+        public static final int lightGrey=0x7f090012;
         public static final int red=0x7f090009;
-        public static final int stoneBlack=0x7f090010;
-        public static final int wallpaperGrey=0x7f090013;
+        public static final int stoneBlack=0x7f090011;
+        public static final int wallpaperGrey=0x7f090014;
         public static final int white=0x7f09000c;
     }
     public static final class dimen {
@@ -1065,10 +1067,14 @@ containing a value of this type.
         public static final int abs__textfield_searchview_right_holo_dark=0x7f02006d;
         public static final int abs__textfield_searchview_right_holo_light=0x7f02006e;
         public static final int app_icon=0x7f02006f;
-        public static final int ic_launcher=0x7f020070;
-        public static final int profile_picture=0x7f020071;
-        public static final int shadow=0x7f020072;
-        public static final int wallpaper_login=0x7f020073;
+        public static final int comment_link=0x7f020070;
+        public static final int ic_launcher=0x7f020071;
+        public static final int layout_border=0x7f020072;
+        public static final int login_logo=0x7f020073;
+        public static final int preview_icon=0x7f020074;
+        public static final int profile_picture=0x7f020075;
+        public static final int shadow=0x7f020076;
+        public static final int wallpaper_login=0x7f020077;
     }
     public static final class id {
         public static final int abs__action_bar=0x7f040027;
@@ -1111,11 +1117,10 @@ containing a value of this type.
         public static final int abs__title=0x7f040020;
         public static final int abs__titleDivider=0x7f040021;
         public static final int abs__up=0x7f040010;
-        public static final int action_settings=0x7f04004f;
-        public static final int addNoteBoxLayoutId=0x7f040039;
-        public static final int addNoteButtonId=0x7f04003c;
+        public static final int action_settings=0x7f040053;
+        public static final int addNoteBoxLayoutId=0x7f04003c;
         public static final int add_note_layout_id=0x7f040038;
-        public static final int cancelButtonId=0x7f040047;
+        public static final int cancelButtonId=0x7f04004b;
         public static final int content_frame=0x7f04003e;
         public static final int disableHome=0x7f04000e;
         public static final int edit_query=0x7f04002c;
@@ -1123,33 +1128,38 @@ containing a value of this type.
         public static final int fullscreen=0x7f040003;
         public static final int homeAsUp=0x7f04000b;
         public static final int left=0x7f040000;
-        public static final int linksListId=0x7f040041;
+        public static final int link_action_layout_id=0x7f040041;
+        public static final int link_icon_id=0x7f040042;
+        public static final int link_preview_layout_id=0x7f040044;
+        public static final int link_title_id=0x7f040043;
+        public static final int linksListId=0x7f040045;
         public static final int listMode=0x7f040007;
-        public static final int loginBoxLayoutId=0x7f040044;
-        public static final int loginBoxTextId=0x7f040043;
-        public static final int loginButtonId=0x7f040048;
-        public static final int login_fragment_id=0x7f040042;
+        public static final int loginBoxLayoutId=0x7f040048;
+        public static final int loginBoxTextId=0x7f040047;
+        public static final int loginButtonId=0x7f04004c;
+        public static final int login_fragment_id=0x7f040046;
         public static final int main_frameLayout_id=0x7f04003f;
         public static final int margin=0x7f040002;
-        public static final int menu_frame=0x7f040049;
-        public static final int newNoteBoxTextId=0x7f04003a;
-        public static final int newNoteEditTextId=0x7f04003b;
+        public static final int menu_frame=0x7f04004d;
+        public static final int newNoteBoxTextId=0x7f040039;
+        public static final int newNoteEditTextId=0x7f04003d;
+        public static final int newNoteTitleEditTextId=0x7f04003b;
         public static final int normal=0x7f040006;
-        public static final int notesListId=0x7f04004a;
-        public static final int passwordEditTextId=0x7f040046;
+        public static final int notesListId=0x7f04004e;
+        public static final int passwordEditTextId=0x7f04004a;
+        public static final int preview_icon_id=0x7f04003a;
         public static final int right=0x7f040001;
-        public static final int row_icon=0x7f04004b;
-        public static final int row_title=0x7f04004c;
-        public static final int searchOnWebNoteButtonId=0x7f04003d;
+        public static final int row_icon=0x7f04004f;
+        public static final int row_title=0x7f040050;
         public static final int selected_view=0x7f040004;
-        public static final int settingsListId=0x7f04004d;
+        public static final int settingsListId=0x7f040051;
         public static final int showCustom=0x7f04000d;
         public static final int showHome=0x7f04000a;
         public static final int showTitle=0x7f04000c;
-        public static final int slidingmenumain=0x7f04004e;
+        public static final int slidingmenumain=0x7f040052;
         public static final int tabMode=0x7f040008;
         public static final int useLogo=0x7f040009;
-        public static final int usernameEditTextId=0x7f040045;
+        public static final int usernameEditTextId=0x7f040049;
         public static final int wrap_content=0x7f040005;
     }
     public static final class integer {
@@ -1185,17 +1195,18 @@ containing a value of this type.
         public static final int content_frame=0x7f030019;
         public static final int fragment_activity=0x7f03001a;
         public static final int fragment_content=0x7f03001b;
-        public static final int links_list_layout=0x7f03001c;
-        public static final int list=0x7f03001d;
-        public static final int login_layout=0x7f03001e;
-        public static final int menu_frame=0x7f03001f;
-        public static final int notes_list_layout=0x7f030020;
-        public static final int row=0x7f030021;
-        public static final int settings_layout=0x7f030022;
-        public static final int sherlock_spinner_dropdown_item=0x7f030023;
-        public static final int sherlock_spinner_item=0x7f030024;
-        public static final int slidingmenumain=0x7f030025;
-        public static final int wallpaper_login_layout=0x7f030026;
+        public static final int link_row=0x7f03001c;
+        public static final int links_list_layout=0x7f03001d;
+        public static final int list=0x7f03001e;
+        public static final int login_layout=0x7f03001f;
+        public static final int menu_frame=0x7f030020;
+        public static final int notes_list_layout=0x7f030021;
+        public static final int row=0x7f030022;
+        public static final int settings_layout=0x7f030023;
+        public static final int sherlock_spinner_dropdown_item=0x7f030024;
+        public static final int sherlock_spinner_item=0x7f030025;
+        public static final int slidingmenumain=0x7f030026;
+        public static final int wallpaper_login_layout=0x7f030027;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;
@@ -1458,26 +1469,26 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockActionBar_background com.app.example.linksWallet:background}</code></td><td> Specifies a background drawable for the action bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_backgroundSplit com.app.example.linksWallet:backgroundSplit}</code></td><td> Specifies a background drawable for the bottom component of a split action bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_backgroundStacked com.app.example.linksWallet:backgroundStacked}</code></td><td> Specifies a background drawable for a second stacked row of the action bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_customNavigationLayout com.app.example.linksWallet:customNavigationLayout}</code></td><td> Specifies a layout for custom navigation.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_displayOptions com.app.example.linksWallet:displayOptions}</code></td><td> Options affecting how the action bar is displayed.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_divider com.app.example.linksWallet:divider}</code></td><td> Specifies the drawable used for item dividers.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_height com.app.example.linksWallet:height}</code></td><td> Specifies a fixed height.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_homeLayout com.app.example.linksWallet:homeLayout}</code></td><td> Specifies a layout to use for the "home" section of the action bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_icon com.app.example.linksWallet:icon}</code></td><td> Specifies the drawable used for the application icon.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_indeterminateProgressStyle com.app.example.linksWallet:indeterminateProgressStyle}</code></td><td> Specifies a style resource to use for an indeterminate progress spinner.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_itemPadding com.app.example.linksWallet:itemPadding}</code></td><td> Specifies padding that should be applied to the left and right sides of
+           <tr><td><code>{@link #SherlockActionBar_background com.app.example.bookmarksWallet:background}</code></td><td> Specifies a background drawable for the action bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_backgroundSplit com.app.example.bookmarksWallet:backgroundSplit}</code></td><td> Specifies a background drawable for the bottom component of a split action bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_backgroundStacked com.app.example.bookmarksWallet:backgroundStacked}</code></td><td> Specifies a background drawable for a second stacked row of the action bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_customNavigationLayout com.app.example.bookmarksWallet:customNavigationLayout}</code></td><td> Specifies a layout for custom navigation.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_displayOptions com.app.example.bookmarksWallet:displayOptions}</code></td><td> Options affecting how the action bar is displayed.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_divider com.app.example.bookmarksWallet:divider}</code></td><td> Specifies the drawable used for item dividers.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_height com.app.example.bookmarksWallet:height}</code></td><td> Specifies a fixed height.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_homeLayout com.app.example.bookmarksWallet:homeLayout}</code></td><td> Specifies a layout to use for the "home" section of the action bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_icon com.app.example.bookmarksWallet:icon}</code></td><td> Specifies the drawable used for the application icon.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_indeterminateProgressStyle com.app.example.bookmarksWallet:indeterminateProgressStyle}</code></td><td> Specifies a style resource to use for an indeterminate progress spinner.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_itemPadding com.app.example.bookmarksWallet:itemPadding}</code></td><td> Specifies padding that should be applied to the left and right sides of
              system-provided items in the bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_logo com.app.example.linksWallet:logo}</code></td><td> Specifies the drawable used for the application logo.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_navigationMode com.app.example.linksWallet:navigationMode}</code></td><td> The type of navigation to use.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_progressBarPadding com.app.example.linksWallet:progressBarPadding}</code></td><td> Specifies the horizontal padding on either end for an embedded progress bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_progressBarStyle com.app.example.linksWallet:progressBarStyle}</code></td><td> Specifies a style resource to use for an embedded progress bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_subtitle com.app.example.linksWallet:subtitle}</code></td><td> Specifies subtitle text used for navigationMode="normal" </td></tr>
-           <tr><td><code>{@link #SherlockActionBar_subtitleTextStyle com.app.example.linksWallet:subtitleTextStyle}</code></td><td> Specifies a style to use for subtitle text.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_title com.app.example.linksWallet:title}</code></td><td> Specifies title text used for navigationMode="normal" </td></tr>
-           <tr><td><code>{@link #SherlockActionBar_titleTextStyle com.app.example.linksWallet:titleTextStyle}</code></td><td> Specifies a style to use for title text.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_logo com.app.example.bookmarksWallet:logo}</code></td><td> Specifies the drawable used for the application logo.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_navigationMode com.app.example.bookmarksWallet:navigationMode}</code></td><td> The type of navigation to use.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_progressBarPadding com.app.example.bookmarksWallet:progressBarPadding}</code></td><td> Specifies the horizontal padding on either end for an embedded progress bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_progressBarStyle com.app.example.bookmarksWallet:progressBarStyle}</code></td><td> Specifies a style resource to use for an embedded progress bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_subtitle com.app.example.bookmarksWallet:subtitle}</code></td><td> Specifies subtitle text used for navigationMode="normal" </td></tr>
+           <tr><td><code>{@link #SherlockActionBar_subtitleTextStyle com.app.example.bookmarksWallet:subtitleTextStyle}</code></td><td> Specifies a style to use for subtitle text.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_title com.app.example.bookmarksWallet:title}</code></td><td> Specifies title text used for navigationMode="normal" </td></tr>
+           <tr><td><code>{@link #SherlockActionBar_titleTextStyle com.app.example.bookmarksWallet:titleTextStyle}</code></td><td> Specifies a style to use for title text.</td></tr>
            </table>
            @see #SherlockActionBar_background
            @see #SherlockActionBar_backgroundSplit
@@ -1792,7 +1803,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockActionMenuItemView_android_minWidth com.app.example.linksWallet:android_minWidth}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockActionMenuItemView_android_minWidth com.app.example.bookmarksWallet:android_minWidth}</code></td><td></td></tr>
            </table>
            @see #SherlockActionMenuItemView_android_minWidth
          */
@@ -1800,7 +1811,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
             0x0101013f
         };
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#android_minWidth}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#android_minWidth}
           attribute's value can be found in the {@link #SherlockActionMenuItemView} array.
           @attr name android:android_minWidth
         */
@@ -1811,11 +1822,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockActionMode_background com.app.example.linksWallet:background}</code></td><td> Specifies a background for the action mode bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionMode_backgroundSplit com.app.example.linksWallet:backgroundSplit}</code></td><td> Specifies a background for the split action mode bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionMode_height com.app.example.linksWallet:height}</code></td><td> Specifies a fixed height for the action mode bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionMode_subtitleTextStyle com.app.example.linksWallet:subtitleTextStyle}</code></td><td> Specifies a style to use for subtitle text.</td></tr>
-           <tr><td><code>{@link #SherlockActionMode_titleTextStyle com.app.example.linksWallet:titleTextStyle}</code></td><td> Specifies a style to use for title text.</td></tr>
+           <tr><td><code>{@link #SherlockActionMode_background com.app.example.bookmarksWallet:background}</code></td><td> Specifies a background for the action mode bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionMode_backgroundSplit com.app.example.bookmarksWallet:backgroundSplit}</code></td><td> Specifies a background for the split action mode bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionMode_height com.app.example.bookmarksWallet:height}</code></td><td> Specifies a fixed height for the action mode bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionMode_subtitleTextStyle com.app.example.bookmarksWallet:subtitleTextStyle}</code></td><td> Specifies a style to use for subtitle text.</td></tr>
+           <tr><td><code>{@link #SherlockActionMode_titleTextStyle com.app.example.bookmarksWallet:titleTextStyle}</code></td><td> Specifies a style to use for title text.</td></tr>
            </table>
            @see #SherlockActionMode_background
            @see #SherlockActionMode_backgroundSplit
@@ -1903,9 +1914,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockActivityChooserView_android_background com.app.example.linksWallet:android_background}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockActivityChooserView_expandActivityOverflowButtonDrawable com.app.example.linksWallet:expandActivityOverflowButtonDrawable}</code></td><td> The drawable to show in the button for expanding the activities overflow popup.</td></tr>
-           <tr><td><code>{@link #SherlockActivityChooserView_initialActivityCount com.app.example.linksWallet:initialActivityCount}</code></td><td> The maximal number of items initially shown in the activity list.</td></tr>
+           <tr><td><code>{@link #SherlockActivityChooserView_android_background com.app.example.bookmarksWallet:android_background}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockActivityChooserView_expandActivityOverflowButtonDrawable com.app.example.bookmarksWallet:expandActivityOverflowButtonDrawable}</code></td><td> The drawable to show in the button for expanding the activities overflow popup.</td></tr>
+           <tr><td><code>{@link #SherlockActivityChooserView_initialActivityCount com.app.example.bookmarksWallet:initialActivityCount}</code></td><td> The maximal number of items initially shown in the activity list.</td></tr>
            </table>
            @see #SherlockActivityChooserView_android_background
            @see #SherlockActivityChooserView_expandActivityOverflowButtonDrawable
@@ -1915,7 +1926,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
             0x010100d4, 0x7f01006b, 0x7f01006c
         };
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#android_background}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#android_background}
           attribute's value can be found in the {@link #SherlockActivityChooserView} array.
           @attr name android:android_background
         */
@@ -1959,12 +1970,12 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockMenuGroup_android_checkableBehavior com.app.example.linksWallet:android_checkableBehavior}</code></td><td> Whether the items are capable of displaying a check mark.</td></tr>
-           <tr><td><code>{@link #SherlockMenuGroup_android_enabled com.app.example.linksWallet:android_enabled}</code></td><td> Whether the items are enabled.</td></tr>
-           <tr><td><code>{@link #SherlockMenuGroup_android_id com.app.example.linksWallet:android_id}</code></td><td> The ID of the group.</td></tr>
-           <tr><td><code>{@link #SherlockMenuGroup_android_menuCategory com.app.example.linksWallet:android_menuCategory}</code></td><td> The category applied to all items within this group.</td></tr>
-           <tr><td><code>{@link #SherlockMenuGroup_android_orderInCategory com.app.example.linksWallet:android_orderInCategory}</code></td><td> The order within the category applied to all items within this group.</td></tr>
-           <tr><td><code>{@link #SherlockMenuGroup_android_visible com.app.example.linksWallet:android_visible}</code></td><td> Whether the items are shown/visible.</td></tr>
+           <tr><td><code>{@link #SherlockMenuGroup_android_checkableBehavior com.app.example.bookmarksWallet:android_checkableBehavior}</code></td><td> Whether the items are capable of displaying a check mark.</td></tr>
+           <tr><td><code>{@link #SherlockMenuGroup_android_enabled com.app.example.bookmarksWallet:android_enabled}</code></td><td> Whether the items are enabled.</td></tr>
+           <tr><td><code>{@link #SherlockMenuGroup_android_id com.app.example.bookmarksWallet:android_id}</code></td><td> The ID of the group.</td></tr>
+           <tr><td><code>{@link #SherlockMenuGroup_android_menuCategory com.app.example.bookmarksWallet:android_menuCategory}</code></td><td> The category applied to all items within this group.</td></tr>
+           <tr><td><code>{@link #SherlockMenuGroup_android_orderInCategory com.app.example.bookmarksWallet:android_orderInCategory}</code></td><td> The order within the category applied to all items within this group.</td></tr>
+           <tr><td><code>{@link #SherlockMenuGroup_android_visible com.app.example.bookmarksWallet:android_visible}</code></td><td> Whether the items are shown/visible.</td></tr>
            </table>
            @see #SherlockMenuGroup_android_checkableBehavior
            @see #SherlockMenuGroup_android_enabled
@@ -1981,7 +1992,7 @@ containing a value of this type.
           <p>
           @attr description
            Whether the items are capable of displaying a check mark. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_checkableBehavior}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_checkableBehavior}.
           @attr name android:android_checkableBehavior
         */
         public static final int SherlockMenuGroup_android_checkableBehavior = 5;
@@ -1989,7 +2000,7 @@ containing a value of this type.
           <p>
           @attr description
            Whether the items are enabled. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_enabled}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_enabled}.
           @attr name android:android_enabled
         */
         public static final int SherlockMenuGroup_android_enabled = 0;
@@ -1997,7 +2008,7 @@ containing a value of this type.
           <p>
           @attr description
            The ID of the group. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_id}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_id}.
           @attr name android:android_id
         */
         public static final int SherlockMenuGroup_android_id = 1;
@@ -2006,7 +2017,7 @@ containing a value of this type.
           @attr description
            The category applied to all items within this group.
              (This will be or'ed with the orderInCategory attribute.) 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_menuCategory}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_menuCategory}.
           @attr name android:android_menuCategory
         */
         public static final int SherlockMenuGroup_android_menuCategory = 3;
@@ -2015,7 +2026,7 @@ containing a value of this type.
           @attr description
            The order within the category applied to all items within this group.
              (This will be or'ed with the category attribute.) 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_orderInCategory}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_orderInCategory}.
           @attr name android:android_orderInCategory
         */
         public static final int SherlockMenuGroup_android_orderInCategory = 4;
@@ -2023,7 +2034,7 @@ containing a value of this type.
           <p>
           @attr description
            Whether the items are shown/visible. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_visible}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_visible}.
           @attr name android:android_visible
         */
         public static final int SherlockMenuGroup_android_visible = 2;
@@ -2033,26 +2044,26 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_actionLayout com.app.example.linksWallet:android_actionLayout}</code></td><td> An optional layout to be used as an action view.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_actionProviderClass com.app.example.linksWallet:android_actionProviderClass}</code></td><td> The name of an optional ActionProvider class to instantiate an action view
+           <tr><td><code>{@link #SherlockMenuItem_android_actionLayout com.app.example.bookmarksWallet:android_actionLayout}</code></td><td> An optional layout to be used as an action view.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_actionProviderClass com.app.example.bookmarksWallet:android_actionProviderClass}</code></td><td> The name of an optional ActionProvider class to instantiate an action view
              and perform operations such as default action for that menu item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_actionViewClass com.app.example.linksWallet:android_actionViewClass}</code></td><td> The name of an optional View class to instantiate and use as an
+           <tr><td><code>{@link #SherlockMenuItem_android_actionViewClass com.app.example.bookmarksWallet:android_actionViewClass}</code></td><td> The name of an optional View class to instantiate and use as an
              action view.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_alphabeticShortcut com.app.example.linksWallet:android_alphabeticShortcut}</code></td><td> The alphabetic shortcut key.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_checkable com.app.example.linksWallet:android_checkable}</code></td><td> Whether the item is capable of displaying a check mark.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_checked com.app.example.linksWallet:android_checked}</code></td><td> Whether the item is checked.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_enabled com.app.example.linksWallet:android_enabled}</code></td><td> Whether the item is enabled.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_icon com.app.example.linksWallet:android_icon}</code></td><td> The icon associated with this item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_id com.app.example.linksWallet:android_id}</code></td><td> The ID of the item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_menuCategory com.app.example.linksWallet:android_menuCategory}</code></td><td> The category applied to the item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_numericShortcut com.app.example.linksWallet:android_numericShortcut}</code></td><td> The numeric shortcut key.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_onClick com.app.example.linksWallet:android_onClick}</code></td><td> Name of a method on the Context used to inflate the menu that will be
+           <tr><td><code>{@link #SherlockMenuItem_android_alphabeticShortcut com.app.example.bookmarksWallet:android_alphabeticShortcut}</code></td><td> The alphabetic shortcut key.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_checkable com.app.example.bookmarksWallet:android_checkable}</code></td><td> Whether the item is capable of displaying a check mark.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_checked com.app.example.bookmarksWallet:android_checked}</code></td><td> Whether the item is checked.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_enabled com.app.example.bookmarksWallet:android_enabled}</code></td><td> Whether the item is enabled.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_icon com.app.example.bookmarksWallet:android_icon}</code></td><td> The icon associated with this item.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_id com.app.example.bookmarksWallet:android_id}</code></td><td> The ID of the item.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_menuCategory com.app.example.bookmarksWallet:android_menuCategory}</code></td><td> The category applied to the item.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_numericShortcut com.app.example.bookmarksWallet:android_numericShortcut}</code></td><td> The numeric shortcut key.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_onClick com.app.example.bookmarksWallet:android_onClick}</code></td><td> Name of a method on the Context used to inflate the menu that will be
              called when the item is clicked.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_orderInCategory com.app.example.linksWallet:android_orderInCategory}</code></td><td> The order within the category applied to the item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_showAsAction com.app.example.linksWallet:android_showAsAction}</code></td><td> How this item should display in the Action Bar, if present.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_title com.app.example.linksWallet:android_title}</code></td><td> The title associated with the item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_titleCondensed com.app.example.linksWallet:android_titleCondensed}</code></td><td> The condensed title associated with the item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_visible com.app.example.linksWallet:android_visible}</code></td><td> Whether the item is shown/visible.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_orderInCategory com.app.example.bookmarksWallet:android_orderInCategory}</code></td><td> The order within the category applied to the item.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_showAsAction com.app.example.bookmarksWallet:android_showAsAction}</code></td><td> How this item should display in the Action Bar, if present.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_title com.app.example.bookmarksWallet:android_title}</code></td><td> The title associated with the item.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_titleCondensed com.app.example.bookmarksWallet:android_titleCondensed}</code></td><td> The condensed title associated with the item.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_visible com.app.example.bookmarksWallet:android_visible}</code></td><td> Whether the item is shown/visible.</td></tr>
            </table>
            @see #SherlockMenuItem_android_actionLayout
            @see #SherlockMenuItem_android_actionProviderClass
@@ -2085,7 +2096,7 @@ containing a value of this type.
            An optional layout to be used as an action view.
              See {@link android.view.MenuItem#setActionView(android.view.View)}
              for more info. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_actionLayout}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_actionLayout}.
           @attr name android:android_actionLayout
         */
         public static final int SherlockMenuItem_android_actionLayout = 14;
@@ -2096,7 +2107,7 @@ containing a value of this type.
              and perform operations such as default action for that menu item.
              See {@link android.view.MenuItem#setActionProvider(android.view.ActionProvider)}
              for more info. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_actionProviderClass}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_actionProviderClass}.
           @attr name android:android_actionProviderClass
         */
         public static final int SherlockMenuItem_android_actionProviderClass = 16;
@@ -2106,7 +2117,7 @@ containing a value of this type.
            The name of an optional View class to instantiate and use as an
              action view. See {@link android.view.MenuItem#setActionView(android.view.View)}
              for more info. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_actionViewClass}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_actionViewClass}.
           @attr name android:android_actionViewClass
         */
         public static final int SherlockMenuItem_android_actionViewClass = 15;
@@ -2115,7 +2126,7 @@ containing a value of this type.
           @attr description
            The alphabetic shortcut key.  This is the shortcut when using a keyboard
              with alphabetic keys. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_alphabeticShortcut}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_alphabeticShortcut}.
           @attr name android:android_alphabeticShortcut
         */
         public static final int SherlockMenuItem_android_alphabeticShortcut = 9;
@@ -2123,7 +2134,7 @@ containing a value of this type.
           <p>
           @attr description
            Whether the item is capable of displaying a check mark. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_checkable}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_checkable}.
           @attr name android:android_checkable
         */
         public static final int SherlockMenuItem_android_checkable = 11;
@@ -2132,7 +2143,7 @@ containing a value of this type.
           @attr description
            Whether the item is checked.  Note that you must first have enabled checking with
              the checkable attribute or else the check mark will not appear. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_checked}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_checked}.
           @attr name android:android_checked
         */
         public static final int SherlockMenuItem_android_checked = 3;
@@ -2140,7 +2151,7 @@ containing a value of this type.
           <p>
           @attr description
            Whether the item is enabled. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_enabled}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_enabled}.
           @attr name android:android_enabled
         */
         public static final int SherlockMenuItem_android_enabled = 1;
@@ -2149,7 +2160,7 @@ containing a value of this type.
           @attr description
            The icon associated with this item.  This icon will not always be shown, so
              the title should be sufficient in describing this item. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_icon}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_icon}.
           @attr name android:android_icon
         */
         public static final int SherlockMenuItem_android_icon = 0;
@@ -2157,7 +2168,7 @@ containing a value of this type.
           <p>
           @attr description
            The ID of the item. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_id}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_id}.
           @attr name android:android_id
         */
         public static final int SherlockMenuItem_android_id = 2;
@@ -2166,7 +2177,7 @@ containing a value of this type.
           @attr description
            The category applied to the item.
              (This will be or'ed with the orderInCategory attribute.) 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_menuCategory}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_menuCategory}.
           @attr name android:android_menuCategory
         */
         public static final int SherlockMenuItem_android_menuCategory = 5;
@@ -2175,7 +2186,7 @@ containing a value of this type.
           @attr description
            The numeric shortcut key.  This is the shortcut when using a numeric (e.g., 12-key)
              keyboard. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_numericShortcut}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_numericShortcut}.
           @attr name android:android_numericShortcut
         */
         public static final int SherlockMenuItem_android_numericShortcut = 10;
@@ -2184,7 +2195,7 @@ containing a value of this type.
           @attr description
            Name of a method on the Context used to inflate the menu that will be
              called when the item is clicked. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_onClick}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_onClick}.
           @attr name android:android_onClick
         */
         public static final int SherlockMenuItem_android_onClick = 12;
@@ -2193,7 +2204,7 @@ containing a value of this type.
           @attr description
            The order within the category applied to the item.
              (This will be or'ed with the category attribute.) 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_orderInCategory}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_orderInCategory}.
           @attr name android:android_orderInCategory
         */
         public static final int SherlockMenuItem_android_orderInCategory = 6;
@@ -2201,7 +2212,7 @@ containing a value of this type.
           <p>
           @attr description
            How this item should display in the Action Bar, if present. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_showAsAction}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_showAsAction}.
           @attr name android:android_showAsAction
         */
         public static final int SherlockMenuItem_android_showAsAction = 13;
@@ -2209,7 +2220,7 @@ containing a value of this type.
           <p>
           @attr description
            The title associated with the item. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_title}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_title}.
           @attr name android:android_title
         */
         public static final int SherlockMenuItem_android_title = 7;
@@ -2218,7 +2229,7 @@ containing a value of this type.
           @attr description
            The condensed title associated with the item.  This is used in situations where the
              normal title may be too long to be displayed. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_titleCondensed}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_titleCondensed}.
           @attr name android:android_titleCondensed
         */
         public static final int SherlockMenuItem_android_titleCondensed = 8;
@@ -2226,7 +2237,7 @@ containing a value of this type.
           <p>
           @attr description
            Whether the item is shown/visible. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_visible}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_visible}.
           @attr name android:android_visible
         */
         public static final int SherlockMenuItem_android_visible = 4;
@@ -2236,14 +2247,14 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockMenuView_headerBackground com.app.example.linksWallet:headerBackground}</code></td><td> Default background for the menu header.</td></tr>
-           <tr><td><code>{@link #SherlockMenuView_horizontalDivider com.app.example.linksWallet:horizontalDivider}</code></td><td> Default horizontal divider between rows of menu items.</td></tr>
-           <tr><td><code>{@link #SherlockMenuView_itemBackground com.app.example.linksWallet:itemBackground}</code></td><td> Default background for each menu item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuView_itemIconDisabledAlpha com.app.example.linksWallet:itemIconDisabledAlpha}</code></td><td> Default disabled icon alpha for each menu item that shows an icon.</td></tr>
-           <tr><td><code>{@link #SherlockMenuView_itemTextAppearance com.app.example.linksWallet:itemTextAppearance}</code></td><td> Default appearance of menu item text.</td></tr>
-           <tr><td><code>{@link #SherlockMenuView_preserveIconSpacing com.app.example.linksWallet:preserveIconSpacing}</code></td><td> Whether space should be reserved in layout when an icon is missing.</td></tr>
-           <tr><td><code>{@link #SherlockMenuView_verticalDivider com.app.example.linksWallet:verticalDivider}</code></td><td> Default vertical divider between menu items.</td></tr>
-           <tr><td><code>{@link #SherlockMenuView_windowAnimationStyle com.app.example.linksWallet:windowAnimationStyle}</code></td><td> Default animations for the menu.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_headerBackground com.app.example.bookmarksWallet:headerBackground}</code></td><td> Default background for the menu header.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_horizontalDivider com.app.example.bookmarksWallet:horizontalDivider}</code></td><td> Default horizontal divider between rows of menu items.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_itemBackground com.app.example.bookmarksWallet:itemBackground}</code></td><td> Default background for each menu item.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_itemIconDisabledAlpha com.app.example.bookmarksWallet:itemIconDisabledAlpha}</code></td><td> Default disabled icon alpha for each menu item that shows an icon.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_itemTextAppearance com.app.example.bookmarksWallet:itemTextAppearance}</code></td><td> Default appearance of menu item text.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_preserveIconSpacing com.app.example.bookmarksWallet:preserveIconSpacing}</code></td><td> Whether space should be reserved in layout when an icon is missing.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_verticalDivider com.app.example.bookmarksWallet:verticalDivider}</code></td><td> Default vertical divider between menu items.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_windowAnimationStyle com.app.example.bookmarksWallet:windowAnimationStyle}</code></td><td> Default animations for the menu.</td></tr>
            </table>
            @see #SherlockMenuView_headerBackground
            @see #SherlockMenuView_horizontalDivider
@@ -2372,11 +2383,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockSearchView_android_imeOptions com.app.example.linksWallet:android_imeOptions}</code></td><td> The IME options to set on the query text field.</td></tr>
-           <tr><td><code>{@link #SherlockSearchView_android_inputType com.app.example.linksWallet:android_inputType}</code></td><td> The input type to set on the query text field.</td></tr>
-           <tr><td><code>{@link #SherlockSearchView_android_maxWidth com.app.example.linksWallet:android_maxWidth}</code></td><td> An optional maximum width of the SearchView.</td></tr>
-           <tr><td><code>{@link #SherlockSearchView_iconifiedByDefault com.app.example.linksWallet:iconifiedByDefault}</code></td><td> The default state of the SearchView.</td></tr>
-           <tr><td><code>{@link #SherlockSearchView_queryHint com.app.example.linksWallet:queryHint}</code></td><td> An optional query hint string to be displayed in the empty query field.</td></tr>
+           <tr><td><code>{@link #SherlockSearchView_android_imeOptions com.app.example.bookmarksWallet:android_imeOptions}</code></td><td> The IME options to set on the query text field.</td></tr>
+           <tr><td><code>{@link #SherlockSearchView_android_inputType com.app.example.bookmarksWallet:android_inputType}</code></td><td> The input type to set on the query text field.</td></tr>
+           <tr><td><code>{@link #SherlockSearchView_android_maxWidth com.app.example.bookmarksWallet:android_maxWidth}</code></td><td> An optional maximum width of the SearchView.</td></tr>
+           <tr><td><code>{@link #SherlockSearchView_iconifiedByDefault com.app.example.bookmarksWallet:iconifiedByDefault}</code></td><td> The default state of the SearchView.</td></tr>
+           <tr><td><code>{@link #SherlockSearchView_queryHint com.app.example.bookmarksWallet:queryHint}</code></td><td> An optional query hint string to be displayed in the empty query field.</td></tr>
            </table>
            @see #SherlockSearchView_android_imeOptions
            @see #SherlockSearchView_android_inputType
@@ -2392,7 +2403,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>
           @attr description
            The IME options to set on the query text field. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_imeOptions}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_imeOptions}.
           @attr name android:android_imeOptions
         */
         public static final int SherlockSearchView_android_imeOptions = 2;
@@ -2400,7 +2411,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>
           @attr description
            The input type to set on the query text field. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_inputType}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_inputType}.
           @attr name android:android_inputType
         */
         public static final int SherlockSearchView_android_inputType = 1;
@@ -2408,7 +2419,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>
           @attr description
            An optional maximum width of the SearchView. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_maxWidth}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_maxWidth}.
           @attr name android:android_maxWidth
         */
         public static final int SherlockSearchView_android_maxWidth = 0;
@@ -2451,17 +2462,17 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_dropDownHorizontalOffset com.app.example.linksWallet:android_dropDownHorizontalOffset}</code></td><td> Horizontal offset from the spinner widget for positioning the dropdown
+           <tr><td><code>{@link #SherlockSpinner_android_dropDownHorizontalOffset com.app.example.bookmarksWallet:android_dropDownHorizontalOffset}</code></td><td> Horizontal offset from the spinner widget for positioning the dropdown
              in spinnerMode="dropdown".</td></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_dropDownSelector com.app.example.linksWallet:android_dropDownSelector}</code></td><td> List selector to use for spinnerMode="dropdown" display.</td></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_dropDownVerticalOffset com.app.example.linksWallet:android_dropDownVerticalOffset}</code></td><td> Vertical offset from the spinner widget for positioning the dropdown in
+           <tr><td><code>{@link #SherlockSpinner_android_dropDownSelector com.app.example.bookmarksWallet:android_dropDownSelector}</code></td><td> List selector to use for spinnerMode="dropdown" display.</td></tr>
+           <tr><td><code>{@link #SherlockSpinner_android_dropDownVerticalOffset com.app.example.bookmarksWallet:android_dropDownVerticalOffset}</code></td><td> Vertical offset from the spinner widget for positioning the dropdown in
              spinnerMode="dropdown".</td></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_dropDownWidth com.app.example.linksWallet:android_dropDownWidth}</code></td><td> Width of the dropdown in spinnerMode="dropdown".</td></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_gravity com.app.example.linksWallet:android_gravity}</code></td><td> Gravity setting for positioning the currently selected item.</td></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_popupBackground com.app.example.linksWallet:android_popupBackground}</code></td><td> Background drawable to use for the dropdown in spinnerMode="dropdown".</td></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_popupPromptView com.app.example.linksWallet:android_popupPromptView}</code></td><td> Reference to a layout to use for displaying a prompt in the dropdown for
+           <tr><td><code>{@link #SherlockSpinner_android_dropDownWidth com.app.example.bookmarksWallet:android_dropDownWidth}</code></td><td> Width of the dropdown in spinnerMode="dropdown".</td></tr>
+           <tr><td><code>{@link #SherlockSpinner_android_gravity com.app.example.bookmarksWallet:android_gravity}</code></td><td> Gravity setting for positioning the currently selected item.</td></tr>
+           <tr><td><code>{@link #SherlockSpinner_android_popupBackground com.app.example.bookmarksWallet:android_popupBackground}</code></td><td> Background drawable to use for the dropdown in spinnerMode="dropdown".</td></tr>
+           <tr><td><code>{@link #SherlockSpinner_android_popupPromptView com.app.example.bookmarksWallet:android_popupPromptView}</code></td><td> Reference to a layout to use for displaying a prompt in the dropdown for
              spinnerMode="dropdown".</td></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_prompt com.app.example.linksWallet:android_prompt}</code></td><td> The prompt to display when the spinner's dialog is shown.</td></tr>
+           <tr><td><code>{@link #SherlockSpinner_android_prompt com.app.example.bookmarksWallet:android_prompt}</code></td><td> The prompt to display when the spinner's dialog is shown.</td></tr>
            </table>
            @see #SherlockSpinner_android_dropDownHorizontalOffset
            @see #SherlockSpinner_android_dropDownSelector
@@ -2481,7 +2492,7 @@ containing a value of this type.
           @attr description
            Horizontal offset from the spinner widget for positioning the dropdown
              in spinnerMode="dropdown". 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_dropDownHorizontalOffset}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_dropDownHorizontalOffset}.
           @attr name android:android_dropDownHorizontalOffset
         */
         public static final int SherlockSpinner_android_dropDownHorizontalOffset = 5;
@@ -2489,7 +2500,7 @@ containing a value of this type.
           <p>
           @attr description
            List selector to use for spinnerMode="dropdown" display. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_dropDownSelector}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_dropDownSelector}.
           @attr name android:android_dropDownSelector
         */
         public static final int SherlockSpinner_android_dropDownSelector = 1;
@@ -2498,7 +2509,7 @@ containing a value of this type.
           @attr description
            Vertical offset from the spinner widget for positioning the dropdown in
              spinnerMode="dropdown". 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_dropDownVerticalOffset}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_dropDownVerticalOffset}.
           @attr name android:android_dropDownVerticalOffset
         */
         public static final int SherlockSpinner_android_dropDownVerticalOffset = 6;
@@ -2506,7 +2517,7 @@ containing a value of this type.
           <p>
           @attr description
            Width of the dropdown in spinnerMode="dropdown". 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_dropDownWidth}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_dropDownWidth}.
           @attr name android:android_dropDownWidth
         */
         public static final int SherlockSpinner_android_dropDownWidth = 4;
@@ -2514,7 +2525,7 @@ containing a value of this type.
           <p>
           @attr description
            Gravity setting for positioning the currently selected item. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_gravity}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_gravity}.
           @attr name android:android_gravity
         */
         public static final int SherlockSpinner_android_gravity = 0;
@@ -2522,7 +2533,7 @@ containing a value of this type.
           <p>
           @attr description
            Background drawable to use for the dropdown in spinnerMode="dropdown". 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_popupBackground}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_popupBackground}.
           @attr name android:android_popupBackground
         */
         public static final int SherlockSpinner_android_popupBackground = 2;
@@ -2540,7 +2551,7 @@ containing a value of this type.
           <p>
           @attr description
            The prompt to display when the spinner's dialog is shown. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.linksWallet.R.attr#android_prompt}.
+          <p>This corresponds to the global attribute          resource symbol {@link com.app.example.bookmarksWallet.R.attr#android_prompt}.
           @attr name android:android_prompt
         */
         public static final int SherlockSpinner_android_prompt = 3;
@@ -2550,77 +2561,77 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarDivider com.app.example.linksWallet:actionBarDivider}</code></td><td> Custom divider drawable to use for elements in the action bar.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarItemBackground com.app.example.linksWallet:actionBarItemBackground}</code></td><td> Custom item state list drawable background for action bar items.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarSize com.app.example.linksWallet:actionBarSize}</code></td><td> Size of the Action Bar, including the contextual
+           <tr><td><code>{@link #SherlockTheme_actionBarDivider com.app.example.bookmarksWallet:actionBarDivider}</code></td><td> Custom divider drawable to use for elements in the action bar.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionBarItemBackground com.app.example.bookmarksWallet:actionBarItemBackground}</code></td><td> Custom item state list drawable background for action bar items.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionBarSize com.app.example.bookmarksWallet:actionBarSize}</code></td><td> Size of the Action Bar, including the contextual
              bar used to present Action Modes.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarSplitStyle com.app.example.linksWallet:actionBarSplitStyle}</code></td><td> Reference to a style for the split Action Bar.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarStyle com.app.example.linksWallet:actionBarStyle}</code></td><td> Reference to a style for the Action Bar </td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarTabBarStyle com.app.example.linksWallet:actionBarTabBarStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarTabStyle com.app.example.linksWallet:actionBarTabStyle}</code></td><td> Default style for tabs within an action bar </td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarTabTextStyle com.app.example.linksWallet:actionBarTabTextStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarWidgetTheme com.app.example.linksWallet:actionBarWidgetTheme}</code></td><td> Reference to a theme that should be used to inflate widgets
+           <tr><td><code>{@link #SherlockTheme_actionBarSplitStyle com.app.example.bookmarksWallet:actionBarSplitStyle}</code></td><td> Reference to a style for the split Action Bar.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionBarStyle com.app.example.bookmarksWallet:actionBarStyle}</code></td><td> Reference to a style for the Action Bar </td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionBarTabBarStyle com.app.example.bookmarksWallet:actionBarTabBarStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionBarTabStyle com.app.example.bookmarksWallet:actionBarTabStyle}</code></td><td> Default style for tabs within an action bar </td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionBarTabTextStyle com.app.example.bookmarksWallet:actionBarTabTextStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionBarWidgetTheme com.app.example.bookmarksWallet:actionBarWidgetTheme}</code></td><td> Reference to a theme that should be used to inflate widgets
              and layouts destined for the action bar.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionButtonStyle com.app.example.linksWallet:actionButtonStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionDropDownStyle com.app.example.linksWallet:actionDropDownStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionMenuTextAppearance com.app.example.linksWallet:actionMenuTextAppearance}</code></td><td> TextAppearance style that will be applied to text that
+           <tr><td><code>{@link #SherlockTheme_actionButtonStyle com.app.example.bookmarksWallet:actionButtonStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionDropDownStyle com.app.example.bookmarksWallet:actionDropDownStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionMenuTextAppearance com.app.example.bookmarksWallet:actionMenuTextAppearance}</code></td><td> TextAppearance style that will be applied to text that
              appears within action menu items.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionMenuTextColor com.app.example.linksWallet:actionMenuTextColor}</code></td><td> Color for text that appears within action menu items.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionModeBackground com.app.example.linksWallet:actionModeBackground}</code></td><td> Background drawable to use for action mode UI </td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionModeCloseButtonStyle com.app.example.linksWallet:actionModeCloseButtonStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionModeCloseDrawable com.app.example.linksWallet:actionModeCloseDrawable}</code></td><td> Drawable to use for the close action mode button </td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionModePopupWindowStyle com.app.example.linksWallet:actionModePopupWindowStyle}</code></td><td> PopupWindow style to use for action modes when showing as a window overlay.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionModeShareDrawable com.app.example.linksWallet:actionModeShareDrawable}</code></td><td> Drawable to use for the Share action button in WebView selection action modes </td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionModeSplitBackground com.app.example.linksWallet:actionModeSplitBackground}</code></td><td> Background drawable to use for action mode UI in the lower split bar </td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionModeStyle com.app.example.linksWallet:actionModeStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionOverflowButtonStyle com.app.example.linksWallet:actionOverflowButtonStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionSpinnerItemStyle com.app.example.linksWallet:actionSpinnerItemStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_activatedBackgroundIndicator com.app.example.linksWallet:activatedBackgroundIndicator}</code></td><td> Drawable used as a background for activated items.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_activityChooserViewStyle com.app.example.linksWallet:activityChooserViewStyle}</code></td><td> Default ActivityChooserView style.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_android_windowIsFloating com.app.example.linksWallet:android_windowIsFloating}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_buttonStyleSmall com.app.example.linksWallet:buttonStyleSmall}</code></td><td> Small Button style.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_dividerVertical com.app.example.linksWallet:dividerVertical}</code></td><td> Drawable to use for generic vertical dividers.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_dropDownListViewStyle com.app.example.linksWallet:dropDownListViewStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_dropdownListPreferredItemHeight com.app.example.linksWallet:dropdownListPreferredItemHeight}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_homeAsUpIndicator com.app.example.linksWallet:homeAsUpIndicator}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_listPopupWindowStyle com.app.example.linksWallet:listPopupWindowStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_listPreferredItemHeightSmall com.app.example.linksWallet:listPreferredItemHeightSmall}</code></td><td> A smaller, sleeker list item height.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_listPreferredItemPaddingLeft com.app.example.linksWallet:listPreferredItemPaddingLeft}</code></td><td> The preferred padding along the left edge of list items.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_listPreferredItemPaddingRight com.app.example.linksWallet:listPreferredItemPaddingRight}</code></td><td> The preferred padding along the right edge of list items.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_popupMenuStyle com.app.example.linksWallet:popupMenuStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchAutoCompleteTextView com.app.example.linksWallet:searchAutoCompleteTextView}</code></td><td> SearchView AutoCompleteTextView style </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchDropdownBackground com.app.example.linksWallet:searchDropdownBackground}</code></td><td> SearchView dropdown background </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchResultListItemHeight com.app.example.linksWallet:searchResultListItemHeight}</code></td><td> The list item height for search results.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewCloseIcon com.app.example.linksWallet:searchViewCloseIcon}</code></td><td> SearchView close button icon </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewEditQuery com.app.example.linksWallet:searchViewEditQuery}</code></td><td> SearchView query refinement icon </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewEditQueryBackground com.app.example.linksWallet:searchViewEditQueryBackground}</code></td><td> SearchView query refinement icon background </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewGoIcon com.app.example.linksWallet:searchViewGoIcon}</code></td><td> SearchView Go button icon </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewSearchIcon com.app.example.linksWallet:searchViewSearchIcon}</code></td><td> SearchView Search icon </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewTextField com.app.example.linksWallet:searchViewTextField}</code></td><td> SearchView text field background for the left section </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewTextFieldRight com.app.example.linksWallet:searchViewTextFieldRight}</code></td><td> SearchView text field background for the right section </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewVoiceIcon com.app.example.linksWallet:searchViewVoiceIcon}</code></td><td> SearchView Voice button icon </td></tr>
-           <tr><td><code>{@link #SherlockTheme_selectableItemBackground com.app.example.linksWallet:selectableItemBackground}</code></td><td> Background drawable for standalone items that need focus/pressed states.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_spinnerDropDownItemStyle com.app.example.linksWallet:spinnerDropDownItemStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_spinnerItemStyle com.app.example.linksWallet:spinnerItemStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_textAppearanceLargePopupMenu com.app.example.linksWallet:textAppearanceLargePopupMenu}</code></td><td> Text color, typeface, size, and style for the text inside of a popup menu.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_textAppearanceListItemSmall com.app.example.linksWallet:textAppearanceListItemSmall}</code></td><td> The preferred TextAppearance for the primary text of small list items.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_textAppearanceSearchResultSubtitle com.app.example.linksWallet:textAppearanceSearchResultSubtitle}</code></td><td> Text color, typeface, size, and style for system search result subtitle.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_textAppearanceSearchResultTitle com.app.example.linksWallet:textAppearanceSearchResultTitle}</code></td><td> Text color, typeface, size, and style for system search result title.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_textAppearanceSmall com.app.example.linksWallet:textAppearanceSmall}</code></td><td> Text color, typeface, size, and style for "small" text.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_textAppearanceSmallPopupMenu com.app.example.linksWallet:textAppearanceSmallPopupMenu}</code></td><td> Text color, typeface, size, and style for small text inside of a popup menu.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_textColorPrimary com.app.example.linksWallet:textColorPrimary}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_textColorPrimaryDisableOnly com.app.example.linksWallet:textColorPrimaryDisableOnly}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_textColorPrimaryInverse com.app.example.linksWallet:textColorPrimaryInverse}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_textColorSearchUrl com.app.example.linksWallet:textColorSearchUrl}</code></td><td> Text color for urls in search suggestions, used by things like global search and the browser.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowActionBar com.app.example.linksWallet:windowActionBar}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowActionBarOverlay com.app.example.linksWallet:windowActionBarOverlay}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowActionModeOverlay com.app.example.linksWallet:windowActionModeOverlay}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowContentOverlay com.app.example.linksWallet:windowContentOverlay}</code></td><td> This Drawable is overlaid over the foreground of the Window's content area, usually
+           <tr><td><code>{@link #SherlockTheme_actionMenuTextColor com.app.example.bookmarksWallet:actionMenuTextColor}</code></td><td> Color for text that appears within action menu items.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionModeBackground com.app.example.bookmarksWallet:actionModeBackground}</code></td><td> Background drawable to use for action mode UI </td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionModeCloseButtonStyle com.app.example.bookmarksWallet:actionModeCloseButtonStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionModeCloseDrawable com.app.example.bookmarksWallet:actionModeCloseDrawable}</code></td><td> Drawable to use for the close action mode button </td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionModePopupWindowStyle com.app.example.bookmarksWallet:actionModePopupWindowStyle}</code></td><td> PopupWindow style to use for action modes when showing as a window overlay.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionModeShareDrawable com.app.example.bookmarksWallet:actionModeShareDrawable}</code></td><td> Drawable to use for the Share action button in WebView selection action modes </td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionModeSplitBackground com.app.example.bookmarksWallet:actionModeSplitBackground}</code></td><td> Background drawable to use for action mode UI in the lower split bar </td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionModeStyle com.app.example.bookmarksWallet:actionModeStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionOverflowButtonStyle com.app.example.bookmarksWallet:actionOverflowButtonStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionSpinnerItemStyle com.app.example.bookmarksWallet:actionSpinnerItemStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_activatedBackgroundIndicator com.app.example.bookmarksWallet:activatedBackgroundIndicator}</code></td><td> Drawable used as a background for activated items.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_activityChooserViewStyle com.app.example.bookmarksWallet:activityChooserViewStyle}</code></td><td> Default ActivityChooserView style.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_android_windowIsFloating com.app.example.bookmarksWallet:android_windowIsFloating}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_buttonStyleSmall com.app.example.bookmarksWallet:buttonStyleSmall}</code></td><td> Small Button style.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_dividerVertical com.app.example.bookmarksWallet:dividerVertical}</code></td><td> Drawable to use for generic vertical dividers.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_dropDownListViewStyle com.app.example.bookmarksWallet:dropDownListViewStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_dropdownListPreferredItemHeight com.app.example.bookmarksWallet:dropdownListPreferredItemHeight}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_homeAsUpIndicator com.app.example.bookmarksWallet:homeAsUpIndicator}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_listPopupWindowStyle com.app.example.bookmarksWallet:listPopupWindowStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_listPreferredItemHeightSmall com.app.example.bookmarksWallet:listPreferredItemHeightSmall}</code></td><td> A smaller, sleeker list item height.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_listPreferredItemPaddingLeft com.app.example.bookmarksWallet:listPreferredItemPaddingLeft}</code></td><td> The preferred padding along the left edge of list items.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_listPreferredItemPaddingRight com.app.example.bookmarksWallet:listPreferredItemPaddingRight}</code></td><td> The preferred padding along the right edge of list items.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_popupMenuStyle com.app.example.bookmarksWallet:popupMenuStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchAutoCompleteTextView com.app.example.bookmarksWallet:searchAutoCompleteTextView}</code></td><td> SearchView AutoCompleteTextView style </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchDropdownBackground com.app.example.bookmarksWallet:searchDropdownBackground}</code></td><td> SearchView dropdown background </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchResultListItemHeight com.app.example.bookmarksWallet:searchResultListItemHeight}</code></td><td> The list item height for search results.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewCloseIcon com.app.example.bookmarksWallet:searchViewCloseIcon}</code></td><td> SearchView close button icon </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewEditQuery com.app.example.bookmarksWallet:searchViewEditQuery}</code></td><td> SearchView query refinement icon </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewEditQueryBackground com.app.example.bookmarksWallet:searchViewEditQueryBackground}</code></td><td> SearchView query refinement icon background </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewGoIcon com.app.example.bookmarksWallet:searchViewGoIcon}</code></td><td> SearchView Go button icon </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewSearchIcon com.app.example.bookmarksWallet:searchViewSearchIcon}</code></td><td> SearchView Search icon </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewTextField com.app.example.bookmarksWallet:searchViewTextField}</code></td><td> SearchView text field background for the left section </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewTextFieldRight com.app.example.bookmarksWallet:searchViewTextFieldRight}</code></td><td> SearchView text field background for the right section </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewVoiceIcon com.app.example.bookmarksWallet:searchViewVoiceIcon}</code></td><td> SearchView Voice button icon </td></tr>
+           <tr><td><code>{@link #SherlockTheme_selectableItemBackground com.app.example.bookmarksWallet:selectableItemBackground}</code></td><td> Background drawable for standalone items that need focus/pressed states.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_spinnerDropDownItemStyle com.app.example.bookmarksWallet:spinnerDropDownItemStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_spinnerItemStyle com.app.example.bookmarksWallet:spinnerItemStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_textAppearanceLargePopupMenu com.app.example.bookmarksWallet:textAppearanceLargePopupMenu}</code></td><td> Text color, typeface, size, and style for the text inside of a popup menu.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_textAppearanceListItemSmall com.app.example.bookmarksWallet:textAppearanceListItemSmall}</code></td><td> The preferred TextAppearance for the primary text of small list items.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_textAppearanceSearchResultSubtitle com.app.example.bookmarksWallet:textAppearanceSearchResultSubtitle}</code></td><td> Text color, typeface, size, and style for system search result subtitle.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_textAppearanceSearchResultTitle com.app.example.bookmarksWallet:textAppearanceSearchResultTitle}</code></td><td> Text color, typeface, size, and style for system search result title.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_textAppearanceSmall com.app.example.bookmarksWallet:textAppearanceSmall}</code></td><td> Text color, typeface, size, and style for "small" text.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_textAppearanceSmallPopupMenu com.app.example.bookmarksWallet:textAppearanceSmallPopupMenu}</code></td><td> Text color, typeface, size, and style for small text inside of a popup menu.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_textColorPrimary com.app.example.bookmarksWallet:textColorPrimary}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_textColorPrimaryDisableOnly com.app.example.bookmarksWallet:textColorPrimaryDisableOnly}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_textColorPrimaryInverse com.app.example.bookmarksWallet:textColorPrimaryInverse}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_textColorSearchUrl com.app.example.bookmarksWallet:textColorSearchUrl}</code></td><td> Text color for urls in search suggestions, used by things like global search and the browser.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowActionBar com.app.example.bookmarksWallet:windowActionBar}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowActionBarOverlay com.app.example.bookmarksWallet:windowActionBarOverlay}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowActionModeOverlay com.app.example.bookmarksWallet:windowActionModeOverlay}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowContentOverlay com.app.example.bookmarksWallet:windowContentOverlay}</code></td><td> This Drawable is overlaid over the foreground of the Window's content area, usually
              to place a shadow below the title.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowMinWidthMajor com.app.example.linksWallet:windowMinWidthMajor}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowMinWidthMinor com.app.example.linksWallet:windowMinWidthMinor}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowNoTitle com.app.example.linksWallet:windowNoTitle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowSplitActionBar com.app.example.linksWallet:windowSplitActionBar}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowMinWidthMajor com.app.example.bookmarksWallet:windowMinWidthMajor}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowMinWidthMinor com.app.example.bookmarksWallet:windowMinWidthMinor}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowNoTitle com.app.example.bookmarksWallet:windowNoTitle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowSplitActionBar com.app.example.bookmarksWallet:windowSplitActionBar}</code></td><td></td></tr>
            </table>
            @see #SherlockTheme_actionBarDivider
            @see #SherlockTheme_actionBarItemBackground
@@ -2788,7 +2799,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionBarStyle = 5;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#actionBarTabBarStyle}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#actionBarTabBarStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -2810,7 +2821,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionBarTabStyle = 1;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#actionBarTabTextStyle}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#actionBarTabTextStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -2838,7 +2849,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionBarWidgetTheme = 7;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#actionButtonStyle}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#actionButtonStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -2848,7 +2859,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionButtonStyle = 53;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#actionDropDownStyle}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#actionDropDownStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -2897,7 +2908,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionModeBackground = 15;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#actionModeCloseButtonStyle}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#actionModeCloseButtonStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -2955,7 +2966,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionModeSplitBackground = 16;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#actionModeStyle}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#actionModeStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -2965,7 +2976,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionModeStyle = 13;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#actionOverflowButtonStyle}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#actionOverflowButtonStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -2975,7 +2986,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionOverflowButtonStyle = 4;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#actionSpinnerItemStyle}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#actionSpinnerItemStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3009,7 +3020,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_activityChooserViewStyle = 65;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#android_windowIsFloating}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#android_windowIsFloating}
           attribute's value can be found in the {@link #SherlockTheme} array.
           @attr name android:android_windowIsFloating
         */
@@ -3039,7 +3050,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_dividerVertical = 51;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#dropDownListViewStyle}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#dropDownListViewStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3049,7 +3060,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_dropDownListViewStyle = 55;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#dropdownListPreferredItemHeight}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#dropdownListPreferredItemHeight}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3065,7 +3076,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_dropdownListPreferredItemHeight = 57;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#homeAsUpIndicator}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#homeAsUpIndicator}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3075,7 +3086,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_homeAsUpIndicator = 54;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#listPopupWindowStyle}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#listPopupWindowStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3139,7 +3150,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_listPreferredItemPaddingRight = 47;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#popupMenuStyle}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#popupMenuStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3299,7 +3310,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_selectableItemBackground = 21;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#spinnerDropDownItemStyle}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#spinnerDropDownItemStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3309,7 +3320,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_spinnerDropDownItemStyle = 30;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#spinnerItemStyle}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#spinnerItemStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3391,7 +3402,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_textAppearanceSmallPopupMenu = 24;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#textColorPrimary}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#textColorPrimary}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3406,7 +3417,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_textColorPrimary = 26;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#textColorPrimaryDisableOnly}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#textColorPrimaryDisableOnly}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3421,7 +3432,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_textColorPrimaryDisableOnly = 27;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#textColorPrimaryInverse}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#textColorPrimaryInverse}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3450,7 +3461,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_textColorSearchUrl = 41;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#windowActionBar}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#windowActionBar}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3464,7 +3475,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_windowActionBar = 60;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#windowActionBarOverlay}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#windowActionBarOverlay}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3478,7 +3489,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_windowActionBarOverlay = 61;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#windowActionModeOverlay}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#windowActionModeOverlay}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3505,7 +3516,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_windowContentOverlay = 22;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#windowMinWidthMajor}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#windowMinWidthMajor}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3521,7 +3532,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_windowMinWidthMajor = 49;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#windowMinWidthMinor}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#windowMinWidthMinor}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3537,7 +3548,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_windowMinWidthMinor = 50;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#windowNoTitle}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#windowNoTitle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3551,7 +3562,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_windowNoTitle = 59;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#windowSplitActionBar}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#windowSplitActionBar}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3570,7 +3581,7 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockView_android_focusable com.app.example.linksWallet:android_focusable}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockView_android_focusable com.app.example.bookmarksWallet:android_focusable}</code></td><td></td></tr>
            </table>
            @see #SherlockView_android_focusable
          */
@@ -3578,7 +3589,7 @@ containing a value of this type.
             0x010100da
         };
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#android_focusable}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#android_focusable}
           attribute's value can be found in the {@link #SherlockView} array.
           @attr name android:android_focusable
         */
@@ -3589,20 +3600,20 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SlidingMenu_behindOffset com.app.example.linksWallet:behindOffset}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_behindScrollScale com.app.example.linksWallet:behindScrollScale}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_behindWidth com.app.example.linksWallet:behindWidth}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_fadeDegree com.app.example.linksWallet:fadeDegree}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_fadeEnabled com.app.example.linksWallet:fadeEnabled}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_mode com.app.example.linksWallet:mode}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_selectorDrawable com.app.example.linksWallet:selectorDrawable}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_selectorEnabled com.app.example.linksWallet:selectorEnabled}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_shadowDrawable com.app.example.linksWallet:shadowDrawable}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_shadowWidth com.app.example.linksWallet:shadowWidth}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_touchModeAbove com.app.example.linksWallet:touchModeAbove}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_touchModeBehind com.app.example.linksWallet:touchModeBehind}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_viewAbove com.app.example.linksWallet:viewAbove}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_viewBehind com.app.example.linksWallet:viewBehind}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_behindOffset com.app.example.bookmarksWallet:behindOffset}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_behindScrollScale com.app.example.bookmarksWallet:behindScrollScale}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_behindWidth com.app.example.bookmarksWallet:behindWidth}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_fadeDegree com.app.example.bookmarksWallet:fadeDegree}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_fadeEnabled com.app.example.bookmarksWallet:fadeEnabled}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_mode com.app.example.bookmarksWallet:mode}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_selectorDrawable com.app.example.bookmarksWallet:selectorDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_selectorEnabled com.app.example.bookmarksWallet:selectorEnabled}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_shadowDrawable com.app.example.bookmarksWallet:shadowDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_shadowWidth com.app.example.bookmarksWallet:shadowWidth}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_touchModeAbove com.app.example.bookmarksWallet:touchModeAbove}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_touchModeBehind com.app.example.bookmarksWallet:touchModeBehind}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_viewAbove com.app.example.bookmarksWallet:viewAbove}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_viewBehind com.app.example.bookmarksWallet:viewBehind}</code></td><td></td></tr>
            </table>
            @see #SlidingMenu_behindOffset
            @see #SlidingMenu_behindScrollScale
@@ -3626,7 +3637,7 @@ containing a value of this type.
             0x7f01000c, 0x7f01000d
         };
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#behindOffset}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#behindOffset}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -3642,7 +3653,7 @@ containing a value of this type.
         */
         public static final int SlidingMenu_behindOffset = 3;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#behindScrollScale}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#behindScrollScale}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -3656,7 +3667,7 @@ containing a value of this type.
         */
         public static final int SlidingMenu_behindScrollScale = 5;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#behindWidth}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#behindWidth}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -3672,7 +3683,7 @@ containing a value of this type.
         */
         public static final int SlidingMenu_behindWidth = 4;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#fadeDegree}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#fadeDegree}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -3686,7 +3697,7 @@ containing a value of this type.
         */
         public static final int SlidingMenu_fadeDegree = 11;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#fadeEnabled}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#fadeEnabled}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -3700,7 +3711,7 @@ containing a value of this type.
         */
         public static final int SlidingMenu_fadeEnabled = 10;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#mode}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#mode}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -3717,7 +3728,7 @@ containing a value of this type.
         */
         public static final int SlidingMenu_mode = 0;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#selectorDrawable}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#selectorDrawable}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -3727,7 +3738,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SlidingMenu_selectorDrawable = 13;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#selectorEnabled}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#selectorEnabled}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -3741,7 +3752,7 @@ containing a value of this type.
         */
         public static final int SlidingMenu_selectorEnabled = 12;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#shadowDrawable}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#shadowDrawable}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -3751,7 +3762,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SlidingMenu_shadowDrawable = 8;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#shadowWidth}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#shadowWidth}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -3767,7 +3778,7 @@ containing a value of this type.
         */
         public static final int SlidingMenu_shadowWidth = 9;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#touchModeAbove}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#touchModeAbove}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -3784,7 +3795,7 @@ containing a value of this type.
         */
         public static final int SlidingMenu_touchModeAbove = 6;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#touchModeBehind}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#touchModeBehind}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -3801,7 +3812,7 @@ containing a value of this type.
         */
         public static final int SlidingMenu_touchModeBehind = 7;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#viewAbove}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#viewAbove}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -3811,7 +3822,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SlidingMenu_viewAbove = 1;
         /**
-          <p>This symbol is the offset where the {@link com.app.example.linksWallet.R.attr#viewBehind}
+          <p>This symbol is the offset where the {@link com.app.example.bookmarksWallet.R.attr#viewBehind}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 

@@ -1,4 +1,4 @@
-package com.app.example.linksWallet.fragments;
+package com.app.example.bookmarksWallet.fragments;
 
 import android.support.v4.app.Fragment;
 
