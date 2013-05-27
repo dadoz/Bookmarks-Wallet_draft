@@ -1,6 +1,5 @@
 package com.app.example.bookmarksWallet.fragments;
 
-
 import com.app.example.bookmarksWallet.FragmentChangeActivity;
 import com.app.example.bookmarksWallet.R;
 import com.app.example.common.lib.SharedData;
@@ -19,18 +18,9 @@ import android.widget.Toast;
 
 
 public class LoginFragment extends Fragment {
-	//shared preferences variable
     public static final String PREFS_NAME = "UserCredentialFile";
 
-	//they MUST BE EQUALS TO THE ONES IN THE PHP file !!!!
-	private static final int USERS_DB = 98;
-//	private static final int LINKS_DB = 99;
-//
-//	private static final String EMPTY_USERNAME="";
-//	private static final String EMPTY_PASSWORD="";
-//	private static final int EMPTY_USERID=-1;
-
-	@Override
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.login_layout, null);
 	}
@@ -89,15 +79,12 @@ public class LoginFragment extends Fragment {
     	});
     }
 	
-
 	/**
-	 *     
 	 * check credential of user - check if user could be logged in or not    
 	 * @param username
 	 * @param password
 	 */
-    public boolean checkUserLoggedIn(String username,String password)
-    {
+    public boolean checkUserLoggedIn(String username,String password){
     	//check credential typed in
     	boolean userLoggedIn=false;
 
@@ -105,7 +92,7 @@ public class LoginFragment extends Fragment {
         	//check user password and username to log him in 
         	try{
         		//fetch data
-        		String result=DatabaseCommon.fetchDataFromDb(USERS_DB);
+        		String result=DatabaseCommon.fetchDataFromDb(SharedData.USERS_DB);
         		//get if usser is logged in - check
         		boolean checkDataParsered=DatabaseCommon.usersParserJSONData(username, password, result);
         		if(checkDataParsered)
@@ -120,14 +107,12 @@ public class LoginFragment extends Fragment {
             }
            	toastMessageWrapper("Invalid username or password - plez reinsert");  
         }
-        
         toastMessageWrapper("Username and pswd empty");
         return false;
     }
     
     //toast message wrapper
-	private void toastMessageWrapper(String message) 
-	{
+	private void toastMessageWrapper(String message){
 		Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
 	}
     

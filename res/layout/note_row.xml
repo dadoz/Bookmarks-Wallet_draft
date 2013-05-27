@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+	<LinearLayout
+	    android:id="@+id/note_description_layout_id"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:minHeight="60dip"
+	    android:orientation="horizontal" 
+	    android:background="@drawable/layout_bottom_border"
+	    android:layout_marginBottom="10dip">
+	   	<LinearLayout
+		    android:id="@+id/link_action_layout_id" 
+		    android:layout_width="wrap_content"
+		    android:layout_height="fill_parent"
+		    android:layout_weight="1" 
+		    android:orientation="horizontal" >
+	    
+		    <ImageView
+		        android:id="@+id/link_icon_id"
+				android:contentDescription="link_icon_id"
+		        android:layout_width="20dp"
+		        android:layout_height="20dp"
+		        android:layout_margin="20dp"
+		        android:src="@drawable/comment_link" />
+		
+		    <TextView
+		        android:id="@+id/link_title_id"
+		        android:layout_width="0dp"
+		        android:layout_height="fill_parent"
+		        android:gravity="center_vertical"
+		        android:layout_weight="1"
+		        android:padding="10dp"
+		        android:text="Medium Text"
+		        android:textColor="@color/stoneBlack"
+		        android:textAppearance="@android:style/TextAppearance.Medium" />
+		</LinearLayout>    
+		<LinearLayout 
+		    android:id="@+id/link_preview_layout_id" 
+		    android:layout_width="60dip"
+		    android:layout_height="fill_parent"
+		    android:orientation="horizontal"
+		    android:layout_marginBottom="5dip"
+		    android:layout_marginTop="5dip"
+		    android:layout_marginRight="1dip"
+		    android:background="@drawable/button_border">
+		    <ImageView
+		        android:id="@+id/preview_icon_id"
+				android:contentDescription="preview_icon_id"
+		        android:layout_width="25dp"
+		        android:layout_height="25dp"
+		        android:layout_margin="15dp"
+		        android:src="@drawable/preview_icon" />
+		</LinearLayout>	    
+	</LinearLayout>
+	<LinearLayout 
+	    android:id="@+id/note_preview_layout_id"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:minHeight="60dip"
+	    android:orientation="horizontal" 
+	    android:background="@drawable/layout_grey_bottom_border"
+	    android:layout_marginBottom="10dip">
+		
+	    <TextView
+	        android:id="@+id/note_preview_text_id"
+	        android:layout_width="0dp"
+	        android:layout_height="fill_parent"
+	        android:gravity="center_vertical"
+	        android:layout_weight="1"
+	        android:padding="10dp"
+	        android:text="Medium Text"
+	        android:textColor="@color/stoneBlack"/>
+	</LinearLayout>
+</LinearLayout>

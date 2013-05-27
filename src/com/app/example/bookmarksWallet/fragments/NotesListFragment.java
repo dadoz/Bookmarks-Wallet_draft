@@ -14,13 +14,16 @@ import com.app.example.bookmarksWallet.models.Note;
 import com.app.example.common.lib.SharedData;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +46,7 @@ public class NotesListFragment extends SherlockFragment{
     	ArrayList<String> notesTitleArray = null;
     	
     	/**get all view I need**/
-    	final LinearLayout notesListView = (LinearLayout)getActivity().findViewById(R.id.notesListId);
+    	final ListView notesListView = (ListView)getActivity().findViewById(R.id.notesListId);
 
     	//STATIC data
     	notesTitleArray=new ArrayList<String>();
@@ -54,71 +57,20 @@ public class NotesListFragment extends SherlockFragment{
 		String noteContentList="bla bla bla - this is the content";
     	
     	ArrayList<Note> notesDataList=new ArrayList<Note>();
-    	for(int i=0;i<notesTitleArray.size();i++){
-    		Note noteObj = new Note(i,android.R.drawable.ic_menu_agenda, notesTitleArray.get(i), noteContentList);
-    		notesDataList.add(noteObj);
-        	final boolean notePreviewIsVisible=noteObj.isNotePreviewVisible();
-        	final int noteId=noteObj.getNoteId();
-			
-    		View view =getActivity().getLayoutInflater().inflate(R.layout.link_row,null);
-    		notesListView.addView(view);
-    		
-    		ImageView noteIcon = (ImageView)view.findViewById(R.id.link_icon_id);
-    		noteIcon.getResources().getDrawable(noteObj.getNoteIconPath());
-        	TextView noteTitle = (TextView)view.findViewById(R.id.link_title_id);
-        	noteTitle.setText(noteObj.getNoteName());
+    	for(int i=0;i<notesTitleArray.size();i++)
+    		notesDataList.add(new Note(i,android.R.drawable.ic_menu_agenda, notesTitleArray.get(i), noteContentList));
 
-    		View view2 =getActivity().getLayoutInflater().inflate(R.layout.note_preview_row,null);
-    		notesListView.addView(view2);
-
-        	TextView noteContent = (TextView)view2.findViewById(R.id.note_preview_text_id);
-        	noteContent.setText(noteObj.getNoteContent());
-        	if(!notePreviewIsVisible)
-        		view2.setVisibility(View.INVISIBLE);
-
-        	//attach event to actionLayout and preview layout
-			view.findViewById(R.id.link_action_layout_id).setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					toastMessageWrapper("get links action bottom menu");						
-					Activity activity = getActivity();
-					if(activity instanceof FragmentChangeActivity) {
-					    ((FragmentChangeActivity) activity).getLinkActionBar();
-					}
-				}
-			});
-        	//attach event to actionLayout and preview layout
-			view.findViewById(R.id.link_preview_layout_id).setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					toastMessageWrapper("get links preview");
-					toggleNotePreview(noteId,notePreviewIsVisible);
-				}
-			});
-    	}
+    	ArrayAdapter<Note> adapter=new CustomAdapter(getActivity());
+		adapter.addAll(notesDataList);
+		notesListView.setAdapter(adapter);
+		//TEST
     	for (Note note:notesDataList)
-    		Log.d(TAG, note.getNoteName());
+    		Log.d(TAG, note.getNoteName()+note.getNoteId());
     	//set noteList to sharedData fx
-    	SharedData.setNotesListStatic(notesDataList);
-    }
- 
-    
-    public void toggleNotePreview(int noteId,boolean notePrevIsVisible){
-    	//if true show notePreview else hide it
-    	LinearLayout notePreviewLayout = (LinearLayout)getActivity().findViewById(R.id.note_preview_layout_id);
-    	Note noteObj=SharedData.getNoteStaticById(noteId);
-    	if(noteObj!=null){
-	    	if(!notePrevIsVisible){
-	    		noteObj.setNotePreviewVisible(true);
-	    		notePreviewLayout.setVisibility(View.INVISIBLE);
-	    	}else{
-	    		noteObj.setNotePreviewVisible(false);
-		    	notePreviewLayout.setVisibility(View.VISIBLE);
-	    	}
-    	}	
-	    
+    	SharedData.setNotesList(notesDataList);
     }
     
+
     
     //  toast message wrapper
 	private void toastMessageWrapper(String message){
@@ -162,4 +114,73 @@ public class NotesListFragment extends SherlockFragment{
     	}
     	return true;
     }
+    
+	public class CustomAdapter extends ArrayAdapter<Note> {
+		
+		public CustomAdapter(Context context) {
+			super(context, 0);
+		}
+
+		public View getView(int position, View convertView, ViewGroup parent) {
+			if (convertView == null) {
+				convertView = LayoutInflater.from(getContext()).inflate(R.layout.note_row, null);
+				convertView.setTag(getItem(position).getNoteId());
+			}
+    		ImageView noteIcon = (ImageView)convertView.findViewById(R.id.link_icon_id);
+    		noteIcon.getResources().getDrawable(getItem(position).getNoteIconPath());
+        	TextView noteTitle = (TextView)convertView.findViewById(R.id.link_title_id);
+        	noteTitle.setText(getItem(position).getNoteName());
+
+        	TextView noteContent = (TextView)convertView.findViewById(R.id.note_preview_text_id);
+        	noteContent.setText(getItem(position).getNoteContent());
+        	if(!getItem(position).isNotePreviewVisible())
+        		convertView.findViewById(R.id.note_preview_layout_id).setVisibility(View.INVISIBLE);
+
+        	
+//        	Log.d(getTag()," -- " + getItem(position).getNoteName());
+        	final int staticNoteId = getItem(position).getNoteId();
+        	//attach event to actionLayout and preview layout
+        	convertView.findViewById(R.id.link_action_layout_id).setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					toastMessageWrapper("get links action bottom menu");						
+					Activity activity = getActivity();
+					if(activity instanceof FragmentChangeActivity) {
+					    ((FragmentChangeActivity) activity).getLinkActionBar();
+					}
+				}
+			});
+        	//attach event to actionLayout and preview layout
+        	convertView.findViewById(R.id.link_preview_layout_id).setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+//					Log.d(getTag(),"... "+v);
+					toggleNotePreview(staticNoteId,v);
+				}
+			});
+			return convertView;
+		}
+
+	}
+
+    public void toggleNotePreview(int noteId,View v){
+    	//if true show notePreview else hide it
+		Log.d(TAG, "toggle fx... "+noteId);
+    	LinearLayout notePreviewLayout = (LinearLayout)getActivity().findViewById(R.id.note_preview_layout_id).findViewWithTag(noteId);
+    	Note noteObj=SharedData.getNoteById(noteId);
+    	if(noteObj!=null){
+	    	if(!SharedData.getNoteById(noteId).isNotePreviewVisible()){
+	    		Log.d(getTag(), "visible"+noteId);
+	    		noteObj.setNotePreviewVisible(true);
+	    		notePreviewLayout.setVisibility(View.VISIBLE);
+	    	}else{
+	    		Log.d(getTag(), "invisible"+noteId);
+	    		noteObj.setNotePreviewVisible(false);
+		    	notePreviewLayout.setVisibility(View.INVISIBLE);
+	    	}
+    	}	
+	    
+    }
+    
+    
 }

@@ -101,7 +101,7 @@ public class DatabaseCommon {
 	      	return false;
 	    }
    }
-   public static ArrayList<Link> linksParserJSONData(String result){
+   public static ArrayList<Link> getLinksListFromJSONData(String result){
 	   ArrayList<String> linksUrlArray=new ArrayList<String>();
 	   ArrayList<Link> linksObjList=new ArrayList<Link>();
 

@@ -36,18 +36,18 @@ public class SharedData {
 	public static String DBUrl="http://kubiz.altervista.org/sharedLinksApp/fetchDataFromDbJSON.php";
 
 	/**NOTES*/
-	public static void setNotesListStatic(ArrayList<Note> notesListTmp){
+	public static void setNotesList(ArrayList<Note> notesListTmp){
 		if(notesListStatic==null){
 			notesListStatic=new ArrayList<Note>();
 			notesListStatic.addAll(notesListTmp);
 		}
 	}
 
-	public static ArrayList<Note> getNotesListStatic(){
+	public static ArrayList<Note> getNotesList(){
 		return notesListStatic;
 	}
 	
-	public static Note getNoteStaticById(int noteId){
+	public static Note getNoteById(int noteId){
 		if(notesListStatic!=null)
 			for(Note note:notesListStatic)
 				if(note.getNoteId()==noteId)
@@ -57,7 +57,7 @@ public class SharedData {
 
 
 	/**LINKS*/
-	public static void setLinksListStatic(ArrayList<Link> linksListTmp){
+	public static void setLinksList(ArrayList<Link> linksListTmp){
 		if(linksListStatic==null){
 			linksListStatic=new ArrayList<Link>();
 			linksListStatic.addAll(linksListTmp);
@@ -68,7 +68,7 @@ public class SharedData {
 		return linksListStatic;
 	}
 	
-	public static Link getLinkStaticById(int noteId){
+	public static Link getLinkById(int noteId){
 		if(linksListStatic!=null)
 			for(Link link:linksListStatic)
 				if(link.getLinkId()==noteId)
@@ -90,7 +90,7 @@ public class SharedData {
 		return null;
 	}
 
-	
+
 	/**USER*/
     public static void setUser(int userIdDb,String usernameDb,String passwordDb){
     	boolean userLoggedIn=true;
@@ -129,9 +129,6 @@ public class SharedData {
 	public static boolean setUserLogout(){
 		if(userObj!=null)
 			if(userObj.isUserLoggedIn()){
-				//delete the object
-	//			userObj=null;
-				//set loggedin status to false
 				userObj.setUserLoggedIn(false);
 				return true;
 			}else{

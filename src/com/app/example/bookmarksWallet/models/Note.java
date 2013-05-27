@@ -20,7 +20,7 @@ public class Note {
 		
 	}
 	public int getNoteId(){
-		return this.noteIconPath;
+		return this.noteId;
 	}
 
 	public int getNoteIconPath(){
