@@ -13,11 +13,16 @@ public class SharedData {
 	//they MUST BE EQUALS TO THE ONES IN THE PHP file !!!!
 	public static final int USERS_DB = 98;
 	public static final int LINKS_DB = 99;
-
+	public static enum Fragments {
+		LINKS_LIST, NOTES_LIST,ADD_NOTE
+	};
+	
 	public static final boolean SELECT_ALL_ROW_FROM_DB=true;
 	public static final boolean INSERT_URL_ON_DB=true;
 	public static final boolean DELETE_URL_FROM_DB=true;
 
+	public static final int USER_LOGIN_FAILED=-1;
+	
 	public static final String EMPTY_USERNAME="";
 	public static final String EMPTY_PASSWORD="";
 	public static final int EMPTY_USERID=-1;
@@ -26,6 +31,7 @@ public class SharedData {
 
 	public static final int EMPTY_LINKID = -1;
 	public static final String EMPTY_STRING = "";
+	private static final String TAG = "SharedData_TAG";
 	public static ArrayList<Note> notesListStatic=null;
 	public static ArrayList<Link> linksListStatic=null;
 	private static User userObj=null;
@@ -54,8 +60,6 @@ public class SharedData {
 					return note;
 		return null;
 	}
-
-
 	/**LINKS*/
 	public static void setLinksList(ArrayList<Link> linksListTmp){
 		if(linksListStatic==null){
@@ -89,8 +93,6 @@ public class SharedData {
 				return linksListStatic.get(i).getLinkUrl();
 		return null;
 	}
-
-
 	/**USER*/
     public static void setUser(int userIdDb,String usernameDb,String passwordDb){
     	boolean userLoggedIn=true;
@@ -130,9 +132,11 @@ public class SharedData {
 		if(userObj!=null)
 			if(userObj.isUserLoggedIn()){
 				userObj.setUserLoggedIn(false);
+				Log.d(TAG, "userLoggedIn"+userObj.isUserLoggedIn());
 				return true;
 			}else{
 				Log.e("MY_TAG","u're not autorized to get this data - u must log in");
+				Log.d(TAG, "userLoggedIn"+userObj.isUserLoggedIn());
 				return false;
 			}
 		return false;

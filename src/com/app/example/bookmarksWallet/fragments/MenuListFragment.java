@@ -1,10 +1,8 @@
-package com.app.example.bookmarksWallet;
+package com.app.example.bookmarksWallet.fragments;
 
-import com.app.example.bookmarksWallet.fragments.AddNoteFragment;
-import com.app.example.bookmarksWallet.fragments.LinksListFragment;
+import com.app.example.bookmarksWallet.FragmentChangeActivity;
+import com.app.example.bookmarksWallet.R;
 //import com.app.example.bookmarksWallet.fragments.LogoutFragment;
-import com.app.example.bookmarksWallet.fragments.NotesListFragment;
-import com.app.example.bookmarksWallet.fragments.SettingsFragment;
 import com.app.example.common.lib.SharedData;
 
 import android.content.Context;
@@ -39,6 +37,7 @@ public class MenuListFragment extends ListFragment {
 		
 		adapter.add(new SampleItem(i++,"Settings", android.R.drawable.ic_menu_preferences));
 		adapter.add(new SampleItem(i++,"LOGOUT", android.R.drawable.ic_lock_power_off));
+		adapter.add(new SampleItem(i++,"*****-TEST-******", android.R.drawable.ic_menu_help));
 
 		setListAdapter(adapter);
 	}
@@ -83,7 +82,6 @@ public class MenuListFragment extends ListFragment {
 			}
 			return convertView;
 		}
-
 	}
 	
 	@Override

@@ -13,33 +13,20 @@ import com.app.example.common.lib.SharedData;
 import com.app.example.db.lib.DatabaseCommon;
 
 public class LoginActivity extends SherlockFragmentActivity{
-
-	//shared preferences variable
     public static final String PREFS_NAME = "UserCredentialFile";
-
-	//they MUST BE EQUALS TO THE ONES IN THE PHP file !!!!
-	private static final int USERS_DB = 98;
-//	private static final int LINKS_DB = 99;
-
-//	private static final String EMPTY_USERNAME="";
-//	private static final String EMPTY_PASSWORD="";
-//	private static final int EMPTY_USERID=-1;
+	private static final String TAG = "LoginActivity_TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 		setTitle(R.string.app_name);
-
         setContentView(R.layout.login_layout);
-        createLayoutLOGIN();
+        createLayout();
     }
 
-    public void createLayoutLOGIN(){
-    	//get all button from layout
+    public void createLayout(){
     	Button cancelButton = (Button)findViewById(R.id.cancelButtonId);
     	Button loginButton = (Button)findViewById(R.id.loginButtonId);
-    	
-    	//get all EditText from layout
     	final EditText usernameText=(EditText)findViewById(R.id.usernameEditTextId);
     	final EditText passwordText=(EditText)findViewById(R.id.passwordEditTextId);
     	
@@ -60,64 +47,52 @@ public class LoginActivity extends SherlockFragmentActivity{
             	//TEST
             	username="davide";
             	password="pswd";
-				if(checkUserLoggedIn(username,password)){
-					Intent intent = new Intent(LoginActivity.this, FragmentChangeActivity.class);
-					startActivity(intent);                  	  
-				}
+				if(checkUserLoggedIn(username,password))
+					startActivity(new Intent(LoginActivity.this, FragmentChangeActivity.class));                  	  
             }
     	});
     	
-    	
-    	
+    	Log.d(TAG,"hey login activity - trying login");
         //TEST
     	String username="davide";
     	String password="pswd";
-    	
-		if(checkUserLoggedIn(username,password)){
-			Intent intent = new Intent(LoginActivity.this, FragmentChangeActivity.class);
-			startActivity(intent);                  	  
-		}
+    	int userId=1;
+		//FIXME remove this test rows
+		SharedData.setUser(userId,username,password);
+		startActivity( new Intent(LoginActivity.this, FragmentChangeActivity.class));                  	  
     	
     }
-	
-
-	/**
-	 *     
-	 * check credential of user - check if user could be logged in or not    
-	 * @param username
-	 * @param password
-	 */
+	/**USER LOGIN CHECKER**/
     public boolean checkUserLoggedIn(String username,String password){
-    	boolean userLoggedIn=false;
-
-        if(username.length() > 0 && password.length() >0){
-        	//check user password and username to log him in 
+        int loginFail = 0;
+        if(username!="" && password!=""){
         	try{
-        		//fetch data
-        		String result=DatabaseCommon.fetchDataFromDb(USERS_DB);
-        		//get if usser is logged in - check
-        		if(DatabaseCommon.usersParserJSONData(username,password, result))
-        			userLoggedIn=SharedData.isUserLoggedIn();
+        		int userId = DatabaseCommon.usersParserJSONData(username,password);
+        		if(userId!=SharedData.USER_LOGIN_FAILED){
+            		SharedData.setUser(userId,username,password);
+                	toastMessageWrapper("u're LOGGED IN :D");
+                	return true;
+        		}
         	}catch(Exception e){
-        		Log.e("MY_TAG","Error - "+ e);
+        		Log.e(TAG,"Error - "+ e);
         	}
-        	
-            if(userLoggedIn){  
-            	toastMessageWrapper("u're LOGGED IN :D");
-                return true;
-            }
-           	toastMessageWrapper("Invalid username or password - plez reinsert");
-           	return false;
+        	//set invalid username or password
+        	loginFail=1;
         }
-        
-        toastMessageWrapper("Username and pswd empty");
+   
+        //handle error
+		switch(loginFail){
+        	case 0:
+        		toastMessageWrapper("Username and pswd empty");
+        		break;
+        	case 1:
+        		toastMessageWrapper("Invalid username or password - plez reinsert");
+        		break;
+        }        		
         return false;
     }
-    
-    //toast message wrapper
+    /**toast message wrapper*/
 	private void toastMessageWrapper(String message){
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
-    
-	
 }

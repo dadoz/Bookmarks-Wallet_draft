@@ -17,6 +17,13 @@ public final class ActionModeForActionOverflowBar implements ActionMode.Callback
         int index=0;
         int order=0;
         
+
+//		 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+//		  ListView linksListView = (ListView)mode.getCustomView().findViewById(R.id.linksListId);
+//		 ListAdapter linksListAdapter = linksListView.getAdapter();
+//		 // Retrieve the item that was clicked on
+//		 Link linkObj = (Link) linksListAdapter.getItem(info.position);
+        
         menu.add(0,index++,order++,"Save")
             .setIcon(isLight ? android.R.drawable.ic_menu_add : android.R.drawable.ic_menu_add)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -39,8 +46,9 @@ public final class ActionModeForActionOverflowBar implements ActionMode.Callback
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+    	
 //        Toast.makeText(, "Got click: " + item, Toast.LENGTH_SHORT).show();
-    	Log.d(TAG, ""+ item.getTitle()+item.getItemId()+item.getOrder());
+    	Log.d(TAG, "xx - "+ item.getTitle()+item.getItemId()+item.getOrder());
     	mode.finish();
         return true;
     }

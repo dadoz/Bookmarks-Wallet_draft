@@ -1,180 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
     <LinearLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:orientation="vertical">
-	    
 <!-- 	    <LinearLayout
-	    
-        	android:id="@+id/userProfileLayoutId"
-			android:layout_width="fill_parent"
-   			android:layout_height="wrap_content" 
-	    	android:padding="10dip"
-	   		android:layout_margin="10dip"
-
-	   		android:gravity="center_vertical"
-			android:background="@color/icedWhite"
-   			android:orientation="horizontal">
-			        
-			<TextView 
-		    	android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_marginLeft="10dip" 
-			   	android:textSize="20dip"
-			    android:text="user profile  >"/>
-			    
-		</LinearLayout>-->
-	    <!-- 
- 	    <LinearLayout
-	    
-        	android:id="@+id/userProfileLayoutId"
-			android:layout_width="fill_parent"
-   			android:layout_height="wrap_content" 
-	    	android:padding="10dip"
-	   		android:layout_marginTop="30dip"
-	   		android:layout_marginLeft="10dip"
-	   		android:layout_marginRight="10dip"
-
-	   		android:gravity="center_vertical"
-			android:background="@color/cobaltBlue"
-   			android:orientation="horizontal">
-			        
-			<TextView 
-		    	android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_marginLeft="10dip" 
-			   	android:textSize="20dip"
-			   	android:textColor="@color/icedWhite"
-			    android:text="Find smthing"
-				/>
-			    
-		</LinearLayout>
-	    
- 	    <LinearLayout
-	    
-        	android:id="@+id/userProfileLayoutId1"
-			android:layout_width="fill_parent"
-   			android:layout_height="wrap_content" 
-	    	android:padding="10dip"
-	   		android:layout_marginLeft="10dip"
-	   		android:layout_marginRight="10dip"
-	   		android:layout_marginBottom="30dip"
-
-	   		android:gravity="center_vertical"
-			android:background="@color/icedWhite"
-   			android:orientation="vertical">
-			        
-			<TextView 
-		    	android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_marginLeft="10dip" 
-			   	android:textSize="20dip"
-			   	android:textColor="@color/stoneBlack"
-			    android:text="U have to type smthing on"/>
-			<EditText 
-		    	android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_marginLeft="10dip" 
-			   	android:textSize="20dip"
-			   	android:hint="find your key"/>
-						    
-		</LinearLayout>
- 	    
- 	    
- 	    <LinearLayout
-	    
-        	android:id="@+id/userProfileLayoutId2"
-			android:layout_width="fill_parent"
-   			android:layout_height="wrap_content" 
-	    	android:padding="10dip"
-	   		android:layout_marginTop="10dip"
-	   		android:layout_marginLeft="10dip"
-	   		android:layout_marginRight="10dip"
-
-	   		android:gravity="center_vertical"
-			android:background="@color/cobaltBlue"
-   			android:orientation="horizontal">
-			        
-			<TextView 
-		    	android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_marginLeft="10dip" 
-			   	android:textSize="20dip"
-			   	android:textColor="@color/icedWhite"
-			    android:text="Get your search list >"/>
-			    
-		</LinearLayout>
- 	    <LinearLayout
-	    
-        	android:id="@+id/userProfileLayoutId2"
-			android:layout_width="fill_parent"
-   			android:layout_height="wrap_content" 
-	    	android:padding="10dip"
-	   		android:layout_marginLeft="10dip"
-	   		android:layout_marginRight="10dip"
-	   		android:layout_marginBottom="30dip"
-
-	   		android:gravity="center_vertical"
-			android:background="@color/icedWhite"
-   			android:orientation="vertical">
-			        
-			<TextView 
-		    	android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_marginLeft="10dip" 
-			   	android:textSize="20dip"
-			   	android:textColor="@color/stoneBlack"
-			    android:text="search list"/>
-						    
-		</LinearLayout>
- 	    -->
- 	    	    
-<!-- 	    <TextView 
-	        android:id="@+id/introTextId"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-			android:textColor="@color/blue"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:minHeight="60dip"
+	        android:layout_marginBottom="10dip"
+	        android:layout_marginLeft="10dip"
+		    android:orientation="horizontal" 
+		    android:background="@drawable/layout_bottom_border"
+		    android:layout_marginTop="20dip">
+		   	<LinearLayout
+			    android:layout_width="wrap_content"
+			    android:layout_height="fill_parent"
+			    android:layout_weight="1" 
+			    android:orientation="horizontal" >
+		    
+			    <ImageView
+					android:contentDescription="link_icon_id"
+			        android:layout_width="20dp"
+			        android:layout_height="20dp"
+			        android:layout_margin="20dp"
+			        android:src="@drawable/comment_link" />
 			
-			android:textSize="20dip"	
-			android:layout_margin="10dip"
-			android:text="List of all links you stored before"/>
-	  -->
-
-			        
+			    <TextView
+			        android:layout_width="0dp"
+			        android:layout_height="fill_parent"
+			        android:gravity="center_vertical"
+			        android:layout_weight="1"
+			        android:padding="10dp"
+			        android:text="Medium Text"
+			        android:textColor="@color/stoneBlack"
+			        android:textAppearance="@android:style/TextAppearance.Medium" />
+			</LinearLayout>    
+			<LinearLayout 
+			    android:id="@+id/link_preview_layout_id" 
+			    android:layout_width="60dip"
+			    android:layout_height="fill_parent"
+			    android:orientation="horizontal"
+			    android:layout_marginBottom="5dip"
+			    android:layout_marginTop="5dip"
+			    android:layout_marginRight="1dip"
+			    android:background="@drawable/button_border">
+			    <ImageView
+			        android:id="@+id/preview_icon_id"
+					android:contentDescription="preview_icon_id"
+			        android:layout_width="25dp"
+			        android:layout_height="25dp"
+			        android:layout_margin="15dp"
+			        android:src="@android:drawable/ic_menu_mapmode" />
+			</LinearLayout>	    
+		</LinearLayout> -->
 		<TextView 
 	    	android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-	        android:layout_marginTop="40dip"
+	        android:layout_marginTop="20dip"
 		    android:layout_marginLeft="10dip" 
+	        android:layout_marginBottom="20dip"
 		   	android:textSize="20sp"
 		   	android:textColor="@color/stoneBlack"
 		    android:text="@string/linkslist_string"/>
-			    
-
- 	    <!--  <ListView
-	        android:id="@+id/linksListId1"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginBottom="10dip"
-	        android:layout_marginLeft="10dip"
-	        android:layout_marginRight="10dip"
-	        android:background="@color/icedWhite"
-	        android:padding="10dip"
-	        android:scrollbarAlwaysDrawVerticalTrack="false"
-	        android:scrollbars="none" />-->
-		 <LinearLayout     
+		<ListView     
 		    android:id="@+id/linksListId"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_marginTop="40dip"
+	        android:layout_marginTop="20dip"
 	        android:layout_marginBottom="10dip"
 	        android:layout_marginLeft="10dip"
 	        android:layout_marginRight="10dip"
 	        android:orientation="vertical">
-		</LinearLayout> 
+		</ListView> 
 	</LinearLayout>
-</ScrollView>

@@ -9,8 +9,7 @@
 	    android:layout_height="wrap_content"
 	    android:minHeight="60dip"
 	    android:orientation="horizontal" 
-	    android:background="@drawable/layout_bottom_border"
-	    android:layout_marginBottom="10dip">
+	    android:background="@drawable/layout_bottom_border">
 	   	<LinearLayout
 		    android:id="@+id/link_action_layout_id" 
 		    android:layout_width="wrap_content"

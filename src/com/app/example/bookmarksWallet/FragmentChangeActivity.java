@@ -1,10 +1,15 @@
 package com.app.example.bookmarksWallet;
 
+//import android.content.pm.ActivityInfo;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import com.app.example.bookmarksWallet.fragments.NotesListFragment;
+
+import com.app.example.bookmarksWallet.fragments.LinksListFragment;
+import com.app.example.bookmarksWallet.fragments.MenuListFragment;
+//import com.app.example.bookmarksWallet.fragments.NotesListFragment;
 import com.app.example.common.lib.ActionModeForActionOverflowBar;
+import com.app.example.common.lib.SharedData.Fragments;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 public class FragmentChangeActivity extends BaseActivity {
@@ -27,7 +32,7 @@ public class FragmentChangeActivity extends BaseActivity {
 		if (savedInstanceState != null)
 			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 		if (mContent == null)
-			mContent = new NotesListFragment();	
+			mContent = new LinksListFragment();	
 		
 		// set the Above View
 		setContentView(R.layout.content_frame);
@@ -63,8 +68,10 @@ public class FragmentChangeActivity extends BaseActivity {
 		getSlidingMenu().showContent();
 	}
 	
-	public void getLinkActionBar(){
-		startActionMode(new ActionModeForActionOverflowBar());
+	public void getLinkActionBar(Fragments fragmentId){
+//		if(fragmentId==SharedData.Fragments.LINKS_LIST)
+			//startActionMode(new linkOverActionBar());
+//		else
+			startActionMode(new ActionModeForActionOverflowBar());
 	}
-
 }

@@ -19,6 +19,7 @@ import com.app.example.common.lib.SharedData;
 import com.app.example.http.client.CustomHttpClient;
 
 public class DatabaseCommon {
+	private static final String TAG = "linksParserJSONData_TAG";
 	static String databaseResultString;
 	 //TODO  DB STUFF - put all this code into DB class
 	/**
@@ -58,22 +59,21 @@ public class DatabaseCommon {
      	  
      		// store the result returned by PHP script that runs MySQL query
    	    result = response.toString();  
-   	    Log.d("RESULT_JSON",result);
+   	    Log.d(TAG,result);
      	}catch (Exception e) {
      		Log.e("fetchDataFromDb_TAG","Error in http connection!!" + e.toString());     
      	}
      	return result;
    }
-   public static boolean usersParserJSONData(String usernameTypedIn,String passwordTypedIn,String result){
-	    Log.v("JSON_TAG","this is the result" + result);
-	    //parse json data
+   public static int usersParserJSONData(String usernameTypedIn,String passwordTypedIn){
 	    try{
 	    	//def temp db variable
 	    	String usernameDb;
 	    	String passwordDb;
-	    	int userIdDb;
+	    	int userIdDb = SharedData.USER_LOGIN_FAILED;
 
 	    	//set false cos the user should be logged out before trying to log in again
+    		String result=DatabaseCommon.fetchDataFromDb(SharedData.USERS_DB);
 	    	JSONArray jArray = new JSONArray(result);
 	    	for(int i=0;i<jArray.length();i++){
 	    		//getJSONObj 
@@ -92,96 +92,63 @@ public class DatabaseCommon {
 	    				);
 
 	    		//check usrname and pswd and set NEW user
-	       	    if(usernameDb.compareTo(usernameTypedIn)==0 && passwordDb.compareTo(passwordTypedIn)==0)
-	       	    	SharedData.setUser(userIdDb,usernameDb,passwordDb);
+//	       	    if(usernameDb.compareTo(usernameTypedIn)==0 && passwordDb.compareTo(passwordTypedIn)==0)
+//	       	    	SharedData.setUser(userIdDb,usernameDb,passwordDb);
 	    	}
-	    	return true;
+	    	return userIdDb;
 	    }catch(JSONException e){
-	    	Log.e("usersParserJSONData_TAG", "Error parsing data "+e.toString());
-	      	return false;
+	    	Log.e(TAG+"- usersParserJSONData_TAG", "Error parsing data "+e.toString());
+	      	return SharedData.USER_LOGIN_FAILED;
 	    }
    }
-   public static ArrayList<Link> getLinksListFromJSONData(String result){
-	   ArrayList<String> linksUrlArray=new ArrayList<String>();
+   public static ArrayList<Link> getLinksListFromJSONData(){
 	   ArrayList<Link> linksObjList=new ArrayList<Link>();
-
-   	//create list of Link object
-//   	if(linksObjList==null)
-//   		linksObjList=new ArrayList<Link>();
-   	
-	   	//var of links db
-	   int linkIdDb=0;
-	   String iconPathDb="";
-	   String linkUrlDb="";
-	   int userIdDb=0;
-	   String linkName="";
-	   boolean deletedLinkFlag=false;
+	   //TODO TEST values cahnge or rm
+	   boolean isDeletedLink=false;
 	   String delIconPathDb="";    	
    	
-	   //Log.v("JSON_TAG","this is the result" + result);
-	   //parse json data
 	   try{
-//	    	String databaseResultString = "";
-	    	JSONArray jArray = new JSONArray(result);
+	    	JSONArray jArray = new JSONArray(DatabaseCommon.fetchDataFromDb(SharedData.LINKS_DB));
 	    	for(int i=0;i<jArray.length();i++){
-	    		//getJSONObj 
+	    		//get links data
 	    		JSONObject json_data = jArray.getJSONObject(i); 
+	    		Link linkObj=new Link(json_data.getInt("link_id"),
+	    				json_data.getString("iconPath"),
+	    				json_data.getString("linkName"),
+	    				json_data.getString("linkUrl"),
+	    				json_data.getInt("links_user_id"),
+	    				delIconPathDb,
+	    				isDeletedLink);
+	    		linksObjList.add(linkObj);
+	    		//get LINK icon from URL
+//	            try{
+//	            	URL linkURLObj=new URL(linkUrlDb);
+//		            infoURL=linkURLObj.getUserInfo();
+//	            }catch(Exception e){
+//	            	Log.v("URL_TAG","error - "+e);
+//				}
 
-	    		databaseResultString ="";
-               
-	    		//get usr and pswd from JASON data
-	    		linkIdDb=json_data.getInt("link_id");
-	    		iconPathDb=json_data.getString("iconPath");
-	    		linkUrlDb=json_data.getString("linkUrl");
-	    		userIdDb=json_data.getInt("links_user_id");
-	    		linkName=json_data.getString("linkName");
-        
-	    		//add delIconPath to JSON data!!!!!!!!!
-               
-	    		//populate the list
-	    		linksUrlArray.add(linkName);
-	    		Log.v("JSON_links_result",""+json_data.toString());
-               
-	    		linksObjList.add(new Link(linkIdDb,iconPathDb,linkName,linkUrlDb, userIdDb,delIconPathDb,deletedLinkFlag));
-
-               
-	/*              try{
-	               	URL linkURLObj=new URL(linkUrlDb);
-	               	infoURL=linkURLObj.getUserInfo();
-	               }
-	               catch(Exception e)
-	               {
-	               	Log.v("URL_TAG","error - "+e);
-	               }*/
-	    		//set databaseResultString to print out all database entries
-	    		databaseResultString = result;
-	    		//Log all database entries
-	    		Log.i("linksParserJSONData_TAG","id: "+linkIdDb+
-	    				", iconPath: "+iconPathDb+
-                        ", linkUrl: "+linkUrlDb+
-                        ", userId: "+userIdDb+
-                        ", linkName: "+linkName
+	    		Log.d(TAG+"- getLinksListFromJSONData","id: "+linkObj.getLinkId()+
+	    				", iconPath: "+linkObj.linkIconPath+
+                        ", linkUrl: "+linkObj.getLinkUrl()+
+                        ", userId: "+linkObj.getLinkId()+
+                        ", linkName: "+linkObj.getLinkName()
 	    				);
-             
 	    	}
-	    }catch(JSONException e){
-	    	Log.e("linksParserJSONData_TAG", "Error parsing data "+e.toString());
-	    	linksUrlArray.add("Empty URLs list");
-	    }
-	    //return the list of all links
-   	return linksObjList;
+	   }catch(JSONException e){
+	    	Log.e(TAG+"- getLinksListFromJSONData", "Error parsing data "+e.toString());
+	   }
+	   return linksObjList;
    }
    public static boolean insertUrlEntryOnDb(int choicedDB,String urlString){
 	   if(SharedData.isUserLoggedIn()){
 		   try{
 		  		//check if db is right
 		  		if(choicedDB!=SharedData.LINKS_DB && choicedDB!=SharedData.USERS_DB)
-		  			Log.e("MY_TAG", "NO DB FOUND - u must define the right database name");
-	
-		  		//new params array
-		  		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+		  			Log.e(TAG, "NO DB FOUND - u must define the right database name");
 	
 		  		//add choicedDB params
+		  		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 		  		postParameters.add(new BasicNameValuePair("insertUrlOnDb",""+SharedData.INSERT_URL_ON_DB));
 		  		postParameters.add(new BasicNameValuePair("choicedDB",""+choicedDB));
 		  		
@@ -197,7 +164,7 @@ public class DatabaseCommon {
 		  			//get url name
 		  			//add url name to be added to the url above
 		  			String linkNameTMP=getUrlTitle(urlString);
-		  			
+//		  			android.R.drawable.ic_menu_mapmode
 		  			if(linkNameTMP!=null)
 		  				postParameters.add(new BasicNameValuePair("linkName",""+linkNameTMP));
 		  		}	
@@ -205,7 +172,7 @@ public class DatabaseCommon {
 		  		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		  	    StrictMode.setThreadPolicy(policy);
 		   		String response = CustomHttpClient.executeHttpPost(SharedData.DBUrl,postParameters);
-		   		Log.d("MY_TAG",response);
+		   		Log.d(TAG,response);
 		   		return true;
 
 		  	}catch (Exception e) {
@@ -215,17 +182,15 @@ public class DatabaseCommon {
 	   }
 	   return false;
    }
-   public static boolean deleteUrlEntryFromDb(int choicedDB,String linkName){
+   public static boolean deleteUrlEntryFromDb(int choicedDB,int linkId){
 	   if(SharedData.isUserLoggedIn()){
 		   try{
 		  		//check if db is right
 		  		if(choicedDB!=SharedData.LINKS_DB && choicedDB!=SharedData.USERS_DB)
-		  			Log.e("MY_TAG", "NO DB FOUND - u must define the right database name");
-	
-		  		//new params array
-		  		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+		  			Log.e(TAG, "NO DB FOUND - u must define the right database name");
 	
 		  		//add choicedDB params
+		  		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 		  		postParameters.add(new BasicNameValuePair("deleteUrlFromDb",""+SharedData.DELETE_URL_FROM_DB));
 		  		postParameters.add(new BasicNameValuePair("choicedDB",""+choicedDB));
 		  		
@@ -235,29 +200,23 @@ public class DatabaseCommon {
 	 				postParameters.add(new BasicNameValuePair("links_user_id",""+userIdTMP));
 	 			else
 	 				return false;
-	
-	 			//getLinksId to be deleted
-	 			int linkIdTMP=SharedData.getLinkIdByLinkName(linkName);
-	 			
-	 			//DEBUG
-	 			Log.v("id_link_TAG",""+linkIdTMP);
 	 			
 	 			//check linkId!=null
-	 			if(linkIdTMP!=SharedData.EMPTY_LINKID)
-	 				postParameters.add(new BasicNameValuePair("linkId",""+linkIdTMP));
+	 			if(linkId!=SharedData.EMPTY_LINKID)
+	 				postParameters.add(new BasicNameValuePair("linkId",""+linkId));
 	 			else
 	 				return false;
 	 			
 		  		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		  	    StrictMode.setThreadPolicy(policy);
-		        
 		  	    
 		   		String response = CustomHttpClient.executeHttpPost(SharedData.DBUrl,postParameters);
 		   		
-		   		Log.d("DEL_RESULT_TAG","this is the result" + response);
+	 			Log.d(TAG,""+linkId);
+		   		Log.d(TAG,"this is the result" + response);
 		   		return true;
 		  	}catch (Exception e) {
-		  		Log.e("deleteUrlEntryFromDb_TAG","Error in http connection!!" + e.toString());     
+		  		Log.e(TAG+"- deleteUrlEntryFromDb_TAG","Error in http connection!!" + e.toString());     
 	   		return false;
 		  	}
    		}
@@ -268,27 +227,27 @@ public class DatabaseCommon {
 		if(SharedData.getUser().isUserLoggedIn())	
 			return databaseResultString;
 
-		Log.e("MY_TAG","u're not autorized to get this data - u must log in");
+		Log.e(TAG,"u're not autorized to get this data - u must log in");
 		return SharedData.EMPTY_STRING;
 	}
 	
     /**STATIC fx to get values from Link - JSOUP*/
     public static String getUrlTitle(String URLString){
     	//URL title 
-    	String URLTitleString;
     	try{
 	    	Document doc = Jsoup.connect(URLString).get();
-	
 	    	Elements URLtitle=doc.select("title");
-//	    	toastMessageWrapper(URLtitle.text());
-	    	URLTitleString=URLtitle.text();
-	    	Log.v("JSOUP_TAG",URLTitleString);
-	    	
-	    	return URLTitleString;
+	    	Log.d(TAG,URLtitle.text());
+	    	return URLtitle.text();
     	}catch(Exception e){
-	    	Log.v("JSOUP_TAG",""+e);
+	    	Log.e(TAG,""+e);
     	}
-    	return SharedData.EMPTY_STRING;
+    	
+    	//empty urlname
+    	String URLTitleString=URLString.split("/")[0];
+    	Log.d(TAG,URLTitleString);
+    	return URLTitleString;
+//    	return SharedData.EMPTY_STRING
     }
 
 }

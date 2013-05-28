@@ -4,14 +4,16 @@ import java.util.ArrayList;
 
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.internal.widget.IcsAdapterView.AdapterContextMenuInfo;
+import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.app.example.bookmarksWallet.FragmentChangeActivity;
 import com.app.example.bookmarksWallet.R;
-import com.app.example.bookmarksWallet.fragments.NotesListFragment.CustomAdapter;
+//import com.app.example.bookmarksWallet.FragmentChangeActivity.linkOverActionBar;
 import com.app.example.bookmarksWallet.models.Link;
-import com.app.example.bookmarksWallet.models.Note;
 import com.app.example.common.lib.SharedData;
 import com.app.example.db.lib.DatabaseCommon;
 
@@ -24,15 +26,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class LinksListFragment extends SherlockFragment {
+	private static final String TAG = "LinksListFragment_TAG";
 	ActionBarSherlock mSherlock=ActionBarSherlock.wrap(getActivity());
 	
 	@Override
@@ -46,98 +49,43 @@ public class LinksListFragment extends SherlockFragment {
 		super.onActivityCreated(savedInstanceState);
 		createLayout();
 	}
-
-    
+	
     public void createLayout(){
-    	ArrayList<String> linksUrlArray = null;
-		//Populate the list
-		//TODO change iconPath on DB
-		boolean deletedLinkFlag=false;
     	ArrayList<Link> linksDataList=new ArrayList<Link>();    	
-//    	boolean emptyListFromDb=true;
-    	
-    	/**get all view I need**/
     	final ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
-//    	final LinearLayout linksListView = (LinearLayout)getActivity().findViewById(R.id.linksListId);
-//    	final LinearLayout linksListView = (LinearLayout)getActivity().findViewById(R.id.linksListId);
+//        mSherlock.setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW);
 
-    	/**CREATE ListView **/
     	try{
-			//fetch data
-			String result=DatabaseCommon.fetchDataFromDb(SharedData.LINKS_DB);
-			linksDataList = DatabaseCommon.getLinksListFromJSONData(result);
-			Log.d("createLayout_TAG","url link to be shown"+linksDataList.toString());
+    		//TODO change iconPath on DB
+			linksDataList = DatabaseCommon.getLinksListFromJSONData();
+			//TEST
+	    	if(linksDataList==null || linksDataList.size()==0)
+				Log.d(TAG,"links from db EMPTY");
     	}catch(Exception e){
-    		Log.e("createLayout_TAG","error - " + e);
+    		Log.e(TAG,"error - " + e);
     	}
-
     	//TEST - empty list
-    	linksUrlArray=new ArrayList<String>();
-		linksUrlArray.add("heavy metal");
-		linksUrlArray.add("pop");
-		linksUrlArray.add("underground");
-		linksUrlArray.add("heavy metal");
-		linksUrlArray.add("underground");
-		linksUrlArray.add("hey_ure_fkin_my_shitty_dog_are_u_sure_u_want_to_cose_ure_crazy");
-		linksUrlArray.add("pop");
-		linksUrlArray.add("heavy metal");
-    	int linkId=0;
-    	String linkUrl="http://www.google.it";
-    	int userId=0;
-    	
-//    		public Link(int linkId,String linkIconPath,String linkName,String linkUrl,int userId,String delIcon,boolean deletedLinkFlag)
-//    	int listSize=linksUrlArray.size();
-//    	if(linksDataList!=null && linksDataList.size()>0){
-//			emptyListFromDb=false;
-//			listSize= linksDataList.size();
-//		}   
-		
-    	if(linksDataList==null || linksDataList.size()>0)
-        	for(int i=0;i<linksUrlArray.size();i++)
-           		linksDataList.add(new Link(linkId++,"ic_launcher", linksUrlArray.get(i),linkUrl,userId,"del_icon",deletedLinkFlag));
+    	if(linksDataList==null || linksDataList.size()==0)
+    		linksDataList=testLinksList();
 
     	ArrayAdapter<Link> adapter=new LinkCustomAdapter(getActivity());
 		adapter.addAll(linksDataList);
 		linksListView.setAdapter(adapter);
-
     	//set noteList to sharedData fx
     	SharedData.setLinksList(linksDataList);
+
+    	getSherlockActivity().registerForContextMenu(linksListView);
     	
-//    	for(int i=0;i<listSize;i++){
-//    		//TEST
-//    		if(emptyListFromDb)
-//        		linksDataList.add(new Link(linkId++,"ic_launcher", linksUrlArray.get(i),linkUrl,userId,"del_icon",deletedLinkFlag));
-//    	}
-    	
+    	//TEST
+    	for(Link link:linksDataList)
+    		Log.d(TAG,link.getLinkName());
     }
-    
-    //TO BE IMPLEMENTED !!!! PLEZ take care of it
-    public boolean checkURL(String linkUrl){
-    	//check URL with regex
-    	return true;
-    }
-
-    public static void checkLinkIsDeleted(boolean value,View view){
-    	String message="DELETE FAILED";    	
-    	if(value)
-    		message="ITEM DELETED - plez refresh";
-
-  		Toast.makeText(view.getContext(), message, Toast.LENGTH_SHORT).show();
-
-    }
-	//open link
+	/**OPEN LINK***/
 	public void openLinkOnBrowser(String linkUrl){
 		toastMessageWrapper("get link on Browser - "+linkUrl);
-//		RelativeLayout relViewRow=(RelativeLayout)childView;
-//		//cast View to text view (cos the listView obj is a textview)
-//		TextView urlSelectedTextView=(TextView)relViewRow.getActivity().findViewById(R.id.linkNameTextId);
-
 		try{
-//			String urlSelected=(String) urlSelectedTextView.getText();
-//			urlSelected=ApplicationCheckUserLoggedIn.findUrlFromLinkName(urlSelected);
     		//TEST - print out the text of obj selected
     		toastMessageWrapper("URL selected "+linkUrl);
-    		 
     		//check if linkUrl is right parsed :D
     		if(checkURL(linkUrl)){
         		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(linkUrl));
@@ -146,43 +94,60 @@ public class LinksListFragment extends SherlockFragment {
         		toastMessageWrapper("your URL is wrong "+linkUrl);
 
 		}catch(Exception e){
-    		Log.e("MY_TAG","error - " + e);
+    		Log.e(TAG,"error - " + e);
     		toastMessageWrapper("I cant load your URL "+ e);
 		}
 	}
-    //delete link
-	public void deleteLink(String linkName){
-		//get context menu - doesnt work :(
-//		linksListView.showContextMenu();
-//		RelativeLayout relViewRow=(RelativeLayout)childView;
-		//cast View to text view (cos the listView obj is a textview)
-//		TextView nameTextView=(TextView)relViewRow.getActivity().findViewById(R.id.linkNameTextId);
-//		nameTextView=(TextView)parentView.getChildAt(0);
-		
-//		ImageView delIcon=(ImageView)relViewRow.getActivity().findViewById(R.id.delIconId);
-		
-//		delIcon.setVisibility(View.VISIBLE);
-		
-//		parentView.showContextMenuForChild(linksListView);
-		if(linkName!=null){
-			boolean check=DatabaseCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,linkName);
-			if(check)
-				toastMessageWrapper("ITEM DELETED - plez refresh");
-			else
-				toastMessageWrapper("DELETE FAILED");
+    //TODO TO BE IMPLEMENTED !!
+    public boolean checkURL(String linkUrl){
+    	//check URL with regex
+    	return true;
+    }
+	/**DELETE LINK***/
+	public boolean deleteLink(Link linkObj){
+		if(linkObj!=null){
+//			if(DatabaseCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,linkObj.getLinkId())){
+//				toastMessageWrapper("ITEM DELETED");
+//				return false;
+//			}
+			//TEST
+			Log.d(TAG, "link name - "+ linkObj.getLinkName());
+			toastMessageWrapper("DELETE FAILED"+linkObj.getLinkName());
+			return false;
 		}
-//		return true ;
+		toastMessageWrapper("DELETE FAILED");
+		return false;
 	}
-
 //    public void onBackPressed(){
 //    	super.onBackPressed();
 //    	Log.v("MY_TAG","back_pressed");
 //    	return;
 //    }    
-//    toast message wrapper
+	/**TOAST MESSAGGE WRAPPER**/
 	private void toastMessageWrapper(String message){
 		Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
 	}
+	
+    public ArrayList<Link> testLinksList(){
+    	ArrayList<Link> linksDataList = new ArrayList<Link>();
+    	ArrayList<String> linksUrlArray= new ArrayList<String>();
+		boolean deletedLinkFlag=false;
+
+    	linksUrlArray.add("heavy metal1");
+		linksUrlArray.add("pop1");
+		linksUrlArray.add("underground");
+		linksUrlArray.add("heavy metal");
+		linksUrlArray.add("underground");
+		linksUrlArray.add("hey_ure_fkin_my_shitty_dog_are_u_sure_u_want_to_cose_ure_crazy");
+		linksUrlArray.add("pop2");
+		linksUrlArray.add("heavy metal2");
+    	String linkUrl="http://www.google.it";
+    	int userId=0;
+    	for(int i=0;i<linksUrlArray.size();i++)
+       		linksDataList.add(new Link(i,"ic_launcher", linksUrlArray.get(i),linkUrl,userId,"del_icon",deletedLinkFlag));
+    	
+    	return linksDataList;
+    }
 	
 	/**BOTTOM static menu**/
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
@@ -192,68 +157,79 @@ public class LinksListFragment extends SherlockFragment {
     @Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		 int index=0,order=0;
-
-		 menu.add(0,(index++),order++,"Edit")
-		    .setIcon(android.R.drawable.ic_menu_edit)
+		 
+		 
+		 menu.add(0,(index++),order++,"Select all - FOOTER")
+		 	.setIcon(android.R.drawable.ic_menu_edit)
 		    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		 
-		 menu.add(0,index++,order++,"Save")
-		 .setIcon(android.R.drawable.ic_menu_add)
-		 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+//		 menu.add(0,index++,order++,"Save")
+//		 .setIcon(android.R.drawable.ic_menu_add)
+//		 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		
-		 menu.add(0,index++,order++,"Delete")
-		    .setIcon( android.R.drawable.ic_menu_delete)
-		    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+//		 menu.add(0,index++,order++,"Delete FOOTER")
+//		    .setIcon( android.R.drawable.ic_menu_delete)
+//		    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	 }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+//		 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+//		 final ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
+//		 ListAdapter linksListAdapter = linksListView.getAdapter();
+//		 // Retrieve the item that was clicked on
+//		 Link linkObj = (Link) linksListAdapter.getItem(info.position);
+    	
+    	
     	switch(item.getItemId()){
 	    	case 0:
-	    		toastMessageWrapper("Edit action");
+	    		toastMessageWrapper("Select all links");
 	    		break;
-	    	case 1:
-	    		toastMessageWrapper("Save action");
-	    		break;
-	    	case 2:
-	    		toastMessageWrapper("Delete action");
-	    		break;
+//	    	case 1:
+//	    		toastMessageWrapper("Delete action");
+//	    		deleteLink(null);
+//	    		break;
     	}
     	return true;
     }
 
-    
+    OnMenuItemClickListener deleteLinkClickListener = new OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {  
+        	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	   		final ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
+	   		ListAdapter linksListAdapter = linksListView.getAdapter();
+	   		// Retrieve the item that was clicked on
+	   		if(linksListAdapter!=null){
+	   			Link linkObj = (Link) linksListAdapter.getItem(info.position);
+	   			deleteLink(linkObj);
+	   		}
+            return false;
+        }
+    };
+    /**CUSTOM LAYOUT CLASS**/
 	public class LinkCustomAdapter extends ArrayAdapter<Link> {
-		
 		public LinkCustomAdapter(Context context) {
 			super(context, 0);
 		}
-
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if (convertView == null) {
 				convertView = LayoutInflater.from(getContext()).inflate(R.layout.link_row, null);
 			}
-
-			View view =getActivity().getLayoutInflater().inflate(R.layout.link_row,null);
-//			Link linkObj = getItem(position);
 //			view.findViewById(R.id.link_icon_id);
-			TextView linkTitle = (TextView)view.findViewById(R.id.link_title_id);
+			TextView linkTitle = (TextView)convertView.findViewById(R.id.link_title_id);
 			linkTitle.setText(getItem(position).getLinkName());
 //			view.findViewById(R.id.preview_icon_id);
-//			linksListView.addView(view);
-			
-			//TODO - fix ulr open (I guess it will link always to last Url)
-//			if(!emptyListFromDb)
-//				linkUrl=linksDataList.get(i).getLinkUrl();
 
 			//attach event to actionLayout and preview layout
-			view.findViewById(R.id.link_action_layout_id).setOnClickListener(new View.OnClickListener() {
+			convertView.findViewById(R.id.link_action_layout_id).setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					toastMessageWrapper("get links action bottom menu");
 					Activity activity = getActivity();
 					if(activity instanceof FragmentChangeActivity) {
-					    ((FragmentChangeActivity) activity).getLinkActionBar();
+//					    ((FragmentChangeActivity) activity).getLinkActionBar(SharedData.Fragments.LINKS_LIST);
+				    	getSherlockActivity().startActionMode(new linkOverActionBar());
 					}
 
 				}
@@ -261,17 +237,78 @@ public class LinksListFragment extends SherlockFragment {
 			
 			//attach event to actionLayout and preview layout
 			final String linkUrlFinal=getItem(position).getLinkUrl();
-			view.findViewById(R.id.link_preview_layout_id).setOnClickListener(new View.OnClickListener() {
+			convertView.findViewById(R.id.link_preview_layout_id).setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					openLinkOnBrowser(linkUrlFinal);
 				}
 			});
-		    
 			return convertView;
 		}
-
 	}
-	
 
+	
+	/**OVER ACTION BAR impl**/
+	public final class linkOverActionBar implements ActionMode.Callback {
+	    private static final String TAG ="ActionModeForBottomBar_TAG";
+
+		@Override
+	    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+	        //Used to put dark icons on light action bar
+	        int index=0;
+	        int order=0;
+	        
+	        menu.add(0,index++,order++,"Save")
+	            .setIcon(android.R.drawable.ic_menu_add)
+	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+	        menu.add(0,index++,order++,"Search")
+	            .setIcon(android.R.drawable.ic_menu_search)
+	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+	        menu.add(0,index++,order++,"Delete")
+	            .setIcon(android.R.drawable.ic_menu_delete)
+	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+	        return true;
+	    }
+
+	    @Override
+	    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+	        return false;
+	    }
+
+	    @Override
+	    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+	    	android.widget.AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+	    	ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
+			ListAdapter linksListAdapter = linksListView.getAdapter();
+			
+			if(info!=null){
+		    	Log.d(TAG, ""+ info.position);
+		    	Link linkObj = (Link) linksListAdapter.getItem(info.position);
+		    	
+		    	switch(item.getItemId()){
+		    	case 0:
+		    		toastMessageWrapper("Save smthing");
+		    		break;
+		    	case 1:
+		    		toastMessageWrapper("Search your link");
+		    		break;
+		    	case 2:
+		    		toastMessageWrapper("Delete this link");
+		    		if(linkObj!=null)
+		    			deleteLink(linkObj);
+		    		break;
+		    	}
+			}			
+	    	Log.d(TAG, ""+ item.getTitle());
+	    	mode.finish();
+	        return true;
+	    }
+
+	    @Override
+	    public void onDestroyActionMode(ActionMode mode) {
+	    }
+	}
 }
