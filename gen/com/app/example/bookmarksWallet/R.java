@@ -1069,15 +1069,17 @@ containing a value of this type.
         public static final int app_icon=0x7f02006f;
         public static final int button_border=0x7f020070;
         public static final int comment_link=0x7f020071;
-        public static final int ic_launcher=0x7f020072;
-        public static final int layout_border=0x7f020073;
-        public static final int layout_bottom_border=0x7f020074;
-        public static final int layout_grey_bottom_border=0x7f020075;
-        public static final int login_logo=0x7f020076;
-        public static final int preview_icon=0x7f020077;
-        public static final int profile_picture=0x7f020078;
-        public static final int shadow=0x7f020079;
-        public static final int wallpaper_login=0x7f02007a;
+        public static final int find_icon_black=0x7f020072;
+        public static final int ic_launcher=0x7f020073;
+        public static final int layout_border=0x7f020074;
+        public static final int layout_bottom_border=0x7f020075;
+        public static final int layout_grey_bottom_border=0x7f020076;
+        public static final int login_logo=0x7f020077;
+        public static final int preview_icon=0x7f020078;
+        public static final int profile_picture=0x7f020079;
+        public static final int shadow=0x7f02007a;
+        public static final int wallpaper_login=0x7f02007b;
+        public static final int web_icon_red=0x7f02007c;
     }
     public static final class id {
         public static final int abs__action_bar=0x7f040027;

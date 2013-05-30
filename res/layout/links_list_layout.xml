@@ -61,16 +61,17 @@
 		    android:layout_marginLeft="10dip" 
 	        android:layout_marginBottom="20dip"
 		   	android:textSize="20sp"
-		   	android:textColor="@color/stoneBlack"
+		   	android:textColor="@color/lightGrey"
 		    android:text="@string/linkslist_string"/>
 		<ListView     
 		    android:id="@+id/linksListId"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_marginTop="20dip"
+	        android:layout_marginTop="0dip"
 	        android:layout_marginBottom="10dip"
 	        android:layout_marginLeft="10dip"
 	        android:layout_marginRight="10dip"
+	        android:background="@color/icedWhite"
 	        android:orientation="vertical"
 	        android:dividerHeight="0dp"
 			android:divider="@null">

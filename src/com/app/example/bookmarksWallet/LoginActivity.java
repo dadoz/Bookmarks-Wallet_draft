@@ -125,7 +125,8 @@ public class LoginActivity extends SherlockFragmentActivity{
 		         setUserLogout();
 		     }
 		     if (resultCode == RESULT_CANCELED)
-		    	 toastMessageWrapper("closing application");
+		    	toastMessageWrapper("closing application");
+		     	finish();
 		  }
 	}
     /**toast message wrapper*/

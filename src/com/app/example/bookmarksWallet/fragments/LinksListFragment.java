@@ -102,13 +102,15 @@ public class LinksListFragment extends SherlockFragment {
     	//check URL with regex
     	return true;
     }
-	/**DELETE LINK***/
-	public boolean deleteLink(Link linkObj){
+	/**DELETE LINK
+	 * @param linksListView ***/
+	public boolean deleteLink(Link linkObj, ListView linksListView){
 		if(linkObj!=null){
-//			if(DatabaseCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,linkObj.getLinkId())){
-//				toastMessageWrapper("ITEM DELETED");
-//				return false;
-//			}
+			if(DatabaseCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,linkObj.getLinkId())){
+				linksListView.removeViewAt(SharedData.getLinkPosition());
+				toastMessageWrapper("ITEM DELETED");
+				return true;
+			}
 			//TEST
 			Log.d(TAG, "link name - "+ linkObj.getLinkName());
 			toastMessageWrapper("DELETE FAILED"+linkObj.getLinkName());
@@ -195,14 +197,14 @@ public class LinksListFragment extends SherlockFragment {
     OnMenuItemClickListener deleteLinkClickListener = new OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {  
-        	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-	   		final ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
-	   		ListAdapter linksListAdapter = linksListView.getAdapter();
+//        	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+//	   		final ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
+//	   		ListAdapter linksListAdapter = linksListView.getAdapter();
 	   		// Retrieve the item that was clicked on
-	   		if(linksListAdapter!=null){
-	   			Link linkObj = (Link) linksListAdapter.getItem(info.position);
-	   			deleteLink(linkObj);
-	   		}
+//	   		if(linksListAdapter!=null){
+//	   			Link linkObj = (Link) linksListAdapter.getItem(info.position);
+//	   			deleteLink(linkObj,linksListView);
+//	   		}
             return false;
         }
     };
@@ -211,23 +213,22 @@ public class LinksListFragment extends SherlockFragment {
 		public LinkCustomAdapter(Context context) {
 			super(context, 0);
 		}
-		public View getView(int position, View convertView, ViewGroup parent) {
-			if (convertView == null) {
+		public View getView(final int position, View convertView, ViewGroup parent) {
+			if (convertView == null) 
 				convertView = LayoutInflater.from(getContext()).inflate(R.layout.link_row, null);
-			}
-//			view.findViewById(R.id.link_icon_id);
+			
 			TextView linkTitle = (TextView)convertView.findViewById(R.id.link_title_id);
 			linkTitle.setText(getItem(position).getLinkName());
-//			view.findViewById(R.id.preview_icon_id);
 
 			//attach event to actionLayout and preview layout
 			convertView.findViewById(R.id.link_action_layout_id).setOnClickListener(new View.OnClickListener() {
 				@Override
-				public void onClick(View v) {
+				public void onClick(View view) {
 					toastMessageWrapper("get links action bottom menu");
 					Activity activity = getActivity();
 					if(activity instanceof FragmentChangeActivity) {
-//					    ((FragmentChangeActivity) activity).getLinkActionBar(SharedData.Fragments.LINKS_LIST);
+						Log.i(TAG, "TextView clicked on row " + position);
+						SharedData.setLinkPosition(position);
 				    	getSherlockActivity().startActionMode(new linkOverActionBar());
 					}
 
@@ -249,7 +250,7 @@ public class LinksListFragment extends SherlockFragment {
 	
 	/**OVER ACTION BAR impl**/
 	public final class linkOverActionBar implements ActionMode.Callback {
-	    private static final String TAG ="ActionModeForBottomBar_TAG";
+	    private static final String TAG ="linkOverActionBar_TAG";
 
 		@Override
 	    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -279,13 +280,11 @@ public class LinksListFragment extends SherlockFragment {
 
 	    @Override
 	    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-	    	android.widget.AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 	    	ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
 			ListAdapter linksListAdapter = linksListView.getAdapter();
-			
-			if(info!=null){
-		    	Log.d(TAG, ""+ info.position);
-		    	Link linkObj = (Link) linksListAdapter.getItem(info.position);
+//	    	Log.d(TAG, ""+ SharedData.getLinkPosition());
+	    	if(SharedData.getLinkPosition()!=-1){
+		    	Link linkObj = (Link) linksListAdapter.getItem(SharedData.getLinkPosition());
 		    	
 		    	switch(item.getItemId()){
 		    	case 0:
@@ -297,10 +296,10 @@ public class LinksListFragment extends SherlockFragment {
 		    	case 2:
 		    		toastMessageWrapper("Delete this link");
 		    		if(linkObj!=null)
-		    			deleteLink(linkObj);
+		    			deleteLink(linkObj,linksListView);
 		    		break;
 		    	}
-			}			
+	    	}
 	    	Log.d(TAG, ""+ item.getTitle());
 	    	mode.finish();
 	        return true;

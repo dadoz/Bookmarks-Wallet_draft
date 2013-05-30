@@ -5,9 +5,7 @@
     android:layout_height="wrap_content"
     android:minHeight="60dip"
     android:orientation="horizontal" 
-    android:background="@drawable/layout_bottom_border"
-    android:layout_marginLeft="10dip"
-    android:layout_marginRight="10dip">
+    android:background="@drawable/layout_bottom_border">
 	<LinearLayout
 	    android:id="@+id/link_action_layout_id" 
 	    android:layout_width="0dp"
@@ -21,7 +19,7 @@
 	        android:layout_width="20dp"
 	        android:layout_height="20dp"
 	        android:layout_margin="20dp"
-	        android:src="@drawable/comment_link" />
+	        android:src="@drawable/web_icon_red" />
 	
 	    <TextView
 	        android:id="@+id/link_title_id"
@@ -49,6 +47,6 @@
 	        android:layout_width="25dp"
 	        android:layout_height="25dp"
 	        android:layout_margin="15dp"
-	        android:src="@drawable/preview_icon" />
+	        android:src="@drawable/find_icon_black" />
 	</LinearLayout>	    
 </LinearLayout>

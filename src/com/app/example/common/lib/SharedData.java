@@ -41,6 +41,7 @@ public class SharedData {
 	public static ArrayList<Link> linksListStatic=null;
 	private static User userObj=null;
 
+	static int linkPosition=-1;
 	//localhost URL for android emulator dev (AVD)
 //	public static String DBUrl="http://10.0.2.2/sharedLinksApp/fetchDataFromDbJSON.php";
 //	public static String DBUrl="http://192.168.42.155:8080/sharedLinksApp/fetchDataFromDbJSON.php";
@@ -165,4 +166,13 @@ public class SharedData {
     	setPasswordStored(sharedPref,SharedData.EMPTY_PASSWORD);
     	setUserIdStored(sharedPref,SharedData.EMPTY_USERID);
     }
+    //TODO fix this shit
+    /***LINK POOSITION**/
+    public static void setLinkPosition(int pos){
+    	linkPosition=pos;
+    }
+    public static int getLinkPosition(){
+    	return linkPosition;
+    }
+    
 }

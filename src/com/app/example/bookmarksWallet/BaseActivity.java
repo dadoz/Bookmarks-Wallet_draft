@@ -27,7 +27,6 @@ public class BaseActivity extends SlidingFragmentActivity {
 		super.onCreate(savedInstanceState);
 
 		setTitle(mTitleRes);
-
 		// set the Behind View
 		setBehindContentView(R.layout.menu_frame);
 		if (savedInstanceState == null) {
