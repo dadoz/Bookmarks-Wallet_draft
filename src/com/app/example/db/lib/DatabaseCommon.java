@@ -20,88 +20,57 @@ import com.app.example.http.client.CustomHttpClient;
 
 public class DatabaseCommon {
 	private static final String TAG = "linksParserJSONData_TAG";
-	static String databaseResultString;
-	 //TODO  DB STUFF - put all this code into DB class
-	/**
-	 * function to fetch data from db and compare 
-	 * the usr and pws typed in from user
-	 * @param usernameTypedIn
-	 * @param passwordTypedIn
-	 * @return true or false - return usr and pswd typed in from user check :D
-	 */
-   public static String fetchDataFromDb(int choicedDB){
-     	String response ="";
-     	String result="";
-     	// call executeHttpPost method passing necessary parameters 
+	
+	public static String fetchDataFromDb(int choicedDB){
      	try {
      		//check if db is right
      		if(choicedDB!=SharedData.LINKS_DB && choicedDB!=SharedData.USERS_DB)
      			Log.e("fetchDataFromDb_TAG", "NO DB FOUND - u must define the right database name");
      		
      		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-
      		postParameters.add(new BasicNameValuePair("choicedDB",""+choicedDB));
      		postParameters.add(new BasicNameValuePair("selectAllRowFromDB",""+SharedData.SELECT_ALL_ROW_FROM_DB));
-     		
-     		//add new pair of params to set userId
      		if(choicedDB==SharedData.LINKS_DB){
      			//get my userId to fetch all liks I stored before
+     			
 //     			if(userObj!=null)
 //     				userIdTMP=userObj.getUserId();
+     			//TODO remove this userIdTmp
      			int userIdTMP=1;
      			postParameters.add(new BasicNameValuePair("userId",""+userIdTMP));
      		}	
      		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
      	    StrictMode.setThreadPolicy(policy);
      		
-     		// from device instead of use 127.0.0.1 u must use 10.0.2.2 
-     	    response = CustomHttpClient.executeHttpPost(SharedData.DBUrl,postParameters);
-     	  
-     		// store the result returned by PHP script that runs MySQL query
-   	    result = response.toString();  
-   	    Log.d(TAG,result);
+     	    return CustomHttpClient.executeHttpPost(SharedData.DBUrl,postParameters).toString();
      	}catch (Exception e) {
      		Log.e("fetchDataFromDb_TAG","Error in http connection!!" + e.toString());     
      	}
-     	return result;
-   }
-   public static int usersParserJSONData(String usernameTypedIn,String passwordTypedIn){
+     	return SharedData.EMPTY_STRING;
+	}
+	public static int usersParserJSONData(String usernameTypedIn,String passwordTypedIn){
 	    try{
-	    	//def temp db variable
-	    	String usernameDb;
-	    	String passwordDb;
-	    	int userIdDb = SharedData.USER_LOGIN_FAILED;
-
-	    	//set false cos the user should be logged out before trying to log in again
-    		String result=DatabaseCommon.fetchDataFromDb(SharedData.USERS_DB);
-	    	JSONArray jArray = new JSONArray(result);
+	    	JSONArray jArray = new JSONArray(DatabaseCommon.fetchDataFromDb(SharedData.USERS_DB));
 	    	for(int i=0;i<jArray.length();i++){
-	    		//getJSONObj 
 	    		JSONObject json_data = jArray.getJSONObject(i); 
-	    		
-	    		//get usr and pswd from JASON data
-	    		userIdDb=json_data.getInt("user_id");
-	    		usernameDb=json_data.getString("username");
-	    		passwordDb=json_data.getString("password");
+	    		int userIdTmp = json_data.getInt("user_id");
+	    		String usernameTmp = json_data.getString("username");
+	    		String passwordTmp = json_data.getString("password");
                
-//               databaseResultString += "\n" +"USR:" + usernameDb + "  " +"PSWD:" + passwordDb;
-//               //Log all database entries
-	    		Log.i("usersParserJSONData_TAG","id: "+userIdDb+
-                        ", usrname: "+usernameDb+
-                        ", pswd: "+passwordDb
-	    				);
-
-	    		//check usrname and pswd and set NEW user
-//	       	    if(usernameDb.compareTo(usernameTypedIn)==0 && passwordDb.compareTo(passwordTypedIn)==0)
-//	       	    	SharedData.setUser(userIdDb,usernameDb,passwordDb);
+//	    		Log.i("usersParserJSONData_TAG","id: "+userIdDb+
+//                        ", usrname: "+usernameDb+
+//                        ", pswd: "+passwordDb
+//	    				);
+	       	    if(usernameTmp.compareTo(usernameTypedIn)==0 && passwordTmp.compareTo(passwordTypedIn)==0)
+	       	    	return userIdTmp;
 	    	}
-	    	return userIdDb;
 	    }catch(JSONException e){
 	    	Log.e(TAG+"- usersParserJSONData_TAG", "Error parsing data "+e.toString());
-	      	return SharedData.USER_LOGIN_FAILED;
 	    }
-   }
-   public static ArrayList<Link> getLinksListFromJSONData(){
+    	return SharedData.USER_LOGIN_FAILED;
+	}
+	public static ArrayList<Link> getLinksListFromJSONData(){
+		//TODO set this fx visible only if user is logged in
 	   ArrayList<Link> linksObjList=new ArrayList<Link>();
 	   //TODO TEST values cahnge or rm
 	   boolean isDeletedLink=false;
@@ -128,22 +97,21 @@ public class DatabaseCommon {
 //	            	Log.v("URL_TAG","error - "+e);
 //				}
 
-	    		Log.d(TAG+"- getLinksListFromJSONData","id: "+linkObj.getLinkId()+
-	    				", iconPath: "+linkObj.linkIconPath+
-                        ", linkUrl: "+linkObj.getLinkUrl()+
-                        ", userId: "+linkObj.getLinkId()+
-                        ", linkName: "+linkObj.getLinkName()
-	    				);
+//	    		Log.d(TAG+"- getLinksListFromJSONData","id: "+linkObj.getLinkId()+
+//	    				", iconPath: "+linkObj.linkIconPath+
+//                        ", linkUrl: "+linkObj.getLinkUrl()+
+//                        ", userId: "+linkObj.getLinkId()+
+//                        ", linkName: "+linkObj.getLinkName()
+//	    				);
 	    	}
 	   }catch(JSONException e){
 	    	Log.e(TAG+"- getLinksListFromJSONData", "Error parsing data "+e.toString());
 	   }
 	   return linksObjList;
-   }
-   public static boolean insertUrlEntryOnDb(int choicedDB,String urlString){
+	}
+	public static boolean insertUrlEntryOnDb(int choicedDB,String urlString){
 	   if(SharedData.isUserLoggedIn()){
 		   try{
-		  		//check if db is right
 		  		if(choicedDB!=SharedData.LINKS_DB && choicedDB!=SharedData.USERS_DB)
 		  			Log.e(TAG, "NO DB FOUND - u must define the right database name");
 	
@@ -159,12 +127,9 @@ public class DatabaseCommon {
 	
 		  			//get url to be stored
 		  			if(urlString!=null)
-		  				postParameters.add(new BasicNameValuePair("linkUrl",""+urlString));
-		  			
-		  			//get url name
-		  			//add url name to be added to the url above
+		  				postParameters.add(new BasicNameValuePair("linkUrl",""+urlString)); 			
+
 		  			String linkNameTMP=getUrlTitle(urlString);
-//		  			android.R.drawable.ic_menu_mapmode
 		  			if(linkNameTMP!=null)
 		  				postParameters.add(new BasicNameValuePair("linkName",""+linkNameTMP));
 		  		}	
@@ -181,8 +146,8 @@ public class DatabaseCommon {
 		  	}
 	   }
 	   return false;
-   }
-   public static boolean deleteUrlEntryFromDb(int choicedDB,int linkId){
+	}
+	public static boolean deleteUrlEntryFromDb(int choicedDB,int linkId){
 	   if(SharedData.isUserLoggedIn()){
 		   try{
 		  		//check if db is right
@@ -196,16 +161,14 @@ public class DatabaseCommon {
 		  		
 	 			//get my userId to fetch all liks I stored before
 	 			int userIdTMP=SharedData.getUser().getUserId();
-	 			if(userIdTMP!=SharedData.EMPTY_USERID)
-	 				postParameters.add(new BasicNameValuePair("links_user_id",""+userIdTMP));
-	 			else
+	 			if(userIdTMP==SharedData.EMPTY_USERID)
 	 				return false;
+ 				postParameters.add(new BasicNameValuePair("links_user_id",""+userIdTMP));
 	 			
 	 			//check linkId!=null
-	 			if(linkId!=SharedData.EMPTY_LINKID)
-	 				postParameters.add(new BasicNameValuePair("linkId",""+linkId));
-	 			else
+	 			if(linkId==SharedData.EMPTY_LINKID)
 	 				return false;
+ 				postParameters.add(new BasicNameValuePair("linkId",""+linkId));
 	 			
 		  		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		  	    StrictMode.setThreadPolicy(policy);
@@ -221,17 +184,8 @@ public class DatabaseCommon {
 		  	}
    		}
 	   return false;
-   }
-   
-	public static String getDatabaseResultString(){
-		if(SharedData.getUser().isUserLoggedIn())	
-			return databaseResultString;
-
-		Log.e(TAG,"u're not autorized to get this data - u must log in");
-		return SharedData.EMPTY_STRING;
 	}
-	
-    /**STATIC fx to get values from Link - JSOUP*/
+   /**STATIC fx to get values from Link - JSOUP*/
     public static String getUrlTitle(String URLString){
     	//URL title 
     	try{

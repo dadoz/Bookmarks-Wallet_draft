@@ -54,7 +54,6 @@ public class LinksListFragment extends SherlockFragment {
     	ArrayList<Link> linksDataList=new ArrayList<Link>();    	
     	final ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
 //        mSherlock.setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW);
-
     	try{
     		//TODO change iconPath on DB
 			linksDataList = DatabaseCommon.getLinksListFromJSONData();

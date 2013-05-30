@@ -1,6 +1,7 @@
 package com.app.example.bookmarksWallet;
 
 import com.app.example.bookmarksWallet.fragments.WallpaperLoginFragment;
+import com.app.example.bookmarksWallet.models.User;
 import com.app.example.common.lib.SharedData;
 import com.app.example.db.lib.DatabaseCommon;
 
@@ -18,10 +19,6 @@ import com.actionbarsherlock.view.MenuItem;
 //http://bashooka.com/inspiration/flat-web-ui-design/
 
 public class MainActivity extends SherlockFragmentActivity {
-    public static final String PREFS_NAME = "UserCredentialFile";
-	private static final String EMPTY_USERNAME="";
-	private static final String EMPTY_PASSWORD="";
-	private static final int EMPTY_USERID=-1;
 	private static final String TAG = "MainActivity_TAG";
 
     @Override
@@ -30,7 +27,6 @@ public class MainActivity extends SherlockFragmentActivity {
 		setTitle(R.string.app_name);
         setContentView(R.layout.fragment_activity);
         
-        //hide action bar on main activity
         getActionBar().hide();
         //TODO move this fx in sm other place plez - intent to get new url from browser
         storeUrlFromBrowserIntoDb();
@@ -39,10 +35,10 @@ public class MainActivity extends SherlockFragmentActivity {
 		ft.add(R.id.main_frameLayout_id, new WallpaperLoginFragment());
 		ft.commit(); 
 		
-		if(userLoggedInChecker())
-			startActivity(new Intent(MainActivity.this, FragmentChangeActivity.class));
-
-		startActivity(new Intent(MainActivity.this, LoginActivity.class));                  	  
+		if(checkUserLoggedInFromSharedPreferences())
+			startActivityForResult(new Intent(MainActivity.this, FragmentChangeActivity.class),1);
+		else
+			startActivity(new Intent(MainActivity.this, LoginActivity.class));                  	  
     }
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -58,16 +54,15 @@ public class MainActivity extends SherlockFragmentActivity {
 //		finish();
 	}
 	/**CHECK CREDENTIAL FROM SHARED_PREF**/
-	public boolean userLoggedInChecker(){
-		// Restore userLOGIN credentials even if user kill the app
-		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-		
-		String usernameStored = settings.getString("usernameStored", EMPTY_USERNAME);
-   		String passwordStored = settings.getString("passwordStored", EMPTY_PASSWORD);
-   		int userIdStored=settings.getInt("userIdStored", EMPTY_USERID);
+	public boolean checkUserLoggedInFromSharedPreferences(){
+		SharedPreferences sharedPref = getSharedPreferences(SharedData.PREFS_NAME, 0);
+   		String usernameStored=SharedData.getUsernameStored(sharedPref);
+		String passwordStored = SharedData.getPasswordStored(sharedPref);
+		int userIdStored=SharedData.getUserIdStored(sharedPref);
 
-    	if(usernameStored!=EMPTY_USERNAME && passwordStored!=EMPTY_PASSWORD){
+		if(usernameStored.compareTo(SharedData.EMPTY_USERNAME)!=0 && passwordStored.compareTo(SharedData.EMPTY_PASSWORD)!=0){
     		SharedData.setUser(userIdStored,usernameStored,passwordStored);
+       		Log.d(TAG, "check credential from shared"+usernameStored+passwordStored);
     		return true;
     	}
     	Log.d(TAG,"userLoggedInCheker -  user is not logged in");
@@ -92,6 +87,38 @@ public class MainActivity extends SherlockFragmentActivity {
 		}
 		return true;
 	}
+	/**USER LOGOUT**/
+	public boolean setUserLogout(){
+		User userObj = SharedData.getUser();
+		if(userObj!=null){
+			if(userObj.isUserLoggedIn()){
+				userObj.setUserLoggedIn(false);
+				SharedPreferences sharedPref = getSharedPreferences(SharedData.PREFS_NAME, 0);
+				SharedData.clearSharedPreferences(sharedPref);
+				Log.d(TAG, "userLoggedIn"+userObj.isUserLoggedIn());
+				return true;
+			}else{
+				Log.e(TAG,"u're not autorized to get this data - u must log in");
+				return false;
+			}
+		}
+		return false;
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "onActivityResult - getin");
+		if (requestCode == 1) {
+		     if(resultCode == RESULT_OK){      
+		         String result=data.getStringExtra("result");
+		         Log.d(TAG, result);
+		         //TODO check if userLogout() fail or not
+		         setUserLogout();
+		         startActivity(new Intent(MainActivity.this, LoginActivity.class));                  	  
+		     }
+		     if (resultCode == RESULT_CANCELED)
+		    	 toastMessageWrapper("closing application");
+		  }
+	}	
 	/**TOAST MESSAGGE WRAPPER**/
 	private void toastMessageWrapper(String message){
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();

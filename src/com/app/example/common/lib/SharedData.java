@@ -2,8 +2,8 @@ package com.app.example.common.lib;
 
 import java.util.ArrayList;
 
-
-import android.util.Log;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 import com.app.example.bookmarksWallet.models.Link;
 import com.app.example.bookmarksWallet.models.Note;
@@ -26,12 +26,17 @@ public class SharedData {
 	public static final String EMPTY_USERNAME="";
 	public static final String EMPTY_PASSWORD="";
 	public static final int EMPTY_USERID=-1;
-		
+
+    public static final String PREFS_NAME = "UserCredentialFile";
+    public static final String USERNAME_STORED_LABEL =" usernameStored";
+    public static final String PASSWORD_STORED_LABEL =" passwordStored";
+    public static final String USERID_STORED_LABEL =" userIdStored";
+
 	public static String databaseResultString="";
 
 	public static final int EMPTY_LINKID = -1;
 	public static final String EMPTY_STRING = "";
-	private static final String TAG = "SharedData_TAG";
+//	private static final String TAG = "SharedData_TAG";
 	public static ArrayList<Note> notesListStatic=null;
 	public static ArrayList<Link> linksListStatic=null;
 	private static User userObj=null;
@@ -96,8 +101,9 @@ public class SharedData {
 	/**USER*/
     public static void setUser(int userIdDb,String usernameDb,String passwordDb){
     	boolean userLoggedIn=true;
-    	if(userObj==null)
-    		userObj=new User(userIdDb,usernameDb,passwordDb,userLoggedIn);
+//    	userObj=null;
+//    	if(userObj==null)
+   		userObj=new User(userIdDb,usernameDb,passwordDb,userLoggedIn);
     }
 
 	public static boolean isUserLoggedIn(){
@@ -128,17 +134,35 @@ public class SharedData {
 		return EMPTY_USERID;
 	}
 	
-	public static boolean setUserLogout(){
-		if(userObj!=null)
-			if(userObj.isUserLoggedIn()){
-				userObj.setUserLoggedIn(false);
-				Log.d(TAG, "userLoggedIn"+userObj.isUserLoggedIn());
-				return true;
-			}else{
-				Log.e("MY_TAG","u're not autorized to get this data - u must log in");
-				Log.d(TAG, "userLoggedIn"+userObj.isUserLoggedIn());
-				return false;
-			}
-		return false;
-	}
+	/**SharedPreferences**/
+    public static String getUsernameStored(SharedPreferences sharedPref){
+    	return sharedPref.getString(USERNAME_STORED_LABEL, EMPTY_USERNAME);
+    }
+    public static String getPasswordStored(SharedPreferences sharedPref){
+		return sharedPref.getString(PASSWORD_STORED_LABEL, EMPTY_PASSWORD);
+    }
+    public static int getUserIdStored(SharedPreferences sharedPref){
+		return sharedPref.getInt(USERID_STORED_LABEL, EMPTY_USERID);
+    }
+    public static void setUsernameStored(SharedPreferences sharedPref,String username){
+    	Editor editor = sharedPref.edit();
+    	editor.putString(USERNAME_STORED_LABEL, username);
+    	editor.commit();
+    }
+    public static void setPasswordStored(SharedPreferences sharedPref,String password){
+    	Editor editor = sharedPref.edit();
+    	editor.putString(PASSWORD_STORED_LABEL, password);
+    	editor.commit();
+    }
+    public static void setUserIdStored(SharedPreferences sharedPref,int userId){
+    	Editor editor = sharedPref.edit();
+    	editor.putInt(USERID_STORED_LABEL, userId);
+    	editor.commit();
+    }
+
+    public static void clearSharedPreferences(SharedPreferences sharedPref){
+    	setUsernameStored(sharedPref,SharedData.EMPTY_USERNAME);
+    	setPasswordStored(sharedPref,SharedData.EMPTY_PASSWORD);
+    	setUserIdStored(sharedPref,SharedData.EMPTY_USERID);
+    }
 }

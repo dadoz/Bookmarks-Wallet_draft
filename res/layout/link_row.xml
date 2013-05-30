@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:baselineAligned="false"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="60dip"
     android:orientation="horizontal" 
     android:background="@drawable/layout_bottom_border"
-    android:layout_marginBottom="10dip">
+    android:layout_marginLeft="10dip"
+    android:layout_marginRight="10dip">
 	<LinearLayout
 	    android:id="@+id/link_action_layout_id" 
-	    android:layout_width="wrap_content"
+	    android:layout_width="0dp"
 	    android:layout_height="fill_parent"
 	    android:layout_weight="1" 
 	    android:orientation="horizontal" >

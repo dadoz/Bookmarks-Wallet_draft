@@ -3,9 +3,9 @@ package com.app.example.bookmarksWallet.fragments;
 import com.app.example.bookmarksWallet.FragmentChangeActivity;
 import com.app.example.bookmarksWallet.R;
 //import com.app.example.bookmarksWallet.fragments.LogoutFragment;
-import com.app.example.common.lib.SharedData;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -17,7 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MenuListFragment extends ListFragment {
 
@@ -139,17 +138,17 @@ public class MenuListFragment extends ListFragment {
 
 	}
 	/****set logout button action***/
+	@SuppressWarnings("static-access")
 	public void logoutAction(){
-		if(SharedData.setUserLogout()){
-			toastMessageWrapper("Logout Successful");
-			getActivity().finish();
-		}else{
-			toastMessageWrapper("Logout Failed :(");
-		}
+		String result = "logout";
+		Intent returnIntent = new Intent();
+		returnIntent.putExtra("result",result);
+		getActivity().setResult(getActivity().RESULT_OK,returnIntent);   
+		getActivity().finish();
 	}
     //toast message wrapper
-	private void toastMessageWrapper(String message){
-		Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-	}
+//	private void toastMessageWrapper(String message){
+//		Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+//	}
 
 }
