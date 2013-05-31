@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 
 import com.app.example.bookmarksWallet.models.Link;
 import com.app.example.bookmarksWallet.models.Note;
@@ -36,12 +37,15 @@ public class SharedData {
 
 	public static final int EMPTY_LINKID = -1;
 	public static final String EMPTY_STRING = "";
-//	private static final String TAG = "SharedData_TAG";
+	public static final String LOCAL_DB = "sqlite_db_name";
+	public static final String ONLINE_DB = "online_db_url";
+	private static final String TAG = "SharedData_TAG";
 	public static ArrayList<Note> notesListStatic=null;
 	public static ArrayList<Link> linksListStatic=null;
 	private static User userObj=null;
 
-	static int linkPosition=-1;
+	public static int LINK_NOT_IN_LIST=-1;
+	static int linkPosition=LINK_NOT_IN_LIST;
 	//localhost URL for android emulator dev (AVD)
 //	public static String DBUrl="http://10.0.2.2/sharedLinksApp/fetchDataFromDbJSON.php";
 //	public static String DBUrl="http://192.168.42.155:8080/sharedLinksApp/fetchDataFromDbJSON.php";
@@ -54,7 +58,7 @@ public class SharedData {
 			notesListStatic.addAll(notesListTmp);
 		}
 	}
-
+	
 	public static ArrayList<Note> getNotesList(){
 		return notesListStatic;
 	}
@@ -68,6 +72,8 @@ public class SharedData {
 	}
 	/**LINKS*/
 	public static void setLinksList(ArrayList<Link> linksListTmp){
+    	for(Link link:linksListTmp)
+    		Log.d(TAG,link.getLinkName());
 		if(linksListStatic==null){
 			linksListStatic=new ArrayList<Link>();
 			linksListStatic.addAll(linksListTmp);
@@ -99,6 +105,12 @@ public class SharedData {
 				return linksListStatic.get(i).getLinkUrl();
 		return null;
 	}
+	public static boolean removeLink(Link link) {
+		if(linksListStatic.remove((Link)link))
+			return true;
+		return false;
+	}
+
 	/**USER*/
     public static void setUser(int userIdDb,String usernameDb,String passwordDb){
     	boolean userLoggedIn=true;
@@ -174,5 +186,6 @@ public class SharedData {
     public static int getLinkPosition(){
     	return linkPosition;
     }
+
     
 }

@@ -13,7 +13,8 @@ public class Link {
 	public String linkName;	
 	public String delIcon;
 	public boolean deletedLinkFlag;
-
+	public int linkPosition;
+	
 	public Link(int linkId,String linkIconPath,String linkName,String linkUrl,int userId,String delIcon,boolean deletedLinkFlag){
 		this.linkId=linkId;
 		this.linkIconPath=linkIconPath;
@@ -22,6 +23,7 @@ public class Link {
 		this.userId=userId;
 		this.delIcon=delIcon;
 		this.deletedLinkFlag=deletedLinkFlag;
+		this.linkPosition=SharedData.LINK_NOT_IN_LIST;
 	}
 	
 	public int getUserId(){
@@ -54,6 +56,13 @@ public class Link {
 	public boolean getDeletedLink(){
 		return this.deletedLinkFlag;
 	}
+	public void setLinkPosition(int value){
+		this.linkPosition=value;
+	}
+	public int getLinkPosition(){
+		return this.linkPosition;
+	}
+
 	public boolean findLinkNameBool(String value){
 		if(this.linkName==value)
 			return true;
@@ -78,4 +87,5 @@ public class Link {
 		// TODO Auto-generated method stub
 		return this.linkId;
 	}
+
 }

@@ -71,12 +71,12 @@ public class DatabaseCommon {
 	}
 	public static ArrayList<Link> getLinksListFromJSONData(){
 		//TODO set this fx visible only if user is logged in
-	   ArrayList<Link> linksObjList=new ArrayList<Link>();
 	   //TODO TEST values cahnge or rm
 	   boolean isDeletedLink=false;
 	   String delIconPathDb="";    	
    	
 	   try{
+		   	ArrayList<Link> linksObjList=new ArrayList<Link>();
 	    	JSONArray jArray = new JSONArray(DatabaseCommon.fetchDataFromDb(SharedData.LINKS_DB));
 	    	for(int i=0;i<jArray.length();i++){
 	    		//get links data
@@ -107,7 +107,7 @@ public class DatabaseCommon {
 	   }catch(JSONException e){
 	    	Log.e(TAG+"- getLinksListFromJSONData", "Error parsing data "+e.toString());
 	   }
-	   return linksObjList;
+	   return null;
 	}
 	public static boolean insertUrlEntryOnDb(int choicedDB,String urlString){
 	   if(SharedData.isUserLoggedIn()){
@@ -147,36 +147,42 @@ public class DatabaseCommon {
 	   }
 	   return false;
 	}
-	public static boolean deleteUrlEntryFromDb(int choicedDB,int linkId){
+	public static boolean deleteUrlEntryFromDb(int choicedDB,String dbType,int linkId){
 	   if(SharedData.isUserLoggedIn()){
 		   try{
-		  		//check if db is right
-		  		if(choicedDB!=SharedData.LINKS_DB && choicedDB!=SharedData.USERS_DB)
-		  			Log.e(TAG, "NO DB FOUND - u must define the right database name");
-	
-		  		//add choicedDB params
-		  		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-		  		postParameters.add(new BasicNameValuePair("deleteUrlFromDb",""+SharedData.DELETE_URL_FROM_DB));
-		  		postParameters.add(new BasicNameValuePair("choicedDB",""+choicedDB));
-		  		
-	 			//get my userId to fetch all liks I stored before
-	 			int userIdTMP=SharedData.getUser().getUserId();
-	 			if(userIdTMP==SharedData.EMPTY_USERID)
-	 				return false;
- 				postParameters.add(new BasicNameValuePair("links_user_id",""+userIdTMP));
-	 			
-	 			//check linkId!=null
-	 			if(linkId==SharedData.EMPTY_LINKID)
-	 				return false;
- 				postParameters.add(new BasicNameValuePair("linkId",""+linkId));
-	 			
-		  		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-		  	    StrictMode.setThreadPolicy(policy);
-		  	    
-		   		String response = CustomHttpClient.executeHttpPost(SharedData.DBUrl,postParameters);
-		   		
-	 			Log.d(TAG,""+linkId);
-		   		Log.d(TAG,"this is the result" + response);
+			   	if(dbType.equals(SharedData.ONLINE_DB)){
+			  		//check if db is right
+			  		if(choicedDB!=SharedData.LINKS_DB && choicedDB!=SharedData.USERS_DB)
+			  			Log.e(TAG, "NO DB FOUND - u must define the right database name");
+		
+			  		//add choicedDB params
+			  		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			  		postParameters.add(new BasicNameValuePair("deleteUrlFromDb",""+SharedData.DELETE_URL_FROM_DB));
+			  		postParameters.add(new BasicNameValuePair("choicedDB",""+choicedDB));
+			  		
+		 			//get my userId to fetch all liks I stored before
+		 			int userIdTMP=SharedData.getUser().getUserId();
+		 			if(userIdTMP==SharedData.EMPTY_USERID)
+		 				return false;
+	 				postParameters.add(new BasicNameValuePair("links_user_id",""+userIdTMP));
+		 			
+		 			//check linkId!=null
+		 			if(linkId==SharedData.EMPTY_LINKID)
+		 				return false;
+	 				postParameters.add(new BasicNameValuePair("linkId",""+linkId));
+		 			
+			  		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+			  	    StrictMode.setThreadPolicy(policy);
+			  	    
+			   		String response = CustomHttpClient.executeHttpPost(SharedData.DBUrl,postParameters);
+			   		
+		 			Log.d(TAG,""+linkId);
+			   		Log.d(TAG,"this is the result" + response);
+			   	}	
+			   
+			   	if(dbType.equals(SharedData.LOCAL_DB)){
+			   		//TODO remove link from local db
+			   	}
 		   		return true;
 		  	}catch (Exception e) {
 		  		Log.e(TAG+"- deleteUrlEntryFromDb_TAG","Error in http connection!!" + e.toString());     

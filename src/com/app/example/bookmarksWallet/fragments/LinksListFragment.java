@@ -4,15 +4,11 @@ import java.util.ArrayList;
 
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.internal.widget.IcsAdapterView.AdapterContextMenuInfo;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.app.example.bookmarksWallet.FragmentChangeActivity;
 import com.app.example.bookmarksWallet.R;
-//import com.app.example.bookmarksWallet.FragmentChangeActivity.linkOverActionBar;
 import com.app.example.bookmarksWallet.models.Link;
 import com.app.example.common.lib.SharedData;
 import com.app.example.db.lib.DatabaseCommon;
@@ -26,9 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,33 +45,36 @@ public class LinksListFragment extends SherlockFragment {
 	}
 	
     public void createLayout(){
-    	ArrayList<Link> linksDataList=new ArrayList<Link>();    	
     	final ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
-//        mSherlock.setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW);
-    	try{
-    		//TODO change iconPath on DB
-			linksDataList = DatabaseCommon.getLinksListFromJSONData();
-			//TEST
-	    	if(linksDataList==null || linksDataList.size()==0)
-				Log.d(TAG,"links from db EMPTY");
-    	}catch(Exception e){
-    		Log.e(TAG,"error - " + e);
+
+    	//get linkList
+    	ArrayList<Link> linksDataList=SharedData.getLinksListStatic();
+
+    	if(linksDataList==null){
+    		Log.d(TAG,"set list from JSON data");
+    		try{
+	    		//TODO change iconPath on DB
+				linksDataList = DatabaseCommon.getLinksListFromJSONData();
+	    	}catch(Exception e){
+	    		Log.e(TAG,"error - " + e);
+	    	}
     	}
     	//TEST - empty list
-    	if(linksDataList==null || linksDataList.size()==0)
+    	if(linksDataList==null){
+    		Log.d(TAG,"set list TEST data");
     		linksDataList=testLinksList();
+    	}
 
-    	ArrayAdapter<Link> adapter=new LinkCustomAdapter(getActivity());
-		adapter.addAll(linksDataList);
+    	if(linksDataList!=null && linksDataList.size()==0){
+    		//TODO handle empty - need to be refreshed
+    		((TextView)getActivity().findViewById(R.id.linkList_empty_label)).setText("Empty List");
+    	}
+    	
+    	ArrayAdapter<Link> adapter=new LinkCustomAdapter(getActivity(), R.layout.link_row, linksDataList);
 		linksListView.setAdapter(adapter);
     	//set noteList to sharedData fx
     	SharedData.setLinksList(linksDataList);
-
     	getSherlockActivity().registerForContextMenu(linksListView);
-    	
-    	//TEST
-    	for(Link link:linksDataList)
-    		Log.d(TAG,link.getLinkName());
     }
 	/**OPEN LINK***/
 	public void openLinkOnBrowser(String linkUrl){
@@ -103,20 +100,27 @@ public class LinksListFragment extends SherlockFragment {
     	return true;
     }
 	/**DELETE LINK
-	 * @param linksListView ***/
+	 * @param linksListView 
+	 * @param linkObj***/
 	public boolean deleteLink(Link linkObj, ListView linksListView){
 		if(linkObj!=null){
-			if(DatabaseCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,linkObj.getLinkId())){
-				linksListView.removeViewAt(SharedData.getLinkPosition());
-				toastMessageWrapper("ITEM DELETED");
+			if(DatabaseCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,SharedData.LOCAL_DB,linkObj.getLinkId())){
+				((LinkCustomAdapter) linksListView.getAdapter()).remove(linkObj);
+				SharedData.removeLink(linkObj);
+				//TODO TEST rm link from online db remove it
+				DatabaseCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,SharedData.ONLINE_DB,linkObj.getLinkId());
+				toastMessageWrapper("Item deletedx - "+linkObj.getLinkName());
 				return true;
 			}
 			//TEST
-			Log.d(TAG, "link name - "+ linkObj.getLinkName());
-			toastMessageWrapper("DELETE FAILED"+linkObj.getLinkName());
+			Log.d(TAG, "link namexs - "+ linkObj.getLinkName());
 			return false;
 		}
-		toastMessageWrapper("DELETE FAILED");
+		return false;
+	}
+	/**EDIT LINK***/
+	public boolean editLink(Link linkObj, ListView linksListView){
+		toastMessageWrapper("NEED TO BE IMPLEMENTED");
 		return false;
 	}
 //    public void onBackPressed(){
@@ -136,12 +140,12 @@ public class LinksListFragment extends SherlockFragment {
 
     	linksUrlArray.add("heavy metal1");
 		linksUrlArray.add("pop1");
-		linksUrlArray.add("underground");
-		linksUrlArray.add("heavy metal");
-		linksUrlArray.add("underground");
+//		linksUrlArray.add("underground");
+//		linksUrlArray.add("heavy metal");
+//		linksUrlArray.add("underground");
 		linksUrlArray.add("hey_ure_fkin_my_shitty_dog_are_u_sure_u_want_to_cose_ure_crazy");
-		linksUrlArray.add("pop2");
-		linksUrlArray.add("heavy metal2");
+		linksUrlArray.add("bla1");
+		linksUrlArray.add("link2");
     	String linkUrl="http://www.google.it";
     	int userId=0;
     	for(int i=0;i<linksUrlArray.size();i++)
@@ -149,9 +153,54 @@ public class LinksListFragment extends SherlockFragment {
     	
     	return linksDataList;
     }
-	
+    /**CUSTOM LAYOUT CLASS**/
+	public class LinkCustomAdapter extends ArrayAdapter<Link> {
+		public LinkCustomAdapter(Context context, int linkViewResourceId,
+                ArrayList<Link> items) {
+//			super(context, 0); 
+			super(context, linkViewResourceId, items);
+//            this.items = items;
+		}
+		public View getView(final int position, View convertView, ViewGroup parent) {
+			if (convertView == null) 
+				convertView = LayoutInflater.from(getContext()).inflate(R.layout.link_row, null);
+//				convertView = LayoutInflater.from(getContext()).inflate(R.layout.link_row, null);
+			
+			TextView linkTitle = (TextView)convertView.findViewById(R.id.link_title_id);
+			linkTitle.setText(getItem(position).getLinkName());
+
+			//attach event to actionLayout and preview layout
+			convertView.findViewById(R.id.link_action_layout_id).setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					toastMessageWrapper("get links action bottom menu");
+					Activity activity = getActivity();
+					if(activity instanceof FragmentChangeActivity) {
+						Log.i(TAG, "TextView clicked on row " + position);
+						SharedData.setLinkPosition(position);
+				    	getSherlockActivity().startActionMode(new linkOverActionBar());
+					}
+
+				}
+			});
+			
+			//attach event to actionLayout and preview layout
+			final String linkUrlFinal=getItem(position).getLinkUrl();
+			convertView.findViewById(R.id.link_preview_layout_id).setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					openLinkOnBrowser(linkUrlFinal);
+				}
+			});
+			return convertView;
+		}
+		public void remove(){
+			
+		}
+	}
+
 	/**BOTTOM static menu**/
-    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+/*    public boolean onCreateOptionsMenu(android.view.Menu menu) {
 		return mSherlock.dispatchCreateOptionsMenu(menu);
     }
 
@@ -207,45 +256,7 @@ public class LinksListFragment extends SherlockFragment {
 //	   		}
             return false;
         }
-    };
-    /**CUSTOM LAYOUT CLASS**/
-	public class LinkCustomAdapter extends ArrayAdapter<Link> {
-		public LinkCustomAdapter(Context context) {
-			super(context, 0);
-		}
-		public View getView(final int position, View convertView, ViewGroup parent) {
-			if (convertView == null) 
-				convertView = LayoutInflater.from(getContext()).inflate(R.layout.link_row, null);
-			
-			TextView linkTitle = (TextView)convertView.findViewById(R.id.link_title_id);
-			linkTitle.setText(getItem(position).getLinkName());
-
-			//attach event to actionLayout and preview layout
-			convertView.findViewById(R.id.link_action_layout_id).setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					toastMessageWrapper("get links action bottom menu");
-					Activity activity = getActivity();
-					if(activity instanceof FragmentChangeActivity) {
-						Log.i(TAG, "TextView clicked on row " + position);
-						SharedData.setLinkPosition(position);
-				    	getSherlockActivity().startActionMode(new linkOverActionBar());
-					}
-
-				}
-			});
-			
-			//attach event to actionLayout and preview layout
-			final String linkUrlFinal=getItem(position).getLinkUrl();
-			convertView.findViewById(R.id.link_preview_layout_id).setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					openLinkOnBrowser(linkUrlFinal);
-				}
-			});
-			return convertView;
-		}
-	}
+    };*/
 
 	
 	/**OVER ACTION BAR impl**/
@@ -258,12 +269,12 @@ public class LinksListFragment extends SherlockFragment {
 	        int index=0;
 	        int order=0;
 	        
-	        menu.add(0,index++,order++,"Save")
-	            .setIcon(android.R.drawable.ic_menu_add)
+	        menu.add(0,index++,order++,"Share")
+	            .setIcon(android.R.drawable.ic_menu_share)
 	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-	        menu.add(0,index++,order++,"Search")
-	            .setIcon(android.R.drawable.ic_menu_search)
+	        menu.add(0,index++,order++,"Edit")
+	            .setIcon(android.R.drawable.ic_menu_edit)
 	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 	        menu.add(0,index++,order++,"Delete")
@@ -281,22 +292,30 @@ public class LinksListFragment extends SherlockFragment {
 	    @Override
 	    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 	    	ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
-			ListAdapter linksListAdapter = linksListView.getAdapter();
 //	    	Log.d(TAG, ""+ SharedData.getLinkPosition());
-	    	if(SharedData.getLinkPosition()!=-1){
-		    	Link linkObj = (Link) linksListAdapter.getItem(SharedData.getLinkPosition());
+	    	if(SharedData.getLinkPosition()!=SharedData.LINK_NOT_IN_LIST){
+		    	Link linkObj = (Link) linksListView.getAdapter().getItem(SharedData.getLinkPosition());
 		    	
 		    	switch(item.getItemId()){
 		    	case 0:
-		    		toastMessageWrapper("Save smthing");
+		    		//SHARE opt
+		    		toastMessageWrapper("Share your link on ....");
 		    		break;
 		    	case 1:
-		    		toastMessageWrapper("Search your link");
+		    		//EDIT opt
+		    		toastMessageWrapper("Edit your link");
+		    		if(linkObj!=null)
+		    			if(!editLink(linkObj,linksListView))
+		    				toastMessageWrapper("Item edit Failed- "+linkObj.getLinkName());
+    				toastMessageWrapper("Edit on menu - Link not found on ListView");
 		    		break;
 		    	case 2:
+		    		//DEL opt
 		    		toastMessageWrapper("Delete this link");
 		    		if(linkObj!=null)
-		    			deleteLink(linkObj,linksListView);
+		    			if(!deleteLink(linkObj,linksListView))
+		    				toastMessageWrapper("Item del Failed- "+linkObj.getLinkName());
+    				toastMessageWrapper("Delete on menu - Link not found on ListView");
 		    		break;
 		    	}
 	    	}
