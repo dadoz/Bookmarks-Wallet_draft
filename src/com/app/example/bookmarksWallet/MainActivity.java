@@ -3,7 +3,7 @@ package com.app.example.bookmarksWallet;
 import com.app.example.bookmarksWallet.fragments.WallpaperLoginFragment;
 import com.app.example.bookmarksWallet.models.User;
 import com.app.example.common.lib.SharedData;
-import com.app.example.db.lib.DatabaseCommon;
+import com.app.example.db.lib.DatabaseConnectionCommon;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -76,7 +76,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		    	String urlString = urlIntent.getStringExtra(Intent.EXTRA_TEXT);;
 		    	if(SharedData.isUserLoggedIn()){
 			    	toastMessageWrapper(urlString);
-		    		DatabaseCommon.insertUrlEntryOnDb(SharedData.LINKS_DB, urlString);
+		    		DatabaseConnectionCommon.insertUrlEntryOnDb(SharedData.LINKS_DB, urlString);
 		    	}else
 		    		toastMessageWrapper("u're not loggedin in - plez login");
 		    }

@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.app.example.bookmarksWallet.models.User;
 import com.app.example.common.lib.SharedData;
-import com.app.example.db.lib.DatabaseCommon;
+import com.app.example.db.lib.DatabaseConnectionCommon;
 
 public class LoginActivity extends SherlockFragmentActivity{
 	private static final String TAG = "LoginActivity_TAG";
@@ -69,7 +69,7 @@ public class LoginActivity extends SherlockFragmentActivity{
         int loginFail = 0;
         if(username!="" && password!=""){
         	try{
-        		int userId = DatabaseCommon.usersParserJSONData(username,password);
+        		int userId = DatabaseConnectionCommon.usersParserJSONData(username,password);
         		if(userId!=SharedData.USER_LOGIN_FAILED){
         			SharedPreferences sharedPref = getSharedPreferences(SharedData.PREFS_NAME, 0);
         			SharedData.setUsernameStored(sharedPref,username);

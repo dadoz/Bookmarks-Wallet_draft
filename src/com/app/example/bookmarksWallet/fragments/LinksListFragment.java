@@ -11,15 +11,19 @@ import com.app.example.bookmarksWallet.FragmentChangeActivity;
 import com.app.example.bookmarksWallet.R;
 import com.app.example.bookmarksWallet.models.Link;
 import com.app.example.common.lib.SharedData;
-import com.app.example.db.lib.DatabaseCommon;
+import com.app.example.db.lib.DatabaseAdapter;
+import com.app.example.db.lib.DatabaseConnectionCommon;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -31,7 +35,8 @@ import android.widget.Toast;
 public class LinksListFragment extends SherlockFragment {
 	private static final String TAG = "LinksListFragment_TAG";
 	ActionBarSherlock mSherlock=ActionBarSherlock.wrap(getActivity());
-	
+
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 			Bundle savedInstanceState) {
@@ -41,20 +46,24 @@ public class LinksListFragment extends SherlockFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		createLayout();
+		final DatabaseAdapter db= new DatabaseAdapter(getActivity());
+		createLayout(db);
 	}
 	
-    public void createLayout(){
+    public void createLayout(DatabaseAdapter db){
     	final ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
 
     	//get linkList
-    	ArrayList<Link> linksDataList=SharedData.getLinksListStatic();
-
+//    	ArrayList<Link> linksDataList=SharedData.getLinksListStatic();
+    	
+    	ArrayList<Link> linksDataList = DatabaseConnectionCommon.getLinksWrappLocalDb(db);
     	if(linksDataList==null){
     		Log.d(TAG,"set list from JSON data");
     		try{
 	    		//TODO change iconPath on DB
-				linksDataList = DatabaseCommon.getLinksListFromJSONData();
+				linksDataList = DatabaseConnectionCommon.getLinksListFromJSONData();
+				for(Link link:linksDataList)
+					DatabaseConnectionCommon.insertLinkWrappLocalDb(db,link);
 	    	}catch(Exception e){
 	    		Log.e(TAG,"error - " + e);
 	    	}
@@ -72,6 +81,14 @@ public class LinksListFragment extends SherlockFragment {
     	
     	ArrayAdapter<Link> adapter=new LinkCustomAdapter(getActivity(), R.layout.link_row, linksDataList);
 		linksListView.setAdapter(adapter);
+		//single mode choiced
+//		linksListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+//		linksListView.setSelector(R.drawable.custom_selector);
+//		linksListView.setFocusableInTouchMode(true);
+//		linksListView.setSelector(R.drawable.custom_selector);
+//		linksListView.setDrawSelectorOnTop(true);
+//		linksListView.addHeaderView(getView());
+//		linksListView.addFooterView(getView());
     	//set noteList to sharedData fx
     	SharedData.setLinksList(linksDataList);
     	getSherlockActivity().registerForContextMenu(linksListView);
@@ -104,11 +121,13 @@ public class LinksListFragment extends SherlockFragment {
 	 * @param linkObj***/
 	public boolean deleteLink(Link linkObj, ListView linksListView){
 		if(linkObj!=null){
-			if(DatabaseCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,SharedData.LOCAL_DB,linkObj.getLinkId())){
+			
+			if(DatabaseConnectionCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,SharedData.LOCAL_DB,linkObj.getLinkId(),getActivity())){
 				((LinkCustomAdapter) linksListView.getAdapter()).remove(linkObj);
-				SharedData.removeLink(linkObj);
+				//SharedData.removeLink(linkObj);
+				//delete from local db
 				//TODO TEST rm link from online db remove it
-				DatabaseCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,SharedData.ONLINE_DB,linkObj.getLinkId());
+//				DatabaseConnectionCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,SharedData.ONLINE_DB,linkObj.getLinkId());
 				toastMessageWrapper("Item deletedx - "+linkObj.getLinkName());
 				return true;
 			}
@@ -121,8 +140,20 @@ public class LinksListFragment extends SherlockFragment {
 	/**EDIT LINK***/
 	public boolean editLink(Link linkObj, ListView linksListView){
 		toastMessageWrapper("NEED TO BE IMPLEMENTED");
+		
 		return false;
 	}
+	/**SHARE LINK***/
+	public boolean shareLink(Link linkObj){
+		Intent shareLinkIntent = new Intent(android.content.Intent.ACTION_MEDIA_SHARED);
+		shareLinkIntent.setType("text/plain");
+		shareLinkIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, linkObj.getLinkName());
+		shareLinkIntent.putExtra(android.content.Intent.EXTRA_TEXT, linkObj.getLinkUrl());
+		startActivity(shareLinkIntent);
+		return true;
+	}
+
+	
 //    public void onBackPressed(){
 //    	super.onBackPressed();
 //    	Log.v("MY_TAG","back_pressed");
@@ -157,14 +188,12 @@ public class LinksListFragment extends SherlockFragment {
 	public class LinkCustomAdapter extends ArrayAdapter<Link> {
 		public LinkCustomAdapter(Context context, int linkViewResourceId,
                 ArrayList<Link> items) {
-//			super(context, 0); 
 			super(context, linkViewResourceId, items);
-//            this.items = items;
 		}
+		
 		public View getView(final int position, View convertView, ViewGroup parent) {
 			if (convertView == null) 
 				convertView = LayoutInflater.from(getContext()).inflate(R.layout.link_row, null);
-//				convertView = LayoutInflater.from(getContext()).inflate(R.layout.link_row, null);
 			
 			TextView linkTitle = (TextView)convertView.findViewById(R.id.link_title_id);
 			linkTitle.setText(getItem(position).getLinkName());
@@ -174,6 +203,7 @@ public class LinksListFragment extends SherlockFragment {
 				@Override
 				public void onClick(View view) {
 					toastMessageWrapper("get links action bottom menu");
+//					view.setBackgroundColor(Color.parseColor("#ff0000"));
 					Activity activity = getActivity();
 					if(activity instanceof FragmentChangeActivity) {
 						Log.i(TAG, "TextView clicked on row " + position);
@@ -182,7 +212,31 @@ public class LinksListFragment extends SherlockFragment {
 					}
 
 				}
+				
 			});
+			
+			
+			// set the listview not scrollable - lock the touch on 
+//			convertView.findViewById(R.id.link_action_layout_id).setOnTouchListener(new View.OnTouchListener() {
+//				@Override
+//				public boolean onTouch(View v, MotionEvent event) {
+//		            int action = event.getAction();
+//		            switch (action) {
+//		            case MotionEvent.ACTION_DOWN:
+//		                // Disallow ScrollView to intercept touch events.
+//		                v.getParent().requestDisallowInterceptTouchEvent(true);
+//		                break;
+//
+//		            case MotionEvent.ACTION_UP:
+//		                // Allow ScrollView to intercept touch events.
+//		                v.getParent().requestDisallowInterceptTouchEvent(false);
+//		                break;
+//		            }
+//		            // Handle ListView touch events.
+//		            v.onTouchEvent(event);
+//		            return true;
+//				}
+//			});
 			
 			//attach event to actionLayout and preview layout
 			final String linkUrlFinal=getItem(position).getLinkUrl();
@@ -194,9 +248,8 @@ public class LinksListFragment extends SherlockFragment {
 			});
 			return convertView;
 		}
-		public void remove(){
-			
-		}
+		
+		
 	}
 
 	/**BOTTOM static menu**/
@@ -300,10 +353,14 @@ public class LinksListFragment extends SherlockFragment {
 		    	case 0:
 		    		//SHARE opt
 		    		toastMessageWrapper("Share your link on ....");
+		    		if(linkObj!=null)
+		    			if(!shareLink(linkObj))
+		    				toastMessageWrapper("Item sharing Failed- "+linkObj.getLinkName());
 		    		break;
 		    	case 1:
 		    		//EDIT opt
 		    		toastMessageWrapper("Edit your link");
+//		            openContextMenu(item);
 		    		if(linkObj!=null)
 		    			if(!editLink(linkObj,linksListView))
 		    				toastMessageWrapper("Item edit Failed- "+linkObj.getLinkName());
@@ -328,4 +385,23 @@ public class LinksListFragment extends SherlockFragment {
 	    public void onDestroyActionMode(ActionMode mode) {
 	    }
 	}
+	
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        menu.add("One");
+        menu.add("Two");
+        menu.add("Three");
+        menu.add("Four");
+    }
+
+    @Override
+    public boolean onContextItemSelected(android.view.MenuItem item) {
+        //Note how this callback is using the fully-qualified class name
+        Toast.makeText(getActivity(), "Got click: " + item.toString(), Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+
+	
+	
 }

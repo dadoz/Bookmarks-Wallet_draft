@@ -37,7 +37,7 @@
     
    	<application
    	    android:allowBackup="true" 
-	    android:name="com.app.example.db.lib.DatabaseCommon">
+	    android:name="com.app.example.db.lib.DatabaseConnectionCommon">
 	</application>
    	<application
    	    android:allowBackup="true" 

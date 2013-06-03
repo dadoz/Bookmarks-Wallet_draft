@@ -16,6 +16,8 @@ public class Link {
 	public int linkPosition;
 	
 	public Link(int linkId,String linkIconPath,String linkName,String linkUrl,int userId,String delIcon,boolean deletedLinkFlag){
+		//TODO add linkOrderInList into db
+//		this.linkOrderInList=linkOrderInList;
 		this.linkId=linkId;
 		this.linkIconPath=linkIconPath;
 		this.linkName=linkName;
