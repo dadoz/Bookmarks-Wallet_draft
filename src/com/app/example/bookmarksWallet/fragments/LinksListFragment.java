@@ -3,10 +3,12 @@ package com.app.example.bookmarksWallet.fragments;
 import java.util.ArrayList;
 
 import com.actionbarsherlock.ActionBarSherlock;
+import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.ShareActionProvider;
 import com.app.example.bookmarksWallet.FragmentChangeActivity;
 import com.app.example.bookmarksWallet.R;
 import com.app.example.bookmarksWallet.models.Link;
@@ -15,18 +17,19 @@ import com.app.example.db.lib.DatabaseAdapter;
 import com.app.example.db.lib.DatabaseConnectionCommon;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +38,7 @@ import android.widget.Toast;
 public class LinksListFragment extends SherlockFragment {
 	private static final String TAG = "LinksListFragment_TAG";
 	ActionBarSherlock mSherlock=ActionBarSherlock.wrap(getActivity());
-
+	public DatabaseAdapter db;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
@@ -46,14 +49,12 @@ public class LinksListFragment extends SherlockFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		final DatabaseAdapter db= new DatabaseAdapter(getActivity());
+		db=new DatabaseAdapter(getActivity());
 		createLayout(db);
 	}
 	
     public void createLayout(DatabaseAdapter db){
     	final ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
-
-    	//get linkList
 //    	ArrayList<Link> linksDataList=SharedData.getLinksListStatic();
     	
     	ArrayList<Link> linksDataList = DatabaseConnectionCommon.getLinksWrappLocalDb(db);
@@ -69,27 +70,19 @@ public class LinksListFragment extends SherlockFragment {
 	    	}
     	}
     	//TEST - empty list
-    	if(linksDataList==null){
-    		Log.d(TAG,"set list TEST data");
-    		linksDataList=testLinksList();
-    	}
+//    	if(linksDataList==null){
+//    		Log.d(TAG,"set list TEST data");
+//    		linksDataList=testLinksList();
+//    	}
 
     	if(linksDataList!=null && linksDataList.size()==0){
     		//TODO handle empty - need to be refreshed
-    		((TextView)getActivity().findViewById(R.id.linkList_empty_label)).setText("Empty List");
+//    		((TextView)getActivity().findViewById(R.id.linkList_empty_label)).setText("Empty List");
     	}
     	
     	ArrayAdapter<Link> adapter=new LinkCustomAdapter(getActivity(), R.layout.link_row, linksDataList);
 		linksListView.setAdapter(adapter);
-		//single mode choiced
-//		linksListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-//		linksListView.setSelector(R.drawable.custom_selector);
 //		linksListView.setFocusableInTouchMode(true);
-//		linksListView.setSelector(R.drawable.custom_selector);
-//		linksListView.setDrawSelectorOnTop(true);
-//		linksListView.addHeaderView(getView());
-//		linksListView.addFooterView(getView());
-    	//set noteList to sharedData fx
     	SharedData.setLinksList(linksDataList);
     	getSherlockActivity().registerForContextMenu(linksListView);
     }
@@ -116,43 +109,40 @@ public class LinksListFragment extends SherlockFragment {
     	//check URL with regex
     	return true;
     }
-	/**DELETE LINK
-	 * @param linksListView 
-	 * @param linkObj***/
+	/**DELETE LINK*/
 	public boolean deleteLink(Link linkObj, ListView linksListView){
-		if(linkObj!=null){
-			
-			if(DatabaseConnectionCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,SharedData.LOCAL_DB,linkObj.getLinkId(),getActivity())){
-				((LinkCustomAdapter) linksListView.getAdapter()).remove(linkObj);
-				//SharedData.removeLink(linkObj);
-				//delete from local db
-				//TODO TEST rm link from online db remove it
-//				DatabaseConnectionCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,SharedData.ONLINE_DB,linkObj.getLinkId());
-				toastMessageWrapper("Item deletedx - "+linkObj.getLinkName());
-				return true;
-			}
-			//TEST
-			Log.d(TAG, "link namexs - "+ linkObj.getLinkName());
-			return false;
-		}
-		return false;
+		DeleteLinkDialog m = new DeleteLinkDialog();
+        m.show(getFragmentManager(), "DeleteLinkDialog");
+		return true;
 	}
 	/**EDIT LINK***/
 	public boolean editLink(Link linkObj, ListView linksListView){
-		toastMessageWrapper("NEED TO BE IMPLEMENTED");
-		
-		return false;
-	}
-	/**SHARE LINK***/
-	public boolean shareLink(Link linkObj){
-		Intent shareLinkIntent = new Intent(android.content.Intent.ACTION_MEDIA_SHARED);
-		shareLinkIntent.setType("text/plain");
-		shareLinkIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, linkObj.getLinkName());
-		shareLinkIntent.putExtra(android.content.Intent.EXTRA_TEXT, linkObj.getLinkUrl());
-		startActivity(shareLinkIntent);
+		EditLinkDialog m = new EditLinkDialog();
+        m.show(getFragmentManager(), "EditLinkDialog");
 		return true;
 	}
-
+	/**SHARE LINK***/
+	public boolean shareLink(Link linkObj,MenuItem item){
+		//TODO need to be fixed - it doesnt work
+        ShareActionProvider actionProvider = (ShareActionProvider) item.getActionProvider();
+        if(actionProvider==null){
+        	Log.d(TAG, "providerNull");
+        	return false;
+        }
+//        actionProvider.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
+        // Note that you can set/change the intent any time,
+        // say when the user has selected an image.
+        actionProvider.setShareIntent(createShareIntent(linkObj.linkUrl));
+		return true;
+	}
+	/*** Creates a sharing {@link Intent}.*/
+    private Intent createShareIntent(String uri) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//        shareIntent.setType("image/*");
+//        Uri uri = Uri.fromFile(getFileStreamPath("shared.png"));
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        return shareIntent;
+    }
 	
 //    public void onBackPressed(){
 //    	super.onBackPressed();
@@ -163,27 +153,6 @@ public class LinksListFragment extends SherlockFragment {
 	private void toastMessageWrapper(String message){
 		Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
 	}
-	
-    public ArrayList<Link> testLinksList(){
-    	ArrayList<Link> linksDataList = new ArrayList<Link>();
-    	ArrayList<String> linksUrlArray= new ArrayList<String>();
-		boolean deletedLinkFlag=false;
-
-    	linksUrlArray.add("heavy metal1");
-		linksUrlArray.add("pop1");
-//		linksUrlArray.add("underground");
-//		linksUrlArray.add("heavy metal");
-//		linksUrlArray.add("underground");
-		linksUrlArray.add("hey_ure_fkin_my_shitty_dog_are_u_sure_u_want_to_cose_ure_crazy");
-		linksUrlArray.add("bla1");
-		linksUrlArray.add("link2");
-    	String linkUrl="http://www.google.it";
-    	int userId=0;
-    	for(int i=0;i<linksUrlArray.size();i++)
-       		linksDataList.add(new Link(i,"ic_launcher", linksUrlArray.get(i),linkUrl,userId,"del_icon",deletedLinkFlag));
-    	
-    	return linksDataList;
-    }
     /**CUSTOM LAYOUT CLASS**/
 	public class LinkCustomAdapter extends ArrayAdapter<Link> {
 		public LinkCustomAdapter(Context context, int linkViewResourceId,
@@ -210,34 +179,8 @@ public class LinksListFragment extends SherlockFragment {
 						SharedData.setLinkPosition(position);
 				    	getSherlockActivity().startActionMode(new linkOverActionBar());
 					}
-
 				}
-				
 			});
-			
-			
-			// set the listview not scrollable - lock the touch on 
-//			convertView.findViewById(R.id.link_action_layout_id).setOnTouchListener(new View.OnTouchListener() {
-//				@Override
-//				public boolean onTouch(View v, MotionEvent event) {
-//		            int action = event.getAction();
-//		            switch (action) {
-//		            case MotionEvent.ACTION_DOWN:
-//		                // Disallow ScrollView to intercept touch events.
-//		                v.getParent().requestDisallowInterceptTouchEvent(true);
-//		                break;
-//
-//		            case MotionEvent.ACTION_UP:
-//		                // Allow ScrollView to intercept touch events.
-//		                v.getParent().requestDisallowInterceptTouchEvent(false);
-//		                break;
-//		            }
-//		            // Handle ListView touch events.
-//		            v.onTouchEvent(event);
-//		            return true;
-//				}
-//			});
-			
 			//attach event to actionLayout and preview layout
 			final String linkUrlFinal=getItem(position).getLinkUrl();
 			convertView.findViewById(R.id.link_preview_layout_id).setOnClickListener(new View.OnClickListener() {
@@ -248,9 +191,187 @@ public class LinksListFragment extends SherlockFragment {
 			});
 			return convertView;
 		}
-		
-		
 	}
+
+	/**OVER ACTION BAR impl**/
+	public final class linkOverActionBar implements ActionMode.Callback {
+	    private static final String TAG ="linkOverActionBar_TAG";
+
+		@Override
+	    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+	        //Used to put dark icons on light action bar
+	        int index=0;
+	        int order=0;
+	        
+	        menu.add(0,index++,order++,"Share")
+	            .setIcon(android.R.drawable.ic_menu_share)
+	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+	        menu.add(0,index++,order++,"Edit")
+	            .setIcon(android.R.drawable.ic_menu_edit)
+	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+	        menu.add(0,index++,order++,"Delete")
+	            .setIcon(android.R.drawable.ic_menu_delete)
+	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+	        return true;
+	    }
+
+	    @Override
+	    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+	        return false;
+	    }
+
+	    @Override
+	    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+	    	ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
+	    	if(SharedData.getLinkPosition()!=SharedData.LINK_NOT_IN_LIST){
+		    	Link linkObj = (Link) linksListView.getAdapter().getItem(SharedData.getLinkPosition());
+		    	switch(item.getItemId()){
+		    	case 0:
+		    		//SHARE opt
+//		    		toastMessageWrapper("Share your link on ....");
+		    		if(linkObj!=null)
+		    			if(!shareLink(linkObj,item))
+		    				toastMessageWrapper("Item sharing Failed- "+linkObj.getLinkName());
+		    		break;
+		    	case 1:
+		    		//EDIT opt
+//		    		toastMessageWrapper("Edit your link");
+		    		if(linkObj!=null)
+		    			if(!editLink(linkObj,linksListView))
+		    				toastMessageWrapper("Item edit Failed- "+linkObj.getLinkName());
+		    		
+//    				toastMessageWrapper("Edit on menu - Link not found on ListView");
+		    		break;
+		    	case 2:
+		    		//DEL opt
+//		    		toastMessageWrapper("Delete this link");
+		    		if(linkObj!=null)
+		    			if(!deleteLink(linkObj,linksListView))
+		    				toastMessageWrapper("Item del Failed- "+linkObj.getLinkName());
+//    				toastMessageWrapper("Delete on menu - Link not found on ListView");
+		    		break;
+		    	}
+	    	}
+	    	Log.d(TAG, ""+ item.getTitle());
+	    	mode.finish();
+	        return true;
+	    }
+
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+			// TODO Auto-generated method stub
+			
+		}
+
+	}
+    /***EDIT DIALOG FRAGMENT***/
+    public class EditLinkDialog extends SherlockDialogFragment{
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+        	AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
+        	
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            final View view = inflater.inflate(R.layout.edit_link_dialog_layout, null);
+            builder.setView(view);
+            builder.setMessage("Change your Link title")
+                   .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+                    	   	try{
+	                    	   //get new link title
+								ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
+								Link linkObj = (Link) linksListView.getAdapter().getItem(SharedData.getLinkPosition());
+								String linkNameMod=((EditText) view.findViewById(R.id.editLink_title_editText_dialog_id)).getText().toString();
+								linkObj.setLinkName(linkNameMod);
+								DatabaseConnectionCommon.updateLinkByIdWrappLocalDb(db, linkObj);
+								linksListView.refreshDrawableState();
+								Log.d(TAG,linkNameMod);
+                    	   	}catch(Exception e){
+                    	   		toastMessageWrapper("failed edit Link - editLinkDialog");
+                    	   		Log.d(TAG,"failed edit Link");
+                    	   		dialog.cancel();
+                    	   	}
+                       }
+                   })
+                   .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+                           // User cancelled the dialog
+                    	   dialog.cancel();
+                       }
+                   });
+            
+            return builder.create();
+        }
+    }
+    /***DELETE DIALOG FRAGMENT***/
+    public class DeleteLinkDialog extends SherlockDialogFragment{
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the Builder class for convenient dialog construction
+            AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
+            // Create the AlertDialog object and return it
+            builder.setMessage("Sure to delete Link?")
+                   .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+	                   	   try{
+	                    	   //get new link title
+								ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
+								Link linkObj = (Link) linksListView.getAdapter().getItem(SharedData.getLinkPosition());
+								if(DatabaseConnectionCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,SharedData.LOCAL_DB,linkObj.getLinkId(),getActivity())){
+									((LinkCustomAdapter) linksListView.getAdapter()).remove(linkObj);
+									linksListView.refreshDrawableState();
+	    							//SharedData.removeLink(linkObj);
+									//delete from local db
+									//TODO TEST rm link from online db remove it
+	//										DatabaseConnectionCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,SharedData.ONLINE_DB,linkObj.getLinkId());
+									toastMessageWrapper("Item deletedx - "+linkObj.getLinkName());
+								}
+	                   	   }catch(Exception e){
+	                   	   		toastMessageWrapper("failed edit Link - editLinkDialog");
+	                   	   		Log.d(TAG,"failed delete Link");
+	                   	   		dialog.cancel();
+	                   	   }
+                       }
+                   })
+                   .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+                           // User cancelled the dialog
+                    	   dialog.cancel();
+                       }
+                   });
+            
+            return builder.create();
+        }
+
+    }
+
+    
+	/**CONTEXT MENU**/
+/*    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //This uses the imported MenuItem from ActionBarSherlock
+        Toast.makeText(getActivity(), "Got click: " + item.toString(), Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        menu.add("One");
+        menu.add("Two");
+        menu.add("Three");
+        menu.add("Four");
+    }
+
+    @Override
+    public boolean onContextItemSelected(android.view.MenuItem item) {
+        //Note how this callback is using the fully-qualified class name
+        Toast.makeText(getActivity(), "Got click: " + item.toString(), Toast.LENGTH_SHORT).show();
+        return true;
+    }*/
 
 	/**BOTTOM static menu**/
 /*    public boolean onCreateOptionsMenu(android.view.Menu menu) {
@@ -311,97 +432,61 @@ public class LinksListFragment extends SherlockFragment {
         }
     };*/
 
-	
-	/**OVER ACTION BAR impl**/
-	public final class linkOverActionBar implements ActionMode.Callback {
-	    private static final String TAG ="linkOverActionBar_TAG";
-
-		@Override
-	    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-	        //Used to put dark icons on light action bar
-	        int index=0;
-	        int order=0;
-	        
-	        menu.add(0,index++,order++,"Share")
-	            .setIcon(android.R.drawable.ic_menu_share)
-	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
-	        menu.add(0,index++,order++,"Edit")
-	            .setIcon(android.R.drawable.ic_menu_edit)
-	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
-	        menu.add(0,index++,order++,"Delete")
-	            .setIcon(android.R.drawable.ic_menu_delete)
-	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
-	        return true;
-	    }
-
-	    @Override
-	    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-	        return false;
-	    }
-
-	    @Override
-	    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-	    	ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
-//	    	Log.d(TAG, ""+ SharedData.getLinkPosition());
-	    	if(SharedData.getLinkPosition()!=SharedData.LINK_NOT_IN_LIST){
-		    	Link linkObj = (Link) linksListView.getAdapter().getItem(SharedData.getLinkPosition());
-		    	
-		    	switch(item.getItemId()){
-		    	case 0:
-		    		//SHARE opt
-		    		toastMessageWrapper("Share your link on ....");
-		    		if(linkObj!=null)
-		    			if(!shareLink(linkObj))
-		    				toastMessageWrapper("Item sharing Failed- "+linkObj.getLinkName());
-		    		break;
-		    	case 1:
-		    		//EDIT opt
-		    		toastMessageWrapper("Edit your link");
-//		            openContextMenu(item);
-		    		if(linkObj!=null)
-		    			if(!editLink(linkObj,linksListView))
-		    				toastMessageWrapper("Item edit Failed- "+linkObj.getLinkName());
-    				toastMessageWrapper("Edit on menu - Link not found on ListView");
-		    		break;
-		    	case 2:
-		    		//DEL opt
-		    		toastMessageWrapper("Delete this link");
-		    		if(linkObj!=null)
-		    			if(!deleteLink(linkObj,linksListView))
-		    				toastMessageWrapper("Item del Failed- "+linkObj.getLinkName());
-    				toastMessageWrapper("Delete on menu - Link not found on ListView");
-		    		break;
-		    	}
-	    	}
-	    	Log.d(TAG, ""+ item.getTitle());
-	    	mode.finish();
-	        return true;
-	    }
-
-	    @Override
-	    public void onDestroyActionMode(ActionMode mode) {
-	    }
+    /**list view actions**/
+/*
+	convertView.findViewById(R.id.link_action_layout_id).setOnLongClickListener(new View.OnLongClickListener() {
+	@Override
+	public boolean onLongClick(View view) {
+		// TODO Auto-generated method stub
+		registerForContextMenu(view);
+		view.showContextMenu();
+		return true;
 	}
-	
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        menu.add("One");
-        menu.add("Two");
-        menu.add("Three");
-        menu.add("Four");
-    }
+});
 
-    @Override
-    public boolean onContextItemSelected(android.view.MenuItem item) {
-        //Note how this callback is using the fully-qualified class name
-        Toast.makeText(getActivity(), "Got click: " + item.toString(), Toast.LENGTH_SHORT).show();
+// set the listview not scrollable - lock the touch on 
+convertView.findViewById(R.id.link_action_layout_id).setOnTouchListener(new View.OnTouchListener() {
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+        int action = event.getAction();
+        switch (action) {
+        case MotionEvent.ACTION_DOWN:
+            // Disallow ScrollView to intercept touch events.
+            v.getParent().requestDisallowInterceptTouchEvent(true);
+            break;
+
+        case MotionEvent.ACTION_UP:
+            // Allow ScrollView to intercept touch events.
+            v.getParent().requestDisallowInterceptTouchEvent(false);
+            break;
+        }
+        // Handle ListView touch events.
+        v.onTouchEvent(event);
         return true;
+	}
+});
+*/			    
+    
+	/**TEST population*/
+    public ArrayList<Link> testLinksList(){
+    	ArrayList<Link> linksDataList = new ArrayList<Link>();
+    	ArrayList<String> linksUrlArray= new ArrayList<String>();
+		boolean deletedLinkFlag=false;
+
+    	linksUrlArray.add("heavy metal1");
+		linksUrlArray.add("pop1");
+		linksUrlArray.add("underground");
+		linksUrlArray.add("heavy metal");
+		linksUrlArray.add("underground");
+		linksUrlArray.add("hey_ure_fkin_my_shitty_dog_are_u_sure_u_want_to_cose_ure_crazy");
+		linksUrlArray.add("bla1");
+		linksUrlArray.add("link2");
+    	String linkUrl="http://www.google.it";
+    	int userId=0;
+    	for(int i=0;i<linksUrlArray.size();i++)
+       		linksDataList.add(new Link(i,"ic_launcher", linksUrlArray.get(i),linkUrl,userId,"del_icon",deletedLinkFlag));
+    	
+    	return linksDataList;
     }
-
-
-	
-	
+    
 }

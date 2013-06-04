@@ -20,10 +20,10 @@
 		    <ImageView
 		        android:id="@+id/link_icon_id"
 				android:contentDescription="link_icon_id"
-		        android:layout_width="20dp"
-		        android:layout_height="20dp"
+		        android:layout_width="30dp"
+		        android:layout_height="30dp"
 		        android:layout_margin="20dp"
-		        android:src="@drawable/comment_link" />
+		        android:src="@drawable/web_icon_red" />
 		
 		    <TextView
 		        android:id="@+id/link_title_id"
@@ -51,7 +51,7 @@
 		        android:layout_width="25dp"
 		        android:layout_height="25dp"
 		        android:layout_margin="15dp"
-		        android:src="@drawable/preview_icon" />
+		        android:src="@drawable/comment_link" />
 		</LinearLayout>	    
 	</LinearLayout>
 	<LinearLayout 

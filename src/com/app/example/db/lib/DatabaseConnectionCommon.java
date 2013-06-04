@@ -308,7 +308,15 @@ public class DatabaseConnectionCommon {
 
     	db.close();
     }
-    
+    public static void updateLinkByIdWrappLocalDb(DatabaseAdapter db,Link linkObj){
+        db.open();
+    	
+        //TODO not sure if linkId is the same as rowId
+        long rowId=linkObj.getLinkId();
+		db.updateLink(rowId,Integer.toString( linkObj.getLinkOrderInList()), linkObj.getLinkName(), linkObj.getIconPath(), linkObj.getLinkUrl(), Integer.toString(linkObj.getUserId()));
+        
+    	db.close();
+    }
     
 //    public void displayLinkLocalDb(Cursor c){
 //    	Toast.makeText(this,"id "+ c.getString(0)+" icon "+ c.getString(1)+" bool "+ 

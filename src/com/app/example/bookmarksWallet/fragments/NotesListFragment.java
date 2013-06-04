@@ -5,11 +5,12 @@ import java.util.ArrayList;
 
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
+//import com.actionbarsherlock.view.Menu;
+//import com.actionbarsherlock.view.MenuInflater;
+//import com.actionbarsherlock.view.MenuItem;
 import com.app.example.bookmarksWallet.FragmentChangeActivity;
 import com.app.example.bookmarksWallet.R;
+import com.app.example.bookmarksWallet.models.Link;
 import com.app.example.bookmarksWallet.models.Note;
 import com.app.example.common.lib.SharedData;
 
@@ -43,23 +44,10 @@ public class NotesListFragment extends SherlockFragment{
 	}
 
 	public void createLayout(){
-		ArrayList<String> notesTitleArray = null;
-
 		/**get all view I need**/
-		final ListView notesListView = (ListView)getActivity().findViewById(R.id.notesListId);
+		final ListView notesListView= (ListView)getActivity().findViewById(R.id.notesListId);
 
-		//STATIC data
-		notesTitleArray=new ArrayList<String>();
-		notesTitleArray.add("note 1");
-		notesTitleArray.add("find your pippo friends");
-		notesTitleArray.add("check my party note");
-		notesTitleArray.add("hey_ure_fkin_my_shitty_dog_are_u_sure_u_want_to_cose_ure_crazy");
-		String noteContentList="bla bla bla - this is the content";
-
-		ArrayList<Note> notesDataList=new ArrayList<Note>();
-		for(int i=0;i<notesTitleArray.size();i++)
-			notesDataList.add(new Note(i,android.R.drawable.ic_menu_agenda, notesTitleArray.get(i), noteContentList));
-
+		ArrayList<Note> notesDataList = testNotesList();
 		ArrayAdapter<Note> adapter=new CustomAdapter(getActivity());
 		adapter.addAll(notesDataList);
 		notesListView.setAdapter(adapter);
@@ -70,15 +58,13 @@ public class NotesListFragment extends SherlockFragment{
 		SharedData.setNotesList(notesDataList);
 	}
 
-
-
 	//  toast message wrapper
 	private void toastMessageWrapper(String message){
 		Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
 	}
 
 	/**BOTTOM static menu**/
-	public boolean onCreateOptionsMenu(android.view.Menu menu) {
+/*	public boolean onCreateOptionsMenu(android.view.Menu menu) {
 		return mSherlock.dispatchCreateOptionsMenu(menu);
 	}
 
@@ -114,7 +100,8 @@ public class NotesListFragment extends SherlockFragment{
 		}
 		return true;
 	}
-
+*/
+	/***CUSTOM ADAPTER**/
 	public class CustomAdapter extends ArrayAdapter<Note> {
 
 		public CustomAdapter(Context context) {
@@ -181,6 +168,24 @@ public class NotesListFragment extends SherlockFragment{
 		}	
 
 	}
+	/**TEST population*/
+    public ArrayList<Note> testNotesList(){
 
+
+		//STATIC data
+		ArrayList<String> notesTitleArray = new ArrayList<String>();
+		notesTitleArray.add("note 1");
+		notesTitleArray.add("find your pippo friends");
+		notesTitleArray.add("check my party note");
+		notesTitleArray.add("hey_ure_fkin_my_shitty_dog_are_u_sure_u_want_to_cose_ure_crazy");
+		String noteContentList="bla bla bla - this is the content";
+
+		ArrayList<Note> notesDataList=new ArrayList<Note>();
+		for(int i=0;i<notesTitleArray.size();i++)
+			notesDataList.add(new Note(i,android.R.drawable.ic_menu_agenda, notesTitleArray.get(i), noteContentList));
+
+    	return notesDataList;
+    }
+    
 
 }

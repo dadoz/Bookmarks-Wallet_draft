@@ -13,7 +13,6 @@ import com.app.example.common.lib.SharedData.Fragments;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 public class FragmentChangeActivity extends BaseActivity {
-	
 	private Fragment mContent;
 	
 	public FragmentChangeActivity() {
@@ -23,11 +22,9 @@ public class FragmentChangeActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		//set actionbar color 
 //		int cobaltGreenColor = (getResources().getColor(R.color.cobaltGreen));
 //		getActionBar().setBackgroundDrawable(new ColorDrawable(cobaltGreenColor));
-		
 		// set the Above View
 		if (savedInstanceState != null)
 			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");

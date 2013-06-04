@@ -16,5 +16,23 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    
+<style name="Theme.MyTheme" parent="Theme.Sherlock.Light">
+    <item name="actionBarStyle">@style/Widget.MyTheme.ActionBar</item>
+    <item name="android:actionBarStyle">@style/Widget.MyTheme.ActionBar</item>
+    <item name="titleTextStyle">@style/Widget.MyTheme.TitleTextStyleWhite</item>
+    <item name="android:titleTextStyle">@style/Widget.MyTheme.TitleTextStyleWhite</item>
+</style>
 
+<style name="Widget.MyTheme.ActionBar" parent="Widget.Sherlock.ActionBar">
+    <item name="android:background">@color/mostardYellow</item>
+    <item name="background">@color/mostardYellow</item>
+</style>
+    
+<style name="Widget.MyTheme.TitleTextStyleWhite" parent="TextAppearance.Sherlock.Widget.ActionBar.Title">
+    <item name="android:textColor">@color/icedWhite</item>
+</style>    
+<!-- ff3399CC -->
+    
 </resources>

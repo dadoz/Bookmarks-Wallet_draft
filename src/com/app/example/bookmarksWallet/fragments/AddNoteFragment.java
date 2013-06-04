@@ -3,9 +3,9 @@ package com.app.example.bookmarksWallet.fragments;
 
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
+//import com.actionbarsherlock.view.Menu;
+//import com.actionbarsherlock.view.MenuInflater;
+//import com.actionbarsherlock.view.MenuItem;
 import com.app.example.bookmarksWallet.R;
 
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 public class AddNoteFragment extends SherlockFragment{
 	ActionBarSherlock mSherlock=ActionBarSherlock.wrap(getActivity());
@@ -29,12 +29,12 @@ public class AddNoteFragment extends SherlockFragment{
 	}
 
 	//  toast message wrapper
-	private void toastMessageWrapper(String message){
-		Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-	}
+//	private void toastMessageWrapper(String message){
+//		Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+//	}
 
 	/**BOTTOM static menu**/
-    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+/*    public boolean onCreateOptionsMenu(android.view.Menu menu) {
 		return mSherlock.dispatchCreateOptionsMenu(menu);
     }
 
@@ -70,5 +70,5 @@ public class AddNoteFragment extends SherlockFragment{
     	}
     	return true;
     }
-    
+    */
 }

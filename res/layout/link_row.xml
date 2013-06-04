@@ -17,8 +17,8 @@
 	    <ImageView
 	        android:id="@+id/link_icon_id"
 			android:contentDescription="link_icon_id"
-	        android:layout_width="20dp"
-	        android:layout_height="20dp"
+	        android:layout_width="30dp"
+	        android:layout_height="30dp"
 	        android:layout_margin="20dp"
 	        android:src="@drawable/web_icon_red" />
 	

@@ -90,4 +90,9 @@ public class Link {
 		return this.linkId;
 	}
 
+	public int getLinkOrderInList() {
+		// TODO Auto-generated method stub
+		return SharedData.EMPTY_LINKID;
+	}
+
 }
