@@ -7,6 +7,7 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.ShareActionProvider;
 import com.app.example.bookmarksWallet.FragmentChangeActivity;
@@ -189,6 +190,16 @@ public class LinksListFragment extends SherlockFragment {
 					openLinkOnBrowser(linkUrlFinal);
 				}
 			});
+			//checkBox
+//			convertView.setOnLongClickListener(new View.OnLongClickListener() {
+//				@Override
+//				public boolean onLongClick(View arg0) {
+//					// TODO Auto-generated method stub
+//					toastMessageWrapper("show checkbox mode");
+//					return false;
+//				}
+//			});
+
 			return convertView;
 		}
 	}
@@ -374,7 +385,7 @@ public class LinksListFragment extends SherlockFragment {
     }*/
 
 	/**BOTTOM static menu**/
-/*    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
 		return mSherlock.dispatchCreateOptionsMenu(menu);
     }
 
@@ -383,9 +394,9 @@ public class LinksListFragment extends SherlockFragment {
 		 int index=0,order=0;
 		 
 		 
-		 menu.add(0,(index++),order++,"Select all - FOOTER")
-		 	.setIcon(android.R.drawable.ic_menu_edit)
-		    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		 menu.add(0,(index++),order++,"Refresh")
+		 	.setIcon(android.R.drawable.ic_menu_rotate)
+		    .setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		 
 //		 menu.add(0,index++,order++,"Save")
 //		 .setIcon(android.R.drawable.ic_menu_add)
@@ -407,7 +418,7 @@ public class LinksListFragment extends SherlockFragment {
     	
     	switch(item.getItemId()){
 	    	case 0:
-	    		toastMessageWrapper("Select all links");
+	    		toastMessageWrapper("Refresh list action");
 	    		break;
 //	    	case 1:
 //	    		toastMessageWrapper("Delete action");
@@ -416,7 +427,7 @@ public class LinksListFragment extends SherlockFragment {
     	}
     	return true;
     }
-
+/*
     OnMenuItemClickListener deleteLinkClickListener = new OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {  

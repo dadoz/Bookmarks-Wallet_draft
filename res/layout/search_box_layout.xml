@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    android:layout_width="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_height="wrap_content" 
+    android:orientation="vertical">
+
+	    <LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="60dip" 
+		    android:orientation="horizontal"
+			android:layout_marginTop="20dp"
+		    android:layout_marginLeft="10dip"
+		    android:layout_marginRight="10dip"
+			android:background="@drawable/layout_border"
+		    android:baselineAligned="false">
+ 		    <EditText
+		        android:layout_width="wrap_content"
+		        android:layout_height="fill_parent"
+				android:layout_margin="10dip"
+				android:padding="10dip"
+				android:layout_weight="1"
+		        android:ems="14" 
+		        android:hint="note title">
+		        <requestFocus />
+		    </EditText>
+    	    <ImageView
+				android:contentDescription="preview_icon_id"
+				android:layout_weight="1"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@android:drawable/ic_menu_search" />
+ 		    	        	        
+	    </LinearLayout>
+	    
+	    <!-- INPUT FIELDS -->	    		
+		<LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="0dip" 
+		    android:orientation="vertical"
+		    android:background="@color/basicGrey"
+		    android:layout_marginLeft="10dip"
+		    android:layout_marginRight="10dip">
+ 		    <TextView
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+				android:layout_margin="10dip"
+				android:padding="10dip"
+		        android:ems="14"
+		        android:text="Search Result" 
+		        >
+		        <requestFocus />
+		    </TextView>
+		</LinearLayout>    
+</LinearLayout>

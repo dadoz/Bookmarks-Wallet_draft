@@ -12,7 +12,9 @@
 	    android:layout_width="0dp"
 	    android:layout_height="fill_parent"
 	    android:layout_weight="20" 
-	    android:orientation="horizontal" >
+	    android:orientation="horizontal" 
+	    android:clickable="true"
+        android:background="@drawable/custom_selector_yellow">
     
 	    <ImageView
 	        android:id="@+id/link_icon_id"
@@ -41,7 +43,8 @@
 	    android:layout_marginBottom="5dip"
 	    android:layout_marginTop="5dip"
 	    android:layout_marginRight="1dip"
-	    android:background="@drawable/button_border">
+	    android:clickable="true"
+        android:background="@drawable/custom_selector_grey">
 	    <ImageView
 	        android:id="@+id/preview_icon_id"
 			android:contentDescription="preview_icon_id"

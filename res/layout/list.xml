@@ -6,5 +6,5 @@
     android:paddingLeft="@dimen/list_padding"
     android:paddingRight="@dimen/list_padding"
     android:background="@color/stoneBlack"
-    android:divider="@color/basicGrey"
+    android:divider="@color/darkerGrey"
     android:dividerHeight="1dp" />

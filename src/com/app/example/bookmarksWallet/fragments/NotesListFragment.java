@@ -2,6 +2,7 @@ package com.app.example.bookmarksWallet.fragments;
 
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.app.SherlockFragment;
@@ -10,7 +11,6 @@ import com.actionbarsherlock.app.SherlockFragment;
 //import com.actionbarsherlock.view.MenuItem;
 import com.app.example.bookmarksWallet.FragmentChangeActivity;
 import com.app.example.bookmarksWallet.R;
-import com.app.example.bookmarksWallet.models.Link;
 import com.app.example.bookmarksWallet.models.Note;
 import com.app.example.common.lib.SharedData;
 
@@ -56,6 +56,10 @@ public class NotesListFragment extends SherlockFragment{
 			Log.d(TAG, note.getNoteName()+note.getNoteId());
 		//set noteList to sharedData fx
 		SharedData.setNotesList(notesDataList);
+	}
+//  @Override
+	public void onListItemClick(ListView lv, View v, int position, long id) {
+		toastMessageWrapper("you click smthing");    	
 	}
 
 	//  toast message wrapper
@@ -125,7 +129,7 @@ public class NotesListFragment extends SherlockFragment{
 
 
 			//Log.d(getTag()," -- " + getItem(position).getNoteName());
-			final int staticNoteId = getItem(position).getNoteId();
+			final Note staticNote = getItem(position);
 			//attach event to actionLayout and preview layout
 			convertView.findViewById(R.id.link_action_layout_id).setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -142,7 +146,7 @@ public class NotesListFragment extends SherlockFragment{
 				@Override
 				public void onClick(View v) {
 					//Log.d(getTag(),"... "+v);
-					toggleNotePreview(staticNoteId,v);
+					toggleNotePreview(staticNote,v);
 				}
 			});
 			return convertView;
@@ -150,28 +154,33 @@ public class NotesListFragment extends SherlockFragment{
 
 	}
 
-	public void toggleNotePreview(int noteId,View v){
+	public void toggleNotePreview(Note noteObj,View v){
 		//if true show notePreview else hide it
-		Log.d(TAG, "toggle fx... "+noteId);
-		LinearLayout notePreviewLayout = (LinearLayout)getActivity().findViewById(R.id.note_preview_layout_id).findViewWithTag(noteId);
-		Note noteObj=SharedData.getNoteById(noteId);
+		Log.d(TAG, "toggle fx... "+noteObj.getNoteId());
 		if(noteObj!=null){
-			if(!SharedData.getNoteById(noteId).isNotePreviewVisible()){
-				Log.d(getTag(), "visible"+noteId);
+			if(!SharedData.getNoteById(noteObj.getNoteId()).isNotePreviewVisible()){
+				View notePreviewRow =(View) getActivity().getLayoutInflater().inflate(R.layout.note_preview_row,null);
+				if(v.getParent()!=null)
+					if(v.getParent().getParent()!=null){
+						((LinearLayout)v.getParent().getParent()).addView(notePreviewRow);
+						Log.d(TAG, "u're inflating");
+					}
 				noteObj.setNotePreviewVisible(true);
-				notePreviewLayout.setVisibility(View.VISIBLE);
 			}else{
-				Log.d(getTag(), "invisible"+noteId);
+				//rm layout
+				if(v.getParent()!=null)
+					if(v.getParent().getParent()!=null){
+						LinearLayout child = (LinearLayout) ((LinearLayout)v.getParent().getParent()).findViewById(R.layout.note_preview_row);
+						((LinearLayout)v.getParent().getParent()).removeViewInLayout(child);
+						Log.d(TAG, "u're removing view");
+					}
 				noteObj.setNotePreviewVisible(false);
-				notePreviewLayout.setVisibility(View.INVISIBLE);
 			}
 		}	
 
 	}
 	/**TEST population*/
     public ArrayList<Note> testNotesList(){
-
-
 		//STATIC data
 		ArrayList<String> notesTitleArray = new ArrayList<String>();
 		notesTitleArray.add("note 1");

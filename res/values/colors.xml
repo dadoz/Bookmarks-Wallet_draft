@@ -6,7 +6,8 @@
     <color name="white">#FFF</color>
     <color name="black">#000</color>
 	<color name="icedWhite">#f7f7f7</color>
-	<color name="basicGrey">#444</color>
+	<color name="darkerGrey">#444</color>
+	<color name="basicGrey">#cfcfcf</color>
 	<color name="borderGrey">#cfcfcf</color>
 	<color name="stoneBlack">#2b2929</color>
 	<color name="lightGrey">#e4e4e4</color>

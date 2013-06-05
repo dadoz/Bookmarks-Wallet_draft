@@ -3,11 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">	-->
-	<LinearLayout
+	<RelativeLayout
 	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:orientation="vertical">
+	    <include android:layout_width="fill_parent" layout="@layout/search_box_layout" />
+        
 <!-- 	    <TextView 
 	    	android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
@@ -39,7 +41,7 @@
 		    android:id="@+id/notesListId"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_marginTop="20dip"
+	        android:layout_marginTop="100dip"
 	        android:layout_marginBottom="10dip"
 	        android:layout_marginLeft="10dip"
 	        android:layout_marginRight="10dip"
@@ -47,6 +49,7 @@
 	        android:orientation="vertical"
 	        android:dividerHeight="0dp"
 			android:divider="@null">
-		</ListView>	    	    	    
-	</LinearLayout>
+		</ListView>
+		<include android:layout_width="fill_parent" layout="@layout/bottom_menu_layout" />	    	    	    
+	</RelativeLayout>
 <!-- </ScrollView> -->
