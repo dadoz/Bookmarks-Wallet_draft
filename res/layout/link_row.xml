@@ -11,7 +11,7 @@
 	    android:id="@+id/link_action_layout_id" 
 	    android:layout_width="0dp"
 	    android:layout_height="fill_parent"
-	    android:layout_weight="20" 
+	    android:layout_weight="1" 
 	    android:orientation="horizontal" 
 	    android:clickable="true"
         android:background="@drawable/custom_selector_yellow">
@@ -39,7 +39,6 @@
 	    android:layout_width="60dip"
 	    android:layout_height="fill_parent"
 	    android:orientation="horizontal"
-	    android:layout_weight="1"
 	    android:layout_marginBottom="5dip"
 	    android:layout_marginTop="5dip"
 	    android:layout_marginRight="1dip"

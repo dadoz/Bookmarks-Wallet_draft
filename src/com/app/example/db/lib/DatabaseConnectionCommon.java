@@ -208,6 +208,15 @@ public class DatabaseConnectionCommon {
    		}
 	   return false;
 	}
+	public static boolean deleteAllLinks(String dbType,Context contextActivity){
+	   	if(dbType.equals(SharedData.LOCAL_DB)){
+	   		DatabaseAdapter db=new DatabaseAdapter(contextActivity);
+	   		deleteLinksWrappLocalDb(db);
+	   		return true;
+	   	}
+	   	return false;
+	}
+	
    /**STATIC fx to get values from Link - JSOUP*/
     public static String getUrlTitle(String URLString){
     	//URL title 
@@ -221,7 +230,7 @@ public class DatabaseConnectionCommon {
     	}
     	
     	//empty urlname
-    	String URLTitleString=URLString.split("/")[0];
+    	String URLTitleString=URLString.split("//")[1];
     	Log.d(TAG,URLTitleString);
     	return URLTitleString;
 //    	return SharedData.EMPTY_STRING
@@ -291,7 +300,7 @@ public class DatabaseConnectionCommon {
     }
 
     /**GET ONE ROW from db**/
-    public void deleteLinksWrappLocalDb(DatabaseAdapter db){
+    public static void deleteLinksWrappLocalDb(DatabaseAdapter db){
         db.open();
     	
 	  	db.dropDbTable();
