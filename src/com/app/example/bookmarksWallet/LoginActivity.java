@@ -1,5 +1,6 @@
 package com.app.example.bookmarksWallet;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -45,12 +46,12 @@ public class LoginActivity extends SherlockFragmentActivity{
             public void onClick(View v) {
             	String username = usernameText.getText().toString();  
             	String password = passwordText.getText().toString();  
-
             	//TEST
 //            	username="davide";
 //            	password="pswd";
-				if(checkUserLoggedInFromDb(username,password))
+				if(checkUserLoggedInFromDb(username,password)){
 					startActivityForResult(new Intent(LoginActivity.this, FragmentChangeActivity.class),1);                  	  
+				}
             }
     	});
     	

@@ -4,9 +4,11 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:orientation="vertical">
+        <include android:layout_width="fill_parent" layout="@layout/add_link_box_layout" />
+	    <!-- 
 	    <include android:layout_width="fill_parent" layout="@layout/search_box_layout" />
-        
-	    <!-- <LinearLayout
+	    
+	    <LinearLayout
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:minHeight="80dip"
@@ -88,7 +90,7 @@
 			    android:id="@+id/linksListId"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:layout_marginTop="100dip"
+		        android:layout_marginTop="140dip"
 		        android:layout_marginBottom="60dip"
 		        android:layout_marginLeft="10dip"
 		        android:layout_marginRight="10dip"

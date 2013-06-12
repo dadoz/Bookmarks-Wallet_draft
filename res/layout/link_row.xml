@@ -22,7 +22,7 @@
 	        android:layout_width="30dp"
 	        android:layout_height="30dp"
 	        android:layout_margin="20dp"
-	        android:src="@drawable/web_icon_red" />
+	        android:src="@drawable/web_icon_blue" />
 	
 	    <TextView
 	        android:id="@+id/link_title_id"

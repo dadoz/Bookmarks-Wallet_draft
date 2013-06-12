@@ -9,6 +9,7 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.SearchView;
 import com.actionbarsherlock.widget.ShareActionProvider;
 import com.app.example.bookmarksWallet.FragmentChangeActivity;
 import com.app.example.bookmarksWallet.R;
@@ -23,6 +24,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -111,7 +114,13 @@ public class LinksListFragment extends SherlockFragment {
     	return true;
     }
 	/**DELETE LINK*/
-	public boolean deleteLink(Link linkObj, ListView linksListView){
+	public boolean deleteLink(Link linkObj, ListView linksListView,boolean isNetworkAvailable){
+		if(!isNetworkAvailable){
+			NetworkNotAvailableDialog m = new NetworkNotAvailableDialog();
+	        m.show(getFragmentManager(), "NetworkNotAvailableDialog");
+			return false;
+		}
+			
 		DeleteLinkDialog m = new DeleteLinkDialog();
         m.show(getFragmentManager(), "DeleteLinkDialog");
 		return true;
@@ -260,7 +269,7 @@ public class LinksListFragment extends SherlockFragment {
 		    		//DEL opt
 //		    		toastMessageWrapper("Delete this link");
 		    		if(linkObj!=null)
-		    			if(!deleteLink(linkObj,linksListView))
+		    			if(!deleteLink(linkObj,linksListView,isNetworkAvailable()))
 		    				toastMessageWrapper("Item del Failed- "+linkObj.getLinkName());
 //    				toastMessageWrapper("Delete on menu - Link not found on ListView");
 		    		break;
@@ -278,6 +287,25 @@ public class LinksListFragment extends SherlockFragment {
 		}
 
 	}
+    /***NO NETWORK DIALOG FRAGMENT***/
+    public class NetworkNotAvailableDialog extends SherlockDialogFragment{
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+        	AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
+        	
+            builder.setTitle("Info");
+            builder.setMessage("Internet not available, Cross check your internet connectivity and try again");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+               public void onClick(DialogInterface dialog, int which) {
+            	   dialog.cancel();
+
+               }
+            });
+            
+            return builder.create();
+        }
+    }
     /***EDIT DIALOG FRAGMENT***/
     public class EditLinkDialog extends SherlockDialogFragment{
 
@@ -394,10 +422,19 @@ public class LinksListFragment extends SherlockFragment {
 		 int index=0,order=0;
 		 
 		 
+        //Create the search view
+        SearchView searchView = new SearchView(getActivity().getActionBar().getThemedContext());
+        searchView.setQueryHint("Search for countries…");
+
 		 menu.add(0,(index++),order++,"Refresh")
 		 	.setIcon(android.R.drawable.ic_menu_rotate)
-		    .setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-		 
+		    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM );
+
+		 menu.add(0,(index++),order++,"Search")
+		 	.setIcon(android.R.drawable.ic_menu_search)
+            .setActionView(searchView)
+		    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM );
+
 //		 menu.add(0,index++,order++,"Save")
 //		 .setIcon(android.R.drawable.ic_menu_add)
 //		 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -477,7 +514,13 @@ convertView.findViewById(R.id.link_action_layout_id).setOnTouchListener(new View
 	}
 });
 */			    
-    
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager 
+              = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 	/**TEST population*/
     public ArrayList<Link> testLinksList(){
     	ArrayList<Link> linksDataList = new ArrayList<Link>();

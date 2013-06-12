@@ -21,7 +21,7 @@
 				android:padding="10dip"
 				android:layout_weight="5"
 		        android:ems="14" 
-		        android:hint="note title">
+		        android:hint="Add new Link URL">
 		        <requestFocus />
 		    </EditText>
 			<LinearLayout 
@@ -41,14 +41,14 @@
 			        android:layout_width="25dp"
 			        android:layout_height="25dp"
 			        android:layout_margin="15dp"
-			        android:src="@drawable/find_icon_black" />
+			        android:src="@android:drawable/ic_menu_add" />
 			</LinearLayout> 		    	        	        
 	    </LinearLayout>
 	    
 	    <!-- INPUT FIELDS -->	    		
 		<LinearLayout 
 		    android:layout_width="match_parent"
-		    android:layout_height="0dip" 
+		    android:layout_height="wrap_content" 
 		    android:orientation="vertical"
 		    android:background="@color/basicGrey"
 		    android:layout_marginLeft="10dip"
@@ -57,11 +57,10 @@
 		        android:layout_width="fill_parent"
 		        android:layout_height="fill_parent"
 				android:layout_margin="10dip"
-				android:padding="10dip"
-		        android:ems="14"
-		        android:text="Search Result" 
+		        android:textSize="10dip"
+		        android:textColor="@color/stoneBlack"
+		        android:text="Result of add action - added # links" 
 		        >
-		        <requestFocus />
 		    </TextView>
 		</LinearLayout>    
 </LinearLayout>
