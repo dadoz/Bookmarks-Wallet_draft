@@ -125,8 +125,14 @@ public class LinksListFragment extends SherlockFragment {
         m.show(getFragmentManager(), "DeleteLinkDialog");
 		return true;
 	}
+	/**DELETE LINK*/
+	public boolean deleteAllLinks(){
+		DeleteAllLinksDialog m = new DeleteAllLinksDialog();
+        m.show(getFragmentManager(), "DeleteLinkDialog");
+		return true;
+	}
 	/**EDIT LINK***/
-	public boolean editLink(Link linkObj, ListView linksListView){
+	public boolean editLink(){
 		EditLinkDialog m = new EditLinkDialog();
         m.show(getFragmentManager(), "EditLinkDialog");
 		return true;
@@ -234,6 +240,9 @@ public class LinksListFragment extends SherlockFragment {
 	        menu.add(0,index++,order++,"Delete")
 	            .setIcon(android.R.drawable.ic_menu_delete)
 	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+	        menu.add(0,index++,order++,"Delete All")
+	            .setIcon(android.R.drawable.ic_menu_manage)
+	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 	        return true;
 	    }
@@ -260,7 +269,7 @@ public class LinksListFragment extends SherlockFragment {
 		    		//EDIT opt
 //		    		toastMessageWrapper("Edit your link");
 		    		if(linkObj!=null)
-		    			if(!editLink(linkObj,linksListView))
+		    			if(!editLink())
 		    				toastMessageWrapper("Item edit Failed- "+linkObj.getLinkName());
 		    		
 //    				toastMessageWrapper("Edit on menu - Link not found on ListView");
@@ -273,6 +282,15 @@ public class LinksListFragment extends SherlockFragment {
 		    				toastMessageWrapper("Item del Failed- "+linkObj.getLinkName());
 //    				toastMessageWrapper("Delete on menu - Link not found on ListView");
 		    		break;
+		    	case 3:
+		    		//DEL opt
+//		    		toastMessageWrapper("Delete this link");
+		    		if(linkObj!=null)
+		    			if(!deleteAllLinks())
+		    				toastMessageWrapper("Item del Failed- "+linkObj.getLinkName());
+//    				toastMessageWrapper("Delete on menu - Link not found on ListView");
+		    		break;
+
 		    	}
 	    	}
 	    	Log.d(TAG, ""+ item.getTitle());
@@ -368,6 +386,52 @@ public class LinksListFragment extends SherlockFragment {
 									//TODO TEST rm link from online db remove it
 	//										DatabaseConnectionCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,SharedData.ONLINE_DB,linkObj.getLinkId());
 									toastMessageWrapper("Item deletedx - "+linkObj.getLinkName());
+								}
+	                   	   }catch(Exception e){
+	                   	   		toastMessageWrapper("failed edit Link - editLinkDialog");
+	                   	   		Log.d(TAG,"failed delete Link");
+	                   	   		dialog.cancel();
+	                   	   }
+                       }
+                   })
+                   .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+                           // User cancelled the dialog
+                    	   dialog.cancel();
+                       }
+                   });
+            
+            return builder.create();
+        }
+
+    }
+    /***DELETE DIALOG FRAGMENT***/
+    public class DeleteAllLinksDialog extends SherlockDialogFragment{
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the Builder class for convenient dialog construction
+            AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
+            // Create the AlertDialog object and return it
+            builder.setMessage("Sure to delete Link?")
+                   .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+	                   	   try{
+	                    	   //get new link title
+								ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
+//								Link linkObj = (Link) linksListView.getAdapter().getItem(SharedData.getLinkPosition());
+								if(DatabaseConnectionCommon.deleteAllLinks(SharedData.LOCAL_DB,getActivity())){
+
+									for(int i=0;i<linksListView.getCount();i++){
+										Link linkObj = (Link) linksListView.getAdapter().getItem(i);
+										((LinkCustomAdapter) linksListView.getAdapter()).remove(linkObj);
+									}
+									linksListView.refreshDrawableState();
+	    							//SharedData.removeLink(linkObj);
+									//delete from local db
+									//TODO TEST rm link from online db remove it
+	//										DatabaseConnectionCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,SharedData.ONLINE_DB,linkObj.getLinkId());
+									toastMessageWrapper("All items deleted - ");
 								}
 	                   	   }catch(Exception e){
 	                   	   		toastMessageWrapper("failed edit Link - editLinkDialog");

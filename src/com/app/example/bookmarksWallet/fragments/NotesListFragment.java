@@ -2,7 +2,7 @@ package com.app.example.bookmarksWallet.fragments;
 
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
+//import java.util.zip.Inflater;
 
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.app.SherlockFragment;
