@@ -2,8 +2,16 @@ package com.app.example.common.lib;
 
 import java.util.ArrayList;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.app.example.bookmarksWallet.models.Link;
@@ -33,7 +41,15 @@ public class SharedData {
     public static final String PASSWORD_STORED_LABEL =" passwordStored";
     public static final String USERID_STORED_LABEL =" userIdStored";
 
-	public static String databaseResultString="";
+
+    public static final String LOG_DB = "LocalDbLog";
+    public static final String ACTION_LABEL =" usernameStored";
+    public static final String MODEL_LABEL =" passwordStored";
+    public static final String ID_LABEL =" userIdStored";
+
+    
+    
+    public static String databaseResultString="";
 
 	public static final int EMPTY_LINKID = -1;
 	public static final String EMPTY_STRING = "";
@@ -110,6 +126,24 @@ public class SharedData {
 			return true;
 		return false;
 	}
+    /**STATIC fx to get values from Link - JSOUP*/
+    public static String getLinkNameByUrl(String URLString){
+    	//URL title 
+    	try{
+	    	Document doc = Jsoup.connect(URLString).get();
+	    	Elements URLtitle=doc.select("title");
+	    	Log.d(TAG,URLtitle.text());
+	    	return URLtitle.text();
+    	}catch(Exception e){
+	    	Log.e(TAG,""+e);
+    	}
+    	
+    	//empty urlname
+    	String URLTitleString=URLString.split("//")[1];
+    	Log.d(TAG,URLTitleString);
+    	return URLTitleString;
+//    	return SharedData.EMPTY_STRING
+    }
 
 	/**USER*/
     public static void setUser(int userIdDb,String usernameDb,String passwordDb){
@@ -187,5 +221,43 @@ public class SharedData {
     	return linkPosition;
     }
 
-    
+    public static boolean isNetworkAvailable(FragmentActivity fragActivity) {
+        ConnectivityManager connectivityManager 
+              = (ConnectivityManager) fragActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+	/**SharedPreferences**/
+    public static String getActionLogDbStored(SharedPreferences sharedPref){
+    	return sharedPref.getString(ACTION_LABEL, EMPTY_USERNAME);
+    }
+    public static String getModelLogDbStored(SharedPreferences sharedPref){
+		return sharedPref.getString(MODEL_LABEL, EMPTY_PASSWORD);
+    }
+    public static int getIdLogDbStored(SharedPreferences sharedPref){
+		return sharedPref.getInt(ID_LABEL, EMPTY_USERID);
+    }
+    public static void setActionLogDbStored(SharedPreferences sharedPref,String username){
+    	Editor editor = sharedPref.edit();
+    	editor.putString(ACTION_LABEL, username);
+    	editor.commit();
+    }
+    public static void setModelLogDbStored(SharedPreferences sharedPref,String password){
+    	Editor editor = sharedPref.edit();
+    	editor.putString(MODEL_LABEL, password);
+    	editor.commit();
+    }
+    public static void setIdLogDbStored(SharedPreferences sharedPref,int userId){
+    	Editor editor = sharedPref.edit();
+    	editor.putInt(ID_LABEL, userId);
+    	editor.commit();
+    }
+
+    public static void clearLog(SharedPreferences sharedPref){
+    	setActionLogDbStored(sharedPref,SharedData.EMPTY_STRING);
+    	setModelLogDbStored(sharedPref,SharedData.EMPTY_STRING);
+    	setIdLogDbStored(sharedPref,SharedData.EMPTY_LINKID);
+    }
+
 }

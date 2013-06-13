@@ -3,7 +3,9 @@ package com.app.example.bookmarksWallet;
 import com.app.example.bookmarksWallet.fragments.WallpaperLoginFragment;
 import com.app.example.bookmarksWallet.models.User;
 import com.app.example.common.lib.SharedData;
+import com.app.example.db.lib.DatabaseAdapter;
 import com.app.example.db.lib.DatabaseConnectionCommon;
+import com.app.example.db.lib.DatabaseSync;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,25 +22,39 @@ import com.actionbarsherlock.view.MenuItem;
 
 public class MainActivity extends SherlockFragmentActivity {
 	private static final String TAG = "MainActivity_TAG";
+	public DatabaseAdapter db;
 
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 		setTitle(R.string.app_name);
         setContentView(R.layout.fragment_activity);
+
+        /**get LOCAL DB*/
+        db=new DatabaseAdapter(this);
         
+        /**get actionBar*/
         getActionBar().hide();
-        //TODO move this fx in sm other place plez - intent to get new url from browser
-        storeUrlFromBrowserIntoDb();
         
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		ft.add(R.id.main_frameLayout_id, new WallpaperLoginFragment());
 		ft.commit(); 
-		
-		if(checkUserLoggedInFromSharedPreferences())
-			startActivityForResult(new Intent(MainActivity.this, FragmentChangeActivity.class),1);
+			
+		if(checkUserLoggedInFromSharedPreferences()){
+			//TODO move this fx in sm other place plez - intent to get new url from browser
+	        addLinkOnDbIntent();
+	        //sync localDb
+			if(SharedData.isNetworkAvailable(this))
+				if(DatabaseSync.syncLocalDb(db,getSharedPreferences(SharedData.LOG_DB, 0)))
+					toastMessageWrapper("localDB sync successful");
+	        
+	        startActivityForResult(new Intent(MainActivity.this, FragmentChangeActivity.class),1);
+		}
 		else
 			startActivity(new Intent(MainActivity.this, LoginActivity.class));                  	  
+
+
     }
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -51,6 +67,10 @@ public class MainActivity extends SherlockFragmentActivity {
 	@Override
 	public void onPause(){
 		super.onPause();
+		if(SharedData.isNetworkAvailable(this))
+			if(DatabaseSync.syncLocalDb(db,getSharedPreferences(SharedData.LOG_DB, 0)))
+				toastMessageWrapper("localDB sync successful");
+
 //		finish();
 	}
 	/**CHECK CREDENTIAL FROM SHARED_PREF**/
@@ -68,20 +88,29 @@ public class MainActivity extends SherlockFragmentActivity {
     	Log.d(TAG,"userLoggedInCheker -  user is not logged in");
    		return false;
 	}
-	/**GET and STORE url to Db from Browser***/
-	public boolean storeUrlFromBrowserIntoDb(){
+	/**GET and ADD Link to Db from Browser***/
+	public boolean addLinkOnDbIntent(){
 		try{
 			Intent urlIntent = getIntent();
+			SharedPreferences sharedPref = getSharedPreferences(SharedData.PREFS_NAME, 0);
 		    if (urlIntent.getAction().equals(Intent.ACTION_SEND)){
-		    	String urlString = urlIntent.getStringExtra(Intent.EXTRA_TEXT);;
+		    	String linkUrl = urlIntent.getStringExtra(Intent.EXTRA_TEXT);
 		    	if(SharedData.isUserLoggedIn()){
-			    	toastMessageWrapper(urlString);
-		    		DatabaseConnectionCommon.insertUrlEntryOnDb(SharedData.LINKS_DB, urlString);
+			    	toastMessageWrapper(linkUrl);
+//		    		DatabaseConnectionCommon.insertUrlEntryOnDb(SharedData.LINKS_DB, urlString);
+		            //TODO remove static init of linkOrderInList
+			        int linkOrderInList=SharedData.EMPTY_LINKID;
+			        String linkName=SharedData.getLinkNameByUrl(linkUrl);
+			        String iconPath="/emptyPath";
+			        int linksUserId=SharedData.getUserIdStored(sharedPref);
+		    		if(DatabaseConnectionCommon.insertLinkWrappLocalDb(db, linkOrderInList,linkName,iconPath,linkUrl,linksUserId))
+			    		toastMessageWrapper("link added with SUCCESS");
+			    			
 		    	}else
 		    		toastMessageWrapper("u're not loggedin in - plez login");
 		    }
 		}catch(Exception e){
-			Log.e(TAG, "StoreUrlFromBrowserIntoDb - "+e);
+			Log.e(TAG, "addLinkOnDbIntent - "+e);
 			toastMessageWrapper("no URL availble - something has gone wrong");
 			return false;
 		}

@@ -7,11 +7,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.os.StrictMode;
 import android.util.Log;
@@ -25,6 +21,7 @@ public class DatabaseConnectionCommon {
    /**ONLINE DB fx*/
 
 	/**FETCH DATA**/
+	//TODO change this to JSON fetch data 
 	public static String fetchDataFromDb(int choicedDB){
      	try {
      		//check if db is right
@@ -122,6 +119,7 @@ public class DatabaseConnectionCommon {
 	}
 
 	/**INSERT URL INTO DB**/
+	//TODO change this to JSON fetch data 
 	public static boolean insertUrlEntryOnDb(int choicedDB,String urlString){
 	   if(SharedData.isUserLoggedIn()){
 		   try{
@@ -142,7 +140,7 @@ public class DatabaseConnectionCommon {
 		  			if(urlString!=null)
 		  				postParameters.add(new BasicNameValuePair("linkUrl",""+urlString)); 			
 
-		  			String linkNameTMP=getUrlTitle(urlString);
+		  			String linkNameTMP=SharedData.getLinkNameByUrl(urlString);
 		  			if(linkNameTMP!=null)
 		  				postParameters.add(new BasicNameValuePair("linkName",""+linkNameTMP));
 		  		}	
@@ -162,84 +160,56 @@ public class DatabaseConnectionCommon {
 	}
 	
 	/**DELETE ENTRY FROM DB**/
-	public static boolean deleteUrlEntryFromDb(int choicedDB,String dbType,int linkId,Context contextActivity){
+	//TODO change this to JSON fetch data 
+	public static boolean deleteUrlEntryFromDb(int choicedDB,int linkId){
 	   if(SharedData.isUserLoggedIn()){
 		   try{
-			   	if(dbType.equals(SharedData.ONLINE_DB)){
-			  		//check if db is right
-			  		if(choicedDB!=SharedData.LINKS_DB && choicedDB!=SharedData.USERS_DB)
-			  			Log.e(TAG, "NO DB FOUND - u must define the right database name");
-		
-			  		//add choicedDB params
-			  		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-			  		postParameters.add(new BasicNameValuePair("deleteUrlFromDb",""+SharedData.DELETE_URL_FROM_DB));
-			  		postParameters.add(new BasicNameValuePair("choicedDB",""+choicedDB));
-			  		
-		 			//get my userId to fetch all liks I stored before
-		 			int userIdTMP=SharedData.getUser().getUserId();
-		 			if(userIdTMP==SharedData.EMPTY_USERID)
-		 				return false;
-	 				postParameters.add(new BasicNameValuePair("links_user_id",""+userIdTMP));
-		 			
-		 			//check linkId!=null
-		 			if(linkId==SharedData.EMPTY_LINKID)
-		 				return false;
-	 				postParameters.add(new BasicNameValuePair("linkId",""+linkId));
-		 			
-			  		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-			  	    StrictMode.setThreadPolicy(policy);
-			  	    
-			   		String response = CustomHttpClient.executeHttpPost(SharedData.DBUrl,postParameters);
-			   		
-		 			Log.d(TAG,""+linkId);
-			   		Log.d(TAG,"this is the result" + response);
-			   	}	
+		  		//check if db is right
+		  		if(choicedDB!=SharedData.LINKS_DB && choicedDB!=SharedData.USERS_DB)
+		  			Log.e(TAG, "NO DB FOUND - u must define the right database name");
+	
+		  		//add choicedDB params
+		  		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+		  		postParameters.add(new BasicNameValuePair("deleteUrlFromDb",""+SharedData.DELETE_URL_FROM_DB));
+		  		postParameters.add(new BasicNameValuePair("choicedDB",""+choicedDB));
+		  		
+	 			//get my userId to fetch all liks I stored before
+	 			int userIdTMP=SharedData.getUser().getUserId();
+	 			if(userIdTMP==SharedData.EMPTY_USERID)
+	 				return false;
+ 				postParameters.add(new BasicNameValuePair("links_user_id",""+userIdTMP));
+	 			
+	 			//check linkId!=null
+	 			if(linkId==SharedData.EMPTY_LINKID)
+	 				return false;
+ 				postParameters.add(new BasicNameValuePair("linkId",""+linkId));
+	 			
+		  		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		  	    StrictMode.setThreadPolicy(policy);
+		  	    
+		   		String response = CustomHttpClient.executeHttpPost(SharedData.DBUrl,postParameters);
+		   		
+	 			Log.d(TAG,""+linkId);
+		   		Log.d(TAG,"this is the result" + response);
 			   
-			   	if(dbType.equals(SharedData.LOCAL_DB)){
-			   		DatabaseAdapter db=new DatabaseAdapter(contextActivity);
-					//TODO remove link from local db
-			   		deleteLinkByIdWrappLocalDb(db,linkId);
-			   	}
 		   		return true;
 		  	}catch (Exception e) {
 		  		Log.e(TAG+"- deleteUrlEntryFromDb_TAG","Error in http connection!!" + e.toString());     
-	   		return false;
+		  		return false;
 		  	}
    		}
 	   return false;
 	}
-	public static boolean deleteAllLinks(String dbType,Context contextActivity){
-	   	if(dbType.equals(SharedData.LOCAL_DB)){
-	   		DatabaseAdapter db=new DatabaseAdapter(contextActivity);
-	   		deleteLinksWrappLocalDb(db);
-	   		return true;
-	   	}
-	   	return false;
-	}
+
 	
-   /**STATIC fx to get values from Link - JSOUP*/
-    public static String getUrlTitle(String URLString){
-    	//URL title 
-    	try{
-	    	Document doc = Jsoup.connect(URLString).get();
-	    	Elements URLtitle=doc.select("title");
-	    	Log.d(TAG,URLtitle.text());
-	    	return URLtitle.text();
-    	}catch(Exception e){
-	    	Log.e(TAG,""+e);
-    	}
-    	
-    	//empty urlname
-    	String URLTitleString=URLString.split("//")[1];
-    	Log.d(TAG,URLTitleString);
-    	return URLTitleString;
-//    	return SharedData.EMPTY_STRING
-    }
-
+	/***-----------------------------------------------**/
+	
+	/***				LOCAL DB						*/
+	
+	/***-----------------------------------------------**/
+    /**DB functions - used to get all db row, insert a 
+     * new one or update and delete one*/
     
-    /**DB functions - used to get all db row, insert a new one or update and delete one*/
-    /**LOCAL DB**/
-
     /**INSERT ROW in db*/
     public static void insertLinkWrappLocalDb(DatabaseAdapter db,Link linkObj){
     	if(linkObj!=null){
@@ -252,6 +222,16 @@ public class DatabaseConnectionCommon {
 
             db.close();
     	}
+    }
+    /**INSERT ROW in db - overloading insert function*/
+    public static boolean insertLinkWrappLocalDb(DatabaseAdapter db,int linkOrderInList,String linkName,String iconPath,String linkUrl,int linksUserId){
+        db.open();
+        
+        db.insertLink(Integer.toString(linkOrderInList), linkName, iconPath,
+        		linkUrl,Integer.toString(linksUserId));
+
+        db.close();
+        return true;
     }
 
     /**GET ALL ROWS from db**/
@@ -287,7 +267,7 @@ public class DatabaseConnectionCommon {
         return linkList;
     }
     /**GET ONE ROW from db**/
-    public Link getLinkByIdWrappLocalDb(DatabaseAdapter db,int idRow){
+    public static Link getLinkByIdWrappLocalDb(DatabaseAdapter db,int idRow){
     	Link linkObj=null;
         db.open();
 
@@ -300,22 +280,24 @@ public class DatabaseConnectionCommon {
     }
 
     /**GET ONE ROW from db**/
-    public static void deleteLinksWrappLocalDb(DatabaseAdapter db){
+    public static boolean deleteLinksWrappLocalDb(DatabaseAdapter db){
         db.open();
     	
 	  	db.dropDbTable();
         db.deleteLinks();
 
     	db.close();
+    	return true;
     }
     /**GET ONE ROW from db**/
-    public static void deleteLinkByIdWrappLocalDb(DatabaseAdapter db,int linkId){
+    public static boolean deleteLinkByIdWrappLocalDb(DatabaseAdapter db,int linkId){
         db.open();
     	
 	  	db.dropDbTable();
         db.deleteLinkById(linkId);
-
+        
     	db.close();
+    	return true;
     }
     public static void updateLinkByIdWrappLocalDb(DatabaseAdapter db,Link linkObj){
         db.open();
@@ -326,6 +308,14 @@ public class DatabaseConnectionCommon {
         
     	db.close();
     }
+
+    
+
+    
+    
+    
+    
+    
     
 //    public void displayLinkLocalDb(Cursor c){
 //    	Toast.makeText(this,"id "+ c.getString(0)+" icon "+ c.getString(1)+" bool "+ 

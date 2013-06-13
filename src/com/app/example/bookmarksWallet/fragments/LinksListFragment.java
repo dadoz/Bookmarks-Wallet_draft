@@ -1,6 +1,8 @@
 package com.app.example.bookmarksWallet.fragments;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.app.SherlockDialogFragment;
@@ -24,8 +26,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -82,8 +82,10 @@ public class LinksListFragment extends SherlockFragment {
     	if(linksDataList!=null && linksDataList.size()==0){
     		//TODO handle empty - need to be refreshed
 //    		((TextView)getActivity().findViewById(R.id.linkList_empty_label)).setText("Empty List");
+    		toastMessageWrapper("empty List - img");
     	}
     	
+    	Collections.reverse((List<Link>)linksDataList.clone());
     	ArrayAdapter<Link> adapter=new LinkCustomAdapter(getActivity(), R.layout.link_row, linksDataList);
 		linksListView.setAdapter(adapter);
 //		linksListView.setFocusableInTouchMode(true);
@@ -278,7 +280,7 @@ public class LinksListFragment extends SherlockFragment {
 		    		//DEL opt
 //		    		toastMessageWrapper("Delete this link");
 		    		if(linkObj!=null)
-		    			if(!deleteLink(linkObj,linksListView,isNetworkAvailable()))
+		    			if(!deleteLink(linkObj,linksListView, SharedData.isNetworkAvailable(getActivity())))
 		    				toastMessageWrapper("Item del Failed- "+linkObj.getLinkName());
 //    				toastMessageWrapper("Delete on menu - Link not found on ListView");
 		    		break;
@@ -378,13 +380,11 @@ public class LinksListFragment extends SherlockFragment {
 	                    	   //get new link title
 								ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
 								Link linkObj = (Link) linksListView.getAdapter().getItem(SharedData.getLinkPosition());
-								if(DatabaseConnectionCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,SharedData.LOCAL_DB,linkObj.getLinkId(),getActivity())){
+								if(DatabaseConnectionCommon.deleteLinkByIdWrappLocalDb(db,linkObj.getLinkId())){
 									((LinkCustomAdapter) linksListView.getAdapter()).remove(linkObj);
 									linksListView.refreshDrawableState();
 	    							//SharedData.removeLink(linkObj);
 									//delete from local db
-									//TODO TEST rm link from online db remove it
-	//										DatabaseConnectionCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,SharedData.ONLINE_DB,linkObj.getLinkId());
 									toastMessageWrapper("Item deletedx - "+linkObj.getLinkName());
 								}
 	                   	   }catch(Exception e){
@@ -417,11 +417,8 @@ public class LinksListFragment extends SherlockFragment {
                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                        public void onClick(DialogInterface dialog, int id) {
 	                   	   try{
-	                    	   //get new link title
 								ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
-//								Link linkObj = (Link) linksListView.getAdapter().getItem(SharedData.getLinkPosition());
-								if(DatabaseConnectionCommon.deleteAllLinks(SharedData.LOCAL_DB,getActivity())){
-
+								if(DatabaseConnectionCommon.deleteLinksWrappLocalDb(db)){
 									for(int i=0;i<linksListView.getCount();i++){
 										Link linkObj = (Link) linksListView.getAdapter().getItem(i);
 										((LinkCustomAdapter) linksListView.getAdapter()).remove(linkObj);
@@ -429,8 +426,6 @@ public class LinksListFragment extends SherlockFragment {
 									linksListView.refreshDrawableState();
 	    							//SharedData.removeLink(linkObj);
 									//delete from local db
-									//TODO TEST rm link from online db remove it
-	//										DatabaseConnectionCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB,SharedData.ONLINE_DB,linkObj.getLinkId());
 									toastMessageWrapper("All items deleted - ");
 								}
 	                   	   }catch(Exception e){
@@ -579,12 +574,6 @@ convertView.findViewById(R.id.link_action_layout_id).setOnTouchListener(new View
 });
 */			    
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager 
-              = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
 	/**TEST population*/
     public ArrayList<Link> testLinksList(){
     	ArrayList<Link> linksDataList = new ArrayList<Link>();
