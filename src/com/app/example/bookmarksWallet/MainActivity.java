@@ -3,6 +3,7 @@ package com.app.example.bookmarksWallet;
 import com.app.example.bookmarksWallet.fragments.WallpaperLoginFragment;
 import com.app.example.bookmarksWallet.models.User;
 import com.app.example.common.lib.SharedData;
+import com.app.example.db.lib.ActionLogDbAdapter;
 import com.app.example.db.lib.DatabaseAdapter;
 import com.app.example.db.lib.DatabaseConnectionCommon;
 import com.app.example.db.lib.DatabaseSync;
@@ -23,6 +24,7 @@ import com.actionbarsherlock.view.MenuItem;
 public class MainActivity extends SherlockFragmentActivity {
 	private static final String TAG = "MainActivity_TAG";
 	public DatabaseAdapter db;
+	public ActionLogDbAdapter actionLogDb;
 
 	
     @Override
@@ -33,6 +35,8 @@ public class MainActivity extends SherlockFragmentActivity {
 
         /**get LOCAL DB*/
         db=new DatabaseAdapter(this);
+        actionLogDb=new ActionLogDbAdapter(this);
+        //TODO remeber to clean up first get from online db (otw it will commit again all up on online db)
         
         /**get actionBar*/
         getActionBar().hide();
@@ -46,7 +50,7 @@ public class MainActivity extends SherlockFragmentActivity {
 	        addLinkOnDbIntent();
 	        //sync localDb
 			if(SharedData.isNetworkAvailable(this))
-				if(DatabaseSync.syncLocalDb(db,getSharedPreferences(SharedData.LOG_DB, 0)))
+				if(DatabaseSync.syncLocalDb(db,actionLogDb))
 					toastMessageWrapper("localDB sync successful");
 	        
 	        startActivityForResult(new Intent(MainActivity.this, FragmentChangeActivity.class),1);
@@ -68,7 +72,7 @@ public class MainActivity extends SherlockFragmentActivity {
 	public void onPause(){
 		super.onPause();
 		if(SharedData.isNetworkAvailable(this))
-			if(DatabaseSync.syncLocalDb(db,getSharedPreferences(SharedData.LOG_DB, 0)))
+			if(DatabaseSync.syncLocalDb(db,actionLogDb))
 				toastMessageWrapper("localDB sync successful");
 
 //		finish();
@@ -103,7 +107,7 @@ public class MainActivity extends SherlockFragmentActivity {
 			        String linkName=SharedData.getLinkNameByUrl(linkUrl);
 			        String iconPath="/emptyPath";
 			        int linksUserId=SharedData.getUserIdStored(sharedPref);
-		    		if(DatabaseConnectionCommon.insertLinkWrappLocalDb(db, linkOrderInList,linkName,iconPath,linkUrl,linksUserId))
+		    		if(DatabaseConnectionCommon.insertLinkWrappLocalDb(db,actionLogDb, linkOrderInList,linkName,iconPath,linkUrl,linksUserId,getSharedPreferences(SharedData.LOG_DB, 0)))
 			    		toastMessageWrapper("link added with SUCCESS");
 			    			
 		    	}else

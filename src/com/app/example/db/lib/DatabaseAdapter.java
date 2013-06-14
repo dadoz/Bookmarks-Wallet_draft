@@ -13,6 +13,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DatabaseAdapter{
+	public static final String DATABASE_NAME="BookmarksWalletDb_tmp";
+	public static final int DATABASE_VERSION=1;
+	public static final String LINKS_TABLE_NAME="LinksTable_tmp1";
+
 	public static final String TAG="DatabaseAdapter_TAG";
 	public static final String ROWID_KEY="_id";
 	public static final String LINK_ORDER_IN_LIST_KEY="linkOrderInList";
@@ -20,11 +24,13 @@ public class DatabaseAdapter{
 	public static final String ICON_PATH_KEY="iconPath";
 	public static final String LINK_URL_KEY="linkUrl";
 	public static final String LINKS_USER_ID_KEY="linksUserId";
-	
-	public static final String DATABASE_NAME="BookmarksWalletDb_tmp";
-	public static final String LINKS_TABLE_NAME="LinksTable_tmp1";
-	public static final int DATABASE_VERSION=1;
-	
+
+	public static final String LOG_TABLE_NAME="LogTable_tmp";
+
+	public static final String LOG_ACTION_KEY="action";
+	public static final String LOG_MODEL_KEY="model";
+	public static final String LOG_MODEL_ID_KEY="modelId";
+
 	public static final String DATABASE_CREATE=
 			"create table "+LINKS_TABLE_NAME+"(_id integer primary key autoincrement,"
 			+LINK_ORDER_IN_LIST_KEY+ " integer," 
@@ -32,6 +38,13 @@ public class DatabaseAdapter{
 			+ICON_PATH_KEY+" text not null,"		
 			+LINK_URL_KEY+" text not null,"
 			+LINKS_USER_ID_KEY+" text not null);";
+	
+	public static final String LOG_DB_CREATE=
+			"create table "+LOG_TABLE_NAME+"(_id integer primary key autoincrement,"
+			+LOG_ACTION_KEY+ " text not null," 
+			+LOG_MODEL_KEY+" text not null," 
+			+LOG_MODEL_ID_KEY+" integer);";
+
 	private final Context context;
 	
 	private DatabaseHelper DBHelper;
@@ -51,6 +64,7 @@ public class DatabaseAdapter{
 		public void onCreate(SQLiteDatabase db) {
 			// TODO Auto-generated method stub
 			db.execSQL(DATABASE_CREATE);
+
 		}
 
 		@Override
@@ -59,7 +73,7 @@ public class DatabaseAdapter{
 			Log.w(TAG,"Upgrading database from version" + oldVersion
 					+ " to " 
 					+ newVersion + ", wich will destroy all old data");
-			db.execSQL("DROP TABLE IF EXISTS titles");
+			db.execSQL("DROP TABLE IF EXISTS "+DATABASE_NAME);
 			onCreate(db);
 		}
 	}
@@ -164,4 +178,17 @@ public class DatabaseAdapter{
     }
 
 	
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

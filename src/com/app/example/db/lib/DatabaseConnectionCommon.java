@@ -8,10 +8,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.StrictMode;
 import android.util.Log;
 
+import com.app.example.bookmarksWallet.models.ActionLog;
 import com.app.example.bookmarksWallet.models.Link;
 import com.app.example.common.lib.SharedData;
 import com.app.example.http.client.CustomHttpClient;
@@ -211,25 +213,35 @@ public class DatabaseConnectionCommon {
      * new one or update and delete one*/
     
     /**INSERT ROW in db*/
-    public static void insertLinkWrappLocalDb(DatabaseAdapter db,Link linkObj){
+    public static void insertLinkWrappLocalDb(DatabaseAdapter db,ActionLogDbAdapter actionLogDb,Link linkObj,SharedPreferences sharedPref){
     	if(linkObj!=null){
+    		
             db.open();
-            
+            actionLogDb.open();
+
+            actionLogDb.insertActionLog(SharedData.ADD_LABEL,SharedData.LINK_LABEL,linkObj.getLinkId());
+//            SharedData.setLogDbStored(sharedPref, SharedData.ADD_LABEL,SharedData.LINK_LABEL,linkObj.getLinkId());
+    		
             //TODO remove static init of linkOrderInList
             String linkOrderInList=Integer.toString(SharedData.EMPTY_LINKID);
             db.insertLink(linkOrderInList, linkObj.getLinkName(), linkObj.getIconPath(),
             		linkObj.getLinkUrl(),Integer.toString(linkObj.getUserId()));
 
+            actionLogDb.close();
             db.close();
     	}
     }
     /**INSERT ROW in db - overloading insert function*/
-    public static boolean insertLinkWrappLocalDb(DatabaseAdapter db,int linkOrderInList,String linkName,String iconPath,String linkUrl,int linksUserId){
+    public static boolean insertLinkWrappLocalDb(DatabaseAdapter db,ActionLogDbAdapter actionLogDb,int linkOrderInList,String linkName,String iconPath,String linkUrl,int linksUserId,SharedPreferences sharedPref){
         db.open();
-        
+        actionLogDb.open();
+
+        actionLogDb.insertActionLog(SharedData.ADD_LABEL,SharedData.LINK_LABEL,linksUserId);
+
         db.insertLink(Integer.toString(linkOrderInList), linkName, iconPath,
         		linkUrl,Integer.toString(linksUserId));
 
+        actionLogDb.close();
         db.close();
         return true;
     }
@@ -280,9 +292,10 @@ public class DatabaseConnectionCommon {
     }
 
     /**GET ONE ROW from db**/
-    public static boolean deleteLinksWrappLocalDb(DatabaseAdapter db){
+    public static boolean deleteLinksWrappLocalDb(DatabaseAdapter db,SharedPreferences sharedPref){
         db.open();
     	
+        
 	  	db.dropDbTable();
         db.deleteLinks();
 
@@ -290,28 +303,58 @@ public class DatabaseConnectionCommon {
     	return true;
     }
     /**GET ONE ROW from db**/
-    public static boolean deleteLinkByIdWrappLocalDb(DatabaseAdapter db,int linkId){
+    public static boolean deleteLinkByIdWrappLocalDb(DatabaseAdapter db,ActionLogDbAdapter actionLogDb,int linkId,SharedPreferences sharedPref){
         db.open();
-    	
+        actionLogDb.open();
+
+        //SET delete all links ID
+        actionLogDb.insertActionLog(SharedData.DELETE_LABEL,SharedData.LINK_LABEL,SharedData.EMPTY_LINKID);
+
 	  	db.dropDbTable();
         db.deleteLinkById(linkId);
         
+        actionLogDb.close();
     	db.close();
     	return true;
     }
-    public static void updateLinkByIdWrappLocalDb(DatabaseAdapter db,Link linkObj){
+    public static void updateLinkByIdWrappLocalDb(DatabaseAdapter db,ActionLogDbAdapter actionLogDb,Link linkObj,SharedPreferences sharedPref){
         db.open();
+        actionLogDb.open();
+        
+        actionLogDb.insertActionLog(SharedData.DELETE_LABEL,SharedData.LINK_LABEL,linkObj.getLinkId());
     	
         //TODO not sure if linkId is the same as rowId
         long rowId=linkObj.getLinkId();
 		db.updateLink(rowId,Integer.toString( linkObj.getLinkOrderInList()), linkObj.getLinkName(), linkObj.getIconPath(), linkObj.getLinkUrl(), Integer.toString(linkObj.getUserId()));
         
+		actionLogDb.close();
     	db.close();
     }
 
     
 
-    
+    /**GET ALL ROWS from LOGdb**/
+    public static ArrayList<ActionLog> getActionLogWrappLocalDb(ActionLogDbAdapter db){
+    	boolean emptyDb=true;
+    	ArrayList<ActionLog> actionLogList = new ArrayList<ActionLog>();
+        db.open();
+        
+        Cursor c=db.getActionLogs();
+        if(c.moveToFirst()){
+        	emptyDb=false;
+        	do{
+        		//TODO add c.getInt(1) in Link obj - linkOrderInList
+        		//TODO to be fixed inconPath pos 3 in db but must be in pos 2
+        		actionLogList.add(new ActionLog(c.getInt(0),c.getString(1),c.getString(2),c.getInt(3)));
+        	}while(c.moveToNext());
+        }
+        
+        db.close();
+        if(emptyDb)
+        	return null;
+        return actionLogList;
+    }
+
     
     
     

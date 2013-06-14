@@ -1,34 +1,54 @@
 package com.app.example.db.lib;
 
-import android.content.SharedPreferences;
+import java.util.ArrayList;
 
+import com.app.example.bookmarksWallet.models.ActionLog;
 import com.app.example.bookmarksWallet.models.Link;
 import com.app.example.common.lib.SharedData;
 
 public class DatabaseSync {
 
-	public static boolean syncLocalDb(DatabaseAdapter db,SharedPreferences sharedPref){
+	public static boolean syncLocalDb(DatabaseAdapter linskDb,ActionLogDbAdapter actionLogDb){
 
-   		String actionLogDbStored=SharedData.getActionLogDbStored(sharedPref);
-		String modelLogDbStored = SharedData.getModelLogDbStored(sharedPref);
-		int idLogDbStored=SharedData.getIdLogDbStored(sharedPref);
-
-		if(modelLogDbStored.equals("LINK")){
-			if(actionLogDbStored.equals("EDIT")){
-				//update on online db
-			}
-			if(actionLogDbStored.equals("ADD")){
-				Link linkObj=DatabaseConnectionCommon.getLinkByIdWrappLocalDb(db,idLogDbStored);
-				DatabaseConnectionCommon.insertUrlEntryOnDb(SharedData.LINKS_DB, linkObj.linkUrl);
-			}
-			if(actionLogDbStored.equals("DELETE")){
-				DatabaseConnectionCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB, idLogDbStored);
-			}
-			
+		ArrayList<ActionLog> actionLogList = DatabaseConnectionCommon.getActionLogWrappLocalDb(actionLogDb);		
+		
+		if(actionLogList!=null){
+			for(ActionLog actionLogObj:actionLogList)
+				if(actionLogObj.getActionLogModel().equals(SharedData.LINK_LABEL)){
+					if(actionLogObj.getActionLogAction().equals(SharedData.EDIT_LABEL)){
+					//update on online db
+					}
+					if(actionLogObj.getActionLogAction().equals(SharedData.ADD_LABEL)){
+						Link linkObj=DatabaseConnectionCommon.getLinkByIdWrappLocalDb(linskDb,actionLogObj.getActionLogModelId());
+						DatabaseConnectionCommon.insertUrlEntryOnDb(SharedData.LINKS_DB, linkObj.linkUrl);
+					}
+					if(actionLogObj.getActionLogAction().equals(SharedData.DELETE_LABEL)){
+						DatabaseConnectionCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB, actionLogObj.getActionLogModelId());
+					}
+				}
 		}
-		if(modelLogDbStored.equals("NOTE")){
-			//TODO to be implemented
-		}
+		
+		
+//   		String actionLogDbStored=SharedData.getActionLogDbStored(sharedPref);
+//		String modelLogDbStored = SharedData.getModelLogDbStored(sharedPref);
+//		int idLogDbStored=SharedData.getIdLogDbStored(sharedPref);
+//
+//		if(modelLogDbStored.equals(SharedData.LINK_LABEL)){
+//			if(actionLogDbStored.equals(SharedData.EDIT_LABEL)){
+//				//update on online db
+//			}
+//			if(actionLogDbStored.equals(SharedData.ADD_LABEL)){
+//				Link linkObj=DatabaseConnectionCommon.getLinkByIdWrappLocalDb(db,idLogDbStored);
+//				DatabaseConnectionCommon.insertUrlEntryOnDb(SharedData.LINKS_DB, linkObj.linkUrl);
+//			}
+//			if(actionLogDbStored.equals(SharedData.DELETE_LABEL)){
+//				DatabaseConnectionCommon.deleteUrlEntryFromDb(SharedData.LINKS_DB, idLogDbStored);
+//			}
+//			
+//		}
+//		if(modelLogDbStored.equals(SharedData.NOTE_LABEL)){
+//			//TODO to be implemented
+//		}
 		
 		return true;
 	}

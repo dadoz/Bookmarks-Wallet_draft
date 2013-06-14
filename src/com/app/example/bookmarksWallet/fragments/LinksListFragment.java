@@ -17,6 +17,7 @@ import com.app.example.bookmarksWallet.FragmentChangeActivity;
 import com.app.example.bookmarksWallet.R;
 import com.app.example.bookmarksWallet.models.Link;
 import com.app.example.common.lib.SharedData;
+import com.app.example.db.lib.ActionLogDbAdapter;
 import com.app.example.db.lib.DatabaseAdapter;
 import com.app.example.db.lib.DatabaseConnectionCommon;
 
@@ -43,6 +44,7 @@ public class LinksListFragment extends SherlockFragment {
 	private static final String TAG = "LinksListFragment_TAG";
 	ActionBarSherlock mSherlock=ActionBarSherlock.wrap(getActivity());
 	public DatabaseAdapter db;
+	public ActionLogDbAdapter actionLogDb;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
@@ -54,6 +56,8 @@ public class LinksListFragment extends SherlockFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		db=new DatabaseAdapter(getActivity());
+		actionLogDb=new ActionLogDbAdapter(getActivity());
+		
 		createLayout(db);
 	}
 	
@@ -68,7 +72,7 @@ public class LinksListFragment extends SherlockFragment {
 	    		//TODO change iconPath on DB
 				linksDataList = DatabaseConnectionCommon.getLinksListFromJSONData();
 				for(Link link:linksDataList)
-					DatabaseConnectionCommon.insertLinkWrappLocalDb(db,link);
+					DatabaseConnectionCommon.insertLinkWrappLocalDb(db,actionLogDb,link,getActivity().getSharedPreferences(SharedData.LOG_DB, 0));
 	    	}catch(Exception e){
 	    		Log.e(TAG,"error - " + e);
 	    	}
@@ -85,7 +89,7 @@ public class LinksListFragment extends SherlockFragment {
     		toastMessageWrapper("empty List - img");
     	}
     	
-    	Collections.reverse((List<Link>)linksDataList.clone());
+    	Collections.reverse((List<Link>)linksDataList);
     	ArrayAdapter<Link> adapter=new LinkCustomAdapter(getActivity(), R.layout.link_row, linksDataList);
 		linksListView.setAdapter(adapter);
 //		linksListView.setFocusableInTouchMode(true);
@@ -117,12 +121,11 @@ public class LinksListFragment extends SherlockFragment {
     }
 	/**DELETE LINK*/
 	public boolean deleteLink(Link linkObj, ListView linksListView,boolean isNetworkAvailable){
-		if(!isNetworkAvailable){
+		/*if(!isNetworkAvailable){
 			NetworkNotAvailableDialog m = new NetworkNotAvailableDialog();
 	        m.show(getFragmentManager(), "NetworkNotAvailableDialog");
 			return false;
-		}
-			
+		}*/
 		DeleteLinkDialog m = new DeleteLinkDialog();
         m.show(getFragmentManager(), "DeleteLinkDialog");
 		return true;
@@ -345,7 +348,7 @@ public class LinksListFragment extends SherlockFragment {
 								Link linkObj = (Link) linksListView.getAdapter().getItem(SharedData.getLinkPosition());
 								String linkNameMod=((EditText) view.findViewById(R.id.editLink_title_editText_dialog_id)).getText().toString();
 								linkObj.setLinkName(linkNameMod);
-								DatabaseConnectionCommon.updateLinkByIdWrappLocalDb(db, linkObj);
+								DatabaseConnectionCommon.updateLinkByIdWrappLocalDb(db,actionLogDb, linkObj,getActivity().getSharedPreferences(SharedData.LOG_DB, 0));
 								linksListView.refreshDrawableState();
 								Log.d(TAG,linkNameMod);
                     	   	}catch(Exception e){
@@ -380,7 +383,7 @@ public class LinksListFragment extends SherlockFragment {
 	                    	   //get new link title
 								ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
 								Link linkObj = (Link) linksListView.getAdapter().getItem(SharedData.getLinkPosition());
-								if(DatabaseConnectionCommon.deleteLinkByIdWrappLocalDb(db,linkObj.getLinkId())){
+								if(DatabaseConnectionCommon.deleteLinkByIdWrappLocalDb(db,actionLogDb,linkObj.getLinkId(),getActivity().getSharedPreferences(SharedData.LOG_DB, 0))){
 									((LinkCustomAdapter) linksListView.getAdapter()).remove(linkObj);
 									linksListView.refreshDrawableState();
 	    							//SharedData.removeLink(linkObj);
@@ -418,7 +421,7 @@ public class LinksListFragment extends SherlockFragment {
                        public void onClick(DialogInterface dialog, int id) {
 	                   	   try{
 								ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
-								if(DatabaseConnectionCommon.deleteLinksWrappLocalDb(db)){
+								if(DatabaseConnectionCommon.deleteLinksWrappLocalDb(db,getActivity().getSharedPreferences(SharedData.LOG_DB, 0))){
 									for(int i=0;i<linksListView.getCount();i++){
 										Link linkObj = (Link) linksListView.getAdapter().getItem(i);
 										((LinkCustomAdapter) linksListView.getAdapter()).remove(linkObj);

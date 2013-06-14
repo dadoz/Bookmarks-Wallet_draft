@@ -56,6 +56,13 @@ public class SharedData {
 	public static final String LOCAL_DB = "sqlite_db_name";
 	public static final String ONLINE_DB = "online_db_url";
 	private static final String TAG = "SharedData_TAG";
+
+	public static final String LINK_LABEL = "LINK";
+	public static final String NOTE_LABEL = "NOTE";
+	public static final String ADD_LABEL = "ADD";
+	public static final String EDIT_LABEL = "EDIT";
+	public static final String DELETE_LABEL = "DELETE";
+
 	public static ArrayList<Note> notesListStatic=null;
 	public static ArrayList<Link> linksListStatic=null;
 	private static User userObj=null;
@@ -238,19 +245,24 @@ public class SharedData {
     public static int getIdLogDbStored(SharedPreferences sharedPref){
 		return sharedPref.getInt(ID_LABEL, EMPTY_USERID);
     }
-    public static void setActionLogDbStored(SharedPreferences sharedPref,String username){
+    public static void setLogDbStored(SharedPreferences sharedPref,String action,String model, int id){
+    	setActionLogDbStored( sharedPref, action );
+    	setModelLogDbStored( sharedPref, model);
+    	setIdLogDbStored( sharedPref, id);
+    }
+    public static void setActionLogDbStored(SharedPreferences sharedPref,String action ){
     	Editor editor = sharedPref.edit();
-    	editor.putString(ACTION_LABEL, username);
+    	editor.putString(ACTION_LABEL, action);
     	editor.commit();
     }
-    public static void setModelLogDbStored(SharedPreferences sharedPref,String password){
+    public static void setModelLogDbStored(SharedPreferences sharedPref,String model){
     	Editor editor = sharedPref.edit();
-    	editor.putString(MODEL_LABEL, password);
+    	editor.putString(MODEL_LABEL, model);
     	editor.commit();
     }
-    public static void setIdLogDbStored(SharedPreferences sharedPref,int userId){
+    public static void setIdLogDbStored(SharedPreferences sharedPref,int id){
     	Editor editor = sharedPref.edit();
-    	editor.putInt(ID_LABEL, userId);
+    	editor.putInt(ID_LABEL, id);
     	editor.commit();
     }
 
