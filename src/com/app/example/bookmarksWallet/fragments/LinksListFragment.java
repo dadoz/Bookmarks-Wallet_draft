@@ -169,7 +169,7 @@ public class LinksListFragment extends SherlockFragment {
 //        actionProvider.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
         // Note that you can set/change the intent any time,
         // say when the user has selected an image.
-        actionProvider.setShareIntent(createShareIntent(linkObj.linkUrl));
+        actionProvider.setShareIntent(createShareIntent(linkObj.getLinkUrl()));
 		return true;
 	}
 	/*** Creates a sharing {@link Intent}.*/

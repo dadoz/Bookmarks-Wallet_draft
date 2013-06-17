@@ -3,6 +3,7 @@ package com.app.example.db.lib;
 //import android.os.Bundle;
 //import android.app.Activity;
 //import android.view.Menu;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -23,8 +24,9 @@ public class DatabaseAdapter{
 	public static final String LINK_NAME_KEY="linkName";
 	public static final String ICON_PATH_KEY="iconPath";
 	public static final String LINK_URL_KEY="linkUrl";
-	public static final String LINKS_USER_ID_KEY="linksUserId";
-
+	public static final String LINK_USER_ID_KEY="linksUserId";
+	public static final String LINK_DELETED_STATUS_KEY="linkDeletedStatus";
+	
 	public static final String LOG_TABLE_NAME="LogTable_tmp";
 
 	public static final String LOG_ACTION_KEY="action";
@@ -32,12 +34,13 @@ public class DatabaseAdapter{
 	public static final String LOG_MODEL_ID_KEY="modelId";
 
 	public static final String DATABASE_CREATE=
-			"create table "+LINKS_TABLE_NAME+"(_id integer primary key autoincrement,"
+			"create table "+LINKS_TABLE_NAME+"("+ ROWID_KEY+" integer primary key,"
 			+LINK_ORDER_IN_LIST_KEY+ " integer," 
 			+LINK_NAME_KEY+" text not null," 
 			+ICON_PATH_KEY+" text not null,"		
 			+LINK_URL_KEY+" text not null,"
-			+LINKS_USER_ID_KEY+" text not null);";
+			+LINK_USER_ID_KEY+" text not null,"
+			+LINK_DELETED_STATUS_KEY+" text not null);";
 	
 	public static final String LOG_DB_CREATE=
 			"create table "+LOG_TABLE_NAME+"(_id integer primary key autoincrement,"
@@ -91,15 +94,17 @@ public class DatabaseAdapter{
 	}
 
 	//insert a title into the database --- row of a db
-	public long insertLink(String linkOrderInList, String linkName, String iconPath,
-			String linkUrl,String linksUserId){
+	public long insertLink(int linkId,String linkOrderInList, String linkName, String iconPath,
+			String linkUrl,String linksUserId,boolean linkDeletedStatus){
 		
 		ContentValues initialValues = new ContentValues();
+		initialValues.put(ROWID_KEY, linkId);
 		initialValues.put(LINK_ORDER_IN_LIST_KEY, linkOrderInList);
 		initialValues.put(LINK_NAME_KEY, linkName);
 		initialValues.put(ICON_PATH_KEY, iconPath);
 		initialValues.put(LINK_URL_KEY, linkUrl);
-		initialValues.put(LINKS_USER_ID_KEY, linksUserId);
+		initialValues.put(LINK_USER_ID_KEY, linksUserId);
+		initialValues.put(LINK_DELETED_STATUS_KEY, linkDeletedStatus);
 
 		return db.insert(LINKS_TABLE_NAME,null, initialValues);
 
@@ -116,6 +121,15 @@ public class DatabaseAdapter{
 		db.delete(LINKS_TABLE_NAME, ROWID_KEY + "=" + dbRowId, null);
 	}
 
+    //update title
+    public boolean fakeDeleteLinkById(long rowId,boolean linkDeletedStatus){
+    	
+    	ContentValues initialValues = new ContentValues();
+    	initialValues.put(LINK_ORDER_IN_LIST_KEY, linkDeletedStatus);
+
+        return db.update(LINKS_TABLE_NAME, initialValues, 
+                         ROWID_KEY + "=" + rowId, null) > 0;
+    }
 
 	public void dropDbTable(){
 		try {
@@ -133,7 +147,8 @@ public class DatabaseAdapter{
    				LINK_NAME_KEY,
    				ICON_PATH_KEY,		
         		LINK_URL_KEY,
-        		LINKS_USER_ID_KEY},
+        		LINK_USER_ID_KEY,
+        		LINK_DELETED_STATUS_KEY},
         		null, 
                 null, 
                 null, 
@@ -149,7 +164,8 @@ public class DatabaseAdapter{
            				LINK_NAME_KEY,
            				ICON_PATH_KEY,		
                 		LINK_URL_KEY,
-                		LINKS_USER_ID_KEY},
+                		LINK_USER_ID_KEY,
+                		LINK_DELETED_STATUS_KEY},
                 		ROWID_KEY + "=" + rowId, 
                 		null,
                 		null, 
@@ -164,23 +180,32 @@ public class DatabaseAdapter{
 
     //update title
     public boolean updateLink(long rowId,String linkOrderInList, String linkName, String iconPath,
-    		String linkUrl,String linksUserId){
+    		String linkUrl,String linksUserId,boolean linkDeletedStatus){
     	
     	ContentValues initialValues = new ContentValues();
     	initialValues.put(LINK_ORDER_IN_LIST_KEY, linkOrderInList);
     	initialValues.put(LINK_NAME_KEY, linkName);
     	initialValues.put(ICON_PATH_KEY, iconPath);
     	initialValues.put(LINK_URL_KEY, linkUrl);
-    	initialValues.put(LINKS_USER_ID_KEY, linksUserId);
-
+    	initialValues.put(LINK_USER_ID_KEY, linksUserId);
+    	initialValues.put(LINK_DELETED_STATUS_KEY, linkDeletedStatus);
+    	
         return db.update(LINKS_TABLE_NAME, initialValues, 
                          ROWID_KEY + "=" + rowId, null) > 0;
     }
 
-	
-    
-    
-    
+    /***get max LinkId**/
+	public Cursor getMaxOnLinkId() {
+		// TODO Auto-generated method stub
+		try {
+//			 SQLiteDatabase db=this.getReadableDatabase();
+			return db.rawQuery("SELECT MAX("+ROWID_KEY+") FROM "+LOG_TABLE_NAME,new String [] {});
+		}catch (Exception e){
+			Log.d(TAG, "Failed to do : " + e.getMessage());
+		}	
+		return null;
+}   
+
     
     
     

@@ -107,7 +107,10 @@ public class MainActivity extends SherlockFragmentActivity {
 			        String linkName=SharedData.getLinkNameByUrl(linkUrl);
 			        String iconPath="/emptyPath";
 			        int linksUserId=SharedData.getUserIdStored(sharedPref);
-		    		if(DatabaseConnectionCommon.insertLinkWrappLocalDb(db,actionLogDb, linkOrderInList,linkName,iconPath,linkUrl,linksUserId,getSharedPreferences(SharedData.LOG_DB, 0)))
+			        //set new linkId
+			        //get max linkId on db and increme
+			        int linkId=DatabaseConnectionCommon.getMaxOnLinkIdWrappLocalDb(db);
+		    		if(DatabaseConnectionCommon.insertLinkWrappLocalDb(db,actionLogDb, linkId,linkOrderInList,linkName,iconPath,linkUrl,linksUserId,getSharedPreferences(SharedData.LOG_DB, 0)))
 			    		toastMessageWrapper("link added with SUCCESS");
 			    			
 		    	}else

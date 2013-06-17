@@ -126,18 +126,4 @@ public class ActionLogDbAdapter{
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

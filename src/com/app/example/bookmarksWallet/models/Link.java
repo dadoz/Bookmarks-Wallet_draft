@@ -6,16 +6,16 @@ import android.util.Log;
 
 public class Link {
 	
-	public int linkId;
-	public String linkIconPath;
-	public String linkUrl;
-	public int userId;
-	public String linkName;	
-	public String delIcon;
-	public boolean deletedLinkFlag;
-	public int linkPosition;
+	private int linkId;
+	private String linkIconPath;
+	private String linkUrl;
+	private int userId;
+	private String linkName;	
+	private String delIcon;
+	private boolean linkDeletedStatus;
+	private int linkPosition;
 	
-	public Link(int linkId,String linkIconPath,String linkName,String linkUrl,int userId,String delIcon,boolean deletedLinkFlag){
+	public Link(int linkId,String linkIconPath,String linkName,String linkUrl,int userId,String delIcon,boolean linkDeletedStatus){
 		//TODO add linkOrderInList into db
 //		this.linkOrderInList=linkOrderInList;
 		this.linkId=linkId;
@@ -24,7 +24,7 @@ public class Link {
 		this.linkUrl=linkUrl;
 		this.userId=userId;
 		this.delIcon=delIcon;
-		this.deletedLinkFlag=deletedLinkFlag;
+		this.linkDeletedStatus=linkDeletedStatus;
 		this.linkPosition=SharedData.LINK_NOT_IN_LIST;
 	}
 	
@@ -52,11 +52,11 @@ public class Link {
 		this.linkName=value;
 	}
 	
-	public void setDeletedLink(boolean value){
-		this.deletedLinkFlag=value;
+	public void setLinkDeletedStatus(boolean value){
+		this.linkDeletedStatus=value;
 	}
-	public boolean getDeletedLink(){
-		return this.deletedLinkFlag;
+	public boolean getLinkDeletedStatus(){
+		return this.linkDeletedStatus;
 	}
 	public void setLinkPosition(int value){
 		this.linkPosition=value;
@@ -82,7 +82,7 @@ public class Link {
 	public String getLinkByString(){
 		return ""+this.linkId+" - "+this.linkIconPath+" - "+this.linkName+
 				" - "+this.linkUrl+" - "+this.userId+" - "+this.delIcon+
-				" - "+this.linkName+" - "+this.userId+" - "+this.deletedLinkFlag;
+				" - "+this.linkName+" - "+this.userId+" - "+this.linkDeletedStatus;
 	}
 
 	public int getLinkId() {
