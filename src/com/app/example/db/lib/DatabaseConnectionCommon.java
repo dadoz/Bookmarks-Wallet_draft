@@ -213,7 +213,7 @@ public class DatabaseConnectionCommon {
      * new one or update and delete one*/
     
     /**INSERT ROW in db*/
-    public static void insertLinkWrappLocalDb(DatabaseAdapter db,ActionLogDbAdapter actionLogDb,Link linkObj,SharedPreferences sharedPref){
+    public static void insertLinkWrappLocalDb(DatabaseAdapter db,ActionLogDbAdapter actionLogDb,Link linkObj){
     	if(linkObj!=null){
     		
             db.open();
@@ -292,7 +292,7 @@ public class DatabaseConnectionCommon {
     }
 
     /**GET ONE ROW from db**/
-    public static boolean deleteLinksWrappLocalDb(DatabaseAdapter db,SharedPreferences sharedPref){
+    public static boolean deleteLinksWrappLocalDb(DatabaseAdapter db){
         db.open();
     	
         
@@ -356,6 +356,14 @@ public class DatabaseConnectionCommon {
     }
 
     
+    /**GET ONE ROW from db**/
+    public static void deleteAllActionLogWrappLocalDb(ActionLogDbAdapter db){
+        db.open();
+        
+        db.deleteActionLogs();
+        
+        db.close();
+    }
     
     
     

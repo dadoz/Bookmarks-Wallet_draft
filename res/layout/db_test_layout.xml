@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+    
+	<ScrollView
+		xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+	     
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" 
+	    android:orientation="vertical"
+	    android:id="@+id/login_fragment_id">
+	    <TextView 
+	        android:id="@+id/loginBoxTextId"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+			android:textColor="@color/blue"
+				
+			android:textSize="20sp"
+			android:layout_margin="10dip"
+			android:text="TestView"/>
+	    	    
+		<LinearLayout 
+		    android:id="@+id/loginBoxLayoutId"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" 
+		    android:orientation="vertical"
+		    android:background="@color/icedWhite"
+		    android:layout_margin="10dip">
+		    <TextView 
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+				android:textColor="@color/blue"
+					
+				android:textSize="20sp"
+				android:layout_margin="10dip"
+				android:text="ActionLogDb test"/>
+		    <TextView 
+		        android:id="@+id/actionLogDbResultId"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+				android:textColor="@color/blue"
+					
+				android:textSize="20sp"
+				android:layout_margin="10dip"/>
+		    		    	    	
+		    <Button
+		        android:id="@+id/actionLogDbButtonId"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+				android:layout_margin="10dip"
+		        android:text="@android:string/search_go" />
+		</LinearLayout>
+		<LinearLayout 
+		    android:id="@+id/loginBoxLayoutId1"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" 
+		    android:orientation="vertical"
+		    android:background="@color/icedWhite"
+		    android:layout_margin="10dip">
+		    <TextView 
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+				android:textColor="@color/blue"
+					
+				android:textSize="20sp"
+				android:layout_margin="10dip"
+				android:text="ActionLogDb test2"/>
+		    <TextView 
+		        android:id="@+id/cancelActionLogDbResultId"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+				android:textColor="@color/blue"
+					
+				android:textSize="20sp"
+				android:layout_margin="10dip"/>
+		    		    	    	
+		    <Button
+		        android:id="@+id/cancelActionLogDbButtonId"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+				android:layout_margin="10dip"
+		        android:text="@android:string/search_go" />
+		</LinearLayout>
+		<LinearLayout 
+		    android:id="@+id/loginBoxLayoutId2"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" 
+		    android:orientation="vertical"
+		    android:background="@color/icedWhite"
+		    android:layout_margin="10dip">
+		    <TextView 
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+				android:textColor="@color/blue"
+					
+				android:textSize="20sp"
+				android:layout_margin="10dip"
+				android:text="LinkDb test"/>
+	    	
+		    <TextView 
+		        android:id="@+id/linkDbResultId"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+				android:textColor="@color/blue"
+					
+				android:textSize="20sp"
+				android:layout_margin="10dip"/>
+   	        <Button
+		        android:id="@+id/linkDbButtonId"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		
+				android:layout_margin="10dip"
+		        android:text="@android:string/search_go" />
+
+			</LinearLayout>
+			<LinearLayout 
+		    android:id="@+id/loginBoxLayoutId3"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" 
+		    android:orientation="vertical"
+		    android:background="@color/icedWhite"
+		    android:layout_margin="10dip">
+		    <TextView 
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+				android:textColor="@color/blue"
+					
+				android:textSize="20sp"
+				android:layout_margin="10dip"
+				android:text="ActionLogDb test2"/>
+		    <TextView 
+		        android:id="@+id/cancelLinksDbResultId"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+				android:textColor="@color/blue"
+					
+				android:textSize="20sp"
+				android:layout_margin="10dip"/>
+		    		    	    	
+		    <Button
+		        android:id="@+id/cancelLinksDbButtonId"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+				android:layout_margin="10dip"
+		        android:text="@android:string/search_go" />
+		</LinearLayout>
+		
+		</LinearLayout>					    		
+	</ScrollView>

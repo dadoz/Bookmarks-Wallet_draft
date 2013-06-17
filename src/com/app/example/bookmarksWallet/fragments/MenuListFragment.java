@@ -114,6 +114,10 @@ public class MenuListFragment extends ListFragment {
 			//LOGOUT
 			logoutAction();
 			break;
+		case 6:
+			//LOGOUT
+			newContent=new DBTestFragment();
+			break;
 		}
 		if (newContent != null)
 			switchFragment(newContent);

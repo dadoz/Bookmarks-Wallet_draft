@@ -16,6 +16,7 @@ local.properties
 .settings/
 .loadpath
 .gen/
+project.properties
 
 # External tool builders
 .externalToolBuilders/

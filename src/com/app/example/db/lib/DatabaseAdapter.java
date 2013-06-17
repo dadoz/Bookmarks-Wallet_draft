@@ -14,8 +14,8 @@ import android.util.Log;
 
 public class DatabaseAdapter{
 	public static final String DATABASE_NAME="BookmarksWalletDb_tmp";
-	public static final int DATABASE_VERSION=1;
-	public static final String LINKS_TABLE_NAME="LinksTable_tmp1";
+	public static final int DATABASE_VERSION=2;
+	public static final String LINKS_TABLE_NAME="LinksTable_tmp2";
 
 	public static final String TAG="DatabaseAdapter_TAG";
 	public static final String ROWID_KEY="_id";

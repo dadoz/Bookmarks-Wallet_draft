@@ -21,6 +21,7 @@ import com.app.example.db.lib.ActionLogDbAdapter;
 import com.app.example.db.lib.DatabaseAdapter;
 import com.app.example.db.lib.DatabaseConnectionCommon;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -40,6 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+@SuppressLint("NewApi")
 public class LinksListFragment extends SherlockFragment {
 	private static final String TAG = "LinksListFragment_TAG";
 	ActionBarSherlock mSherlock=ActionBarSherlock.wrap(getActivity());
@@ -68,14 +70,22 @@ public class LinksListFragment extends SherlockFragment {
     	ArrayList<Link> linksDataList = DatabaseConnectionCommon.getLinksWrappLocalDb(db);
     	if(linksDataList==null){
     		Log.d(TAG,"set list from JSON data");
+    		//start dialog
+    		LoadingDialog m = new LoadingDialog();
+            m.show(getFragmentManager(), "EditLinkDialog");
     		try{
 	    		//TODO change iconPath on DB
 				linksDataList = DatabaseConnectionCommon.getLinksListFromJSONData();
 				for(Link link:linksDataList)
-					DatabaseConnectionCommon.insertLinkWrappLocalDb(db,actionLogDb,link,getActivity().getSharedPreferences(SharedData.LOG_DB, 0));
+					DatabaseConnectionCommon.insertLinkWrappLocalDb(db,actionLogDb,link);
+				
+				//TODO fix it - clear all Log
+				actionLogDb.deleteActionLogs();
+				//close dialog
 	    	}catch(Exception e){
 	    		Log.e(TAG,"error - " + e);
 	    	}
+			m.dismiss();
     	}
     	//TEST - empty list
 //    	if(linksDataList==null){
@@ -83,10 +93,16 @@ public class LinksListFragment extends SherlockFragment {
 //    		linksDataList=testLinksList();
 //    	}
 
-    	if(linksDataList!=null && linksDataList.size()==0){
+//    	if(linksDataList!=null && linksDataList.size()==0){
+    	if(linksDataList==null){
     		//TODO handle empty - need to be refreshed
 //    		((TextView)getActivity().findViewById(R.id.linkList_empty_label)).setText("Empty List");
     		toastMessageWrapper("empty List - img");
+
+    		//TEST
+    		Link emptyLink=new Link(SharedData.EMPTY_LINKID,SharedData.EMPTY_STRING,"Empty list - sorry",SharedData.EMPTY_STRING,SharedData.EMPTY_LINKID,SharedData.EMPTY_STRING,false);
+    		linksDataList=new ArrayList<Link>();
+    		linksDataList.add(emptyLink);
     	}
     	
     	Collections.reverse((List<Link>)linksDataList);
@@ -329,6 +345,18 @@ public class LinksListFragment extends SherlockFragment {
             return builder.create();
         }
     }
+    /***NO NETWORK DIALOG FRAGMENT***/
+    public class LoadingDialog extends SherlockDialogFragment{
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+        	AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
+        	
+            builder.setTitle("Info");
+            builder.setMessage("...... loading data");
+            return builder.create();
+        }
+    }
     /***EDIT DIALOG FRAGMENT***/
     public class EditLinkDialog extends SherlockDialogFragment{
 
@@ -421,7 +449,7 @@ public class LinksListFragment extends SherlockFragment {
                        public void onClick(DialogInterface dialog, int id) {
 	                   	   try{
 								ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
-								if(DatabaseConnectionCommon.deleteLinksWrappLocalDb(db,getActivity().getSharedPreferences(SharedData.LOG_DB, 0))){
+								if(DatabaseConnectionCommon.deleteLinksWrappLocalDb(db)){
 									for(int i=0;i<linksListView.getCount();i++){
 										Link linkObj = (Link) linksListView.getAdapter().getItem(i);
 										((LinkCustomAdapter) linksListView.getAdapter()).remove(linkObj);
