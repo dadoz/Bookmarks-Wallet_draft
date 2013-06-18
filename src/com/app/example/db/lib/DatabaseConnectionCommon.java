@@ -308,7 +308,7 @@ public class DatabaseConnectionCommon {
         actionLogDb.open();
 
         //SET delete all links ID
-        actionLogDb.insertActionLog(SharedData.DELETE_LABEL,SharedData.LINK_LABEL,SharedData.EMPTY_LINKID);
+        actionLogDb.insertActionLog(SharedData.DELETE_LABEL,SharedData.LINK_LABEL,linkId);
 
 	  	db.dropDbTable();
         db.deleteLinkById(linkId);
@@ -321,7 +321,7 @@ public class DatabaseConnectionCommon {
         db.open();
         actionLogDb.open();
         
-        actionLogDb.insertActionLog(SharedData.DELETE_LABEL,SharedData.LINK_LABEL,linkObj.getLinkId());
+        actionLogDb.insertActionLog(SharedData.EDIT_LABEL,SharedData.LINK_LABEL,linkObj.getLinkId());
     	
         //TODO not sure if linkId is the same as rowId
         long rowId=linkObj.getLinkId();

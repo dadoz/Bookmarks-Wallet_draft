@@ -80,7 +80,8 @@ public class LinksListFragment extends SherlockFragment {
 					DatabaseConnectionCommon.insertLinkWrappLocalDb(db,actionLogDb,link);
 				
 				//TODO fix it - clear all Log
-				actionLogDb.deleteActionLogs();
+				DatabaseConnectionCommon.deleteAllActionLogWrappLocalDb(actionLogDb);
+				
 				//close dialog
 	    	}catch(Exception e){
 	    		Log.e(TAG,"error - " + e);

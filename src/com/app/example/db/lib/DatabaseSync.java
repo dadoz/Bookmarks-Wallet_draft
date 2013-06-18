@@ -36,6 +36,9 @@ public class DatabaseSync {
 			return false;
 		}
 		
+		DatabaseConnectionCommon.deleteAllActionLogWrappLocalDb(actionLogDb);
+
+		
 //   		String actionLogDbStored=SharedData.getActionLogDbStored(sharedPref);
 //		String modelLogDbStored = SharedData.getModelLogDbStored(sharedPref);
 //		int idLogDbStored=SharedData.getIdLogDbStored(sharedPref);
