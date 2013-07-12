@@ -30,8 +30,8 @@ public class MenuListFragment extends ListFragment {
 
 		int i=0;
 		adapter.add(new SampleItem(i++,"Tunnus", R.drawable.profile_picture));
-		adapter.add(new SampleItem(i++,"Add-write a note", android.R.drawable.ic_menu_add));
-		adapter.add(new SampleItem(i++,"Note list", android.R.drawable.ic_menu_agenda));
+//		adapter.add(new SampleItem(i++,"Add-write a note", android.R.drawable.ic_menu_add));
+		adapter.add(new SampleItem(i++,"Notes list", android.R.drawable.ic_menu_agenda));
 		adapter.add(new SampleItem(i++,"Links list", android.R.drawable.ic_menu_directions));
 		
 		adapter.add(new SampleItem(i++,"Settings", android.R.drawable.ic_menu_preferences));
@@ -92,29 +92,29 @@ public class MenuListFragment extends ListFragment {
 			Log.d("debug", "case 0");
 //			newContent = new ColorFragment(R.color.red);
 			break;
+//		case 1:
+//			//ADD - WRITE a note
+//			Log.d("debug", "case 1");
+////			newContent=new LoginFragment();
+//			newContent=new AddNoteFragment();
+//			break;
 		case 1:
-			//ADD - WRITE a note
-			Log.d("debug", "case 1");
-//			newContent=new LoginFragment();
-			newContent=new AddNoteFragment();
-			break;
-		case 2:
 			//NOTES list
 			newContent=new NotesListFragment();
 			break;
-		case 3:
+		case 2:
 			//LINKS list
 			newContent=new LinksListFragment();
 			break;
-		case 4:
+		case 3:
 			//SETTINGS
 			newContent=new SettingsFragment();
 			break;
-		case 5:
+		case 4:
 			//LOGOUT
 			logoutAction();
 			break;
-		case 6:
+		case 5:
 			//LOGOUT
 			newContent=new DBTestFragment();
 			break;

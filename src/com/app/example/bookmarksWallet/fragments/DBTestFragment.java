@@ -11,6 +11,7 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.app.example.bookmarksWallet.R;
 import com.app.example.bookmarksWallet.models.ActionLog;
 import com.app.example.bookmarksWallet.models.Link;
+import com.app.example.common.lib.SharedData;
 import com.app.example.db.lib.ActionLogDbAdapter;
 import com.app.example.db.lib.DatabaseAdapter;
 import com.app.example.db.lib.DatabaseConnectionCommon;
@@ -73,7 +74,7 @@ public class DBTestFragment extends SherlockFragment{
 				// TODO Auto-generated method stub
 				DatabaseConnectionCommon.deleteAllActionLogWrappLocalDb(db);
 				
-				TextView result=(TextView)getActivity().findViewById(R.id.cancelActionLogDbResultId);
+				TextView result=(TextView)getActivity().findViewById(R.id.actionLogDbResultId);
 				String resString="OK - del successful";
 				
 				result.setText(resString);
@@ -88,14 +89,15 @@ public class DBTestFragment extends SherlockFragment{
 				DatabaseAdapter db;
 				db=new DatabaseAdapter(getActivity());
 				// TODO Auto-generated method stub
-				ArrayList<Link> linkList = DatabaseConnectionCommon.getLinksWrappLocalDb(db);
+				ArrayList<Link> linkList = DatabaseConnectionCommon.getLinksWrappTESTLocalDb(db);
 				
 				TextView result=(TextView)getActivity().findViewById(R.id.linkDbResultId);
 				String resString="";
 				
 				if(linkList!=null)
 					for(Link obj:linkList)
-						resString+="LINK ID "+ obj.getLinkId()+" ---"+obj.getLinkName()+obj.getLinkUrl()+"\n\n\n";
+						resString+="LINK: id "+ obj.getLinkId()+"\n- name "+obj.getLinkName()+"\n- URL "+obj.getLinkUrl()+
+						"\n- linkDel "+obj.isLinkDeleted()+"\n\n\n";
 				
 				if(linkList==null)
 					result.setText("empty list");
@@ -113,14 +115,49 @@ public class DBTestFragment extends SherlockFragment{
 				// TODO Auto-generated method stub
 				DatabaseConnectionCommon.deleteLinksWrappLocalDb(db);
 				
-				TextView result=(TextView)getActivity().findViewById(R.id.cancelLinksDbResultId);
+				TextView result=(TextView)getActivity().findViewById(R.id.linkDbResultId);
 				String resString="OK - del successful";
 				
 				result.setText(resString);
 			}
 		});
 		
+
+	
+		Button onlineLinkDbButton = (Button)getActivity().findViewById(R.id.onlineLinksDbButtonId);
+		onlineLinkDbButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+//				DatabaseAdapter db;
+//				db=new DatabaseAdapter(getActivity());
+				ArrayList<Link> linkList=null;
+				TextView result=(TextView)getActivity().findViewById(R.id.onlineLinksDbResultId);
+				// TODO Auto-generated method stub
+				
+				if(!SharedData.isNetworkAvailable(getActivity())){
+					result.setText("NO INTERNET CONNECTION");
+					return;
+				}
+				
+				linkList = DatabaseConnectionCommon.getLinksListFromJSONData();
+				
+				String resString="";
+				if(linkList!=null)
+					for(Link obj:linkList)
+						resString+="LINK: id "+ obj.getLinkId()+"\n- name "+obj.getLinkName()+"\n- URL "+obj.getLinkUrl()+
+						"\n- linkDel "+obj.isLinkDeleted()+"\n\n\n";
+				
+				if(linkList==null)
+					result.setText("empty list");
+				else
+					result.setText(resString);
+			}
+		});
+		
 	}
+
+
+	
 	
 	//  toast message wrapper
 //	private void toastMessageWrapper(String message){

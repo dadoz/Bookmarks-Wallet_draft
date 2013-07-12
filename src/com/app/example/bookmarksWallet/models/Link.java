@@ -12,10 +12,10 @@ public class Link {
 	private int userId;
 	private String linkName;	
 	private String delIcon;
-	private boolean linkDeletedStatus;
+	private boolean linkDeleted;
 	private int linkPosition;
 	
-	public Link(int linkId,String linkIconPath,String linkName,String linkUrl,int userId,String delIcon,boolean linkDeletedStatus){
+	public Link(int linkId,String linkIconPath,String linkName,String linkUrl,int userId,String delIcon,boolean linkDeleted){
 		//TODO add linkOrderInList into db
 //		this.linkOrderInList=linkOrderInList;
 		this.linkId=linkId;
@@ -24,7 +24,7 @@ public class Link {
 		this.linkUrl=linkUrl;
 		this.userId=userId;
 		this.delIcon=delIcon;
-		this.linkDeletedStatus=linkDeletedStatus;
+		this.linkDeleted=linkDeleted;
 		this.linkPosition=SharedData.LINK_NOT_IN_LIST;
 	}
 	
@@ -52,11 +52,11 @@ public class Link {
 		this.linkName=value;
 	}
 	
-	public void setLinkDeletedStatus(boolean value){
-		this.linkDeletedStatus=value;
+	public void setLinkDeleted(boolean value){
+		this.linkDeleted=value;
 	}
-	public boolean getLinkDeletedStatus(){
-		return this.linkDeletedStatus;
+	public boolean isLinkDeleted(){
+		return this.linkDeleted;
 	}
 	public void setLinkPosition(int value){
 		this.linkPosition=value;
@@ -82,7 +82,7 @@ public class Link {
 	public String getLinkByString(){
 		return ""+this.linkId+" - "+this.linkIconPath+" - "+this.linkName+
 				" - "+this.linkUrl+" - "+this.userId+" - "+this.delIcon+
-				" - "+this.linkName+" - "+this.userId+" - "+this.linkDeletedStatus;
+				" - "+this.linkName+" - "+this.userId+" - "+this.linkDeleted;
 	}
 
 	public int getLinkId() {

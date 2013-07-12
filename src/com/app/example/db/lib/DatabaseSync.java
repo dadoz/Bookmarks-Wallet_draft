@@ -20,7 +20,8 @@ public class DatabaseSync {
 				for(ActionLog actionLogObj:actionLogList)
 					if(actionLogObj.getActionLogModel().equals(SharedData.LINK_LABEL)){
 						if(actionLogObj.getActionLogAction().equals(SharedData.EDIT_LABEL)){
-						//update on online db
+							Link linkObj=DatabaseConnectionCommon.getLinkByIdWrappLocalDb(linskDb,actionLogObj.getActionLogModelId());
+							DatabaseConnectionCommon.updateLinkOnDb(SharedData.LINKS_DB, linkObj);
 						}
 						if(actionLogObj.getActionLogAction().equals(SharedData.ADD_LABEL)){
 							Link linkObj=DatabaseConnectionCommon.getLinkByIdWrappLocalDb(linskDb,actionLogObj.getActionLogModelId());

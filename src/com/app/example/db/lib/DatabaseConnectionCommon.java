@@ -203,6 +203,48 @@ public class DatabaseConnectionCommon {
 	   return false;
 	}
 
+	/**DELETE ENTRY FROM DB**/
+	//TODO change this to JSON fetch data 
+	public static boolean updateLinkOnDb(int choicedDB,Link linkObj){
+	   if(SharedData.isUserLoggedIn()){
+		   try{
+			   Log.e(TAG, "Update - still to be implemented on server side");
+//		  		//check if db is right
+//		  		if(choicedDB!=SharedData.LINKS_DB && choicedDB!=SharedData.USERS_DB)
+//		  			Log.e(TAG, "NO DB FOUND - u must define the right database name");
+//	
+//		  		//add choicedDB params
+//		  		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+//		  		postParameters.add(new BasicNameValuePair("deleteUrlFromDb",""+SharedData.DELETE_URL_FROM_DB));
+//		  		postParameters.add(new BasicNameValuePair("choicedDB",""+choicedDB));
+//		  		
+//	 			//get my userId to fetch all liks I stored before
+//	 			int userIdTMP=SharedData.getUser().getUserId();
+//	 			if(userIdTMP==SharedData.EMPTY_USERID)
+//	 				return false;
+// 				postParameters.add(new BasicNameValuePair("links_user_id",""+userIdTMP));
+//	 			
+//	 			//check linkId!=null
+//	 			if(linkId==SharedData.EMPTY_LINKID)
+//	 				return false;
+// 				postParameters.add(new BasicNameValuePair("linkId",""+linkId));
+//	 			
+//		  		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//		  	    StrictMode.setThreadPolicy(policy);
+//		  	    
+//		   		String response = CustomHttpClient.executeHttpPost(SharedData.DBUrl,postParameters);
+//		   		
+//	 			Log.d(TAG,""+linkId);
+//		   		Log.d(TAG,"this is the result" + response);
+			   
+		   		return true;
+		  	}catch (Exception e) {
+		  		Log.e(TAG+"- deleteUrlEntryFromDb_TAG","Error in http connection!!" + e.toString());     
+		  		return false;
+		  	}
+   		}
+	   return false;
+	}
 	
 	/***-----------------------------------------------**/
 	
@@ -213,35 +255,41 @@ public class DatabaseConnectionCommon {
      * new one or update and delete one*/
     
     /**INSERT ROW in db*/
-    public static void insertLinkWrappLocalDb(DatabaseAdapter db,ActionLogDbAdapter actionLogDb,Link linkObj){
+    public static void insertLinkWrappLocalDb(DatabaseAdapter db,ActionLogDbAdapter actionLogDb,Link linkObj,
+    		boolean logEnabled){
     	if(linkObj!=null){
     		
             db.open();
-            actionLogDb.open();
 
-            actionLogDb.insertActionLog(SharedData.ADD_LABEL,SharedData.LINK_LABEL,linkObj.getLinkId());
-//            SharedData.setLogDbStored(sharedPref, SharedData.ADD_LABEL,SharedData.LINK_LABEL,linkObj.getLinkId());
+            if(logEnabled){
+                actionLogDb.open();
+            	actionLogDb.insertActionLog(SharedData.ADD_LABEL,SharedData.LINK_LABEL,linkObj.getLinkId());
+                actionLogDb.close();
+            }
     		
             //TODO remove static init of linkOrderInList
             String linkOrderInList=Integer.toString(SharedData.EMPTY_LINKID);
             db.insertLink(linkObj.getLinkId(),linkOrderInList, linkObj.getLinkName(), linkObj.getIconPath(),
-            		linkObj.getLinkUrl(),Integer.toString(linkObj.getUserId()),linkObj.getLinkDeletedStatus());
+            		linkObj.getLinkUrl(),Integer.toString(linkObj.getUserId()),linkObj.isLinkDeleted());
 
-            actionLogDb.close();
             db.close();
     	}
     }
     /**INSERT ROW in db - overloading insert function*/
-    public static boolean insertLinkWrappLocalDb(DatabaseAdapter db,ActionLogDbAdapter actionLogDb,int linkId,int linkOrderInList,String linkName,String iconPath,String linkUrl,int linksUserId,SharedPreferences sharedPref){
+    public static boolean insertLinkWrappLocalDb(DatabaseAdapter db,ActionLogDbAdapter actionLogDb
+    		,int linkId,int linkOrderInList,String linkName,String iconPath,String linkUrl,
+    		int linksUserId,boolean logEnabled){
         db.open();
-        actionLogDb.open();
-
-        actionLogDb.insertActionLog(SharedData.ADD_LABEL,SharedData.LINK_LABEL,linksUserId);
+        
+        if(logEnabled){
+            actionLogDb.open();
+            actionLogDb.insertActionLog(SharedData.ADD_LABEL,SharedData.LINK_LABEL,linksUserId);
+            actionLogDb.close();
+        }
 
         db.insertLink(linkId,Integer.toString(linkOrderInList), linkName, iconPath,
         		linkUrl,Integer.toString(linksUserId),false);
 
-        actionLogDb.close();
         db.close();
         return true;
     }
@@ -269,7 +317,11 @@ public class DatabaseConnectionCommon {
         	do{
         		//TODO add c.getInt(1) in Link obj - linkOrderInList
         		//TODO to be fixed inconPath pos 3 in db but must be in pos 2
-        		linkList.add(new Link(c.getInt(0),c.getString(3),c.getString(2),c.getString(4),c.getInt(5),null,false));
+//        		public Link(int linkId,String linkIconPath,String linkName,String linkUrl,int userId,String delIcon,boolean linkDeleted){
+        		
+        		if(!getBooleanByInt(c.getInt(6)))
+	        		linkList.add(new Link(c.getInt(0),c.getString(3),c.getString(2),c.getString(4),
+	        				c.getInt(5),null,getBooleanByInt(c.getInt(6))));
         	}while(c.moveToNext());
         }
         
@@ -278,14 +330,43 @@ public class DatabaseConnectionCommon {
         	return null;
         return linkList;
     }
+    
+    /**GET ALL ROWS from db**/
+    public static ArrayList<Link> getLinksWrappTESTLocalDb(DatabaseAdapter db){
+    	boolean emptyDb=true;
+    	ArrayList<Link> linkList = new ArrayList<Link>();
+        db.open();
+        
+        Cursor c=db.getLinks();
+        if(c.moveToFirst()){
+        	emptyDb=false;
+        	do{
+        		//TODO add c.getInt(1) in Link obj - linkOrderInList
+        		//TODO to be fixed inconPath pos 3 in db but must be in pos 2
+//        		public Link(int linkId,String linkIconPath,String linkName,String linkUrl,int userId,String delIcon,boolean linkDeleted){
+        		
+        		linkList.add(new Link(c.getInt(0),c.getString(3),c.getString(2),c.getString(4),
+        				c.getInt(5),null,getBooleanByInt(c.getInt(6))));
+        	}while(c.moveToNext());
+        }
+        
+        db.close();
+        if(emptyDb)
+        	return null;
+        return linkList;
+    }
+
+    
     /**GET ONE ROW from db**/
     public static Link getLinkByIdWrappLocalDb(DatabaseAdapter db,int idRow){
     	Link linkObj=null;
         db.open();
 
+        
         Cursor c=db.getLinkById(idRow);
         if(c.moveToFirst())
-        	linkObj=new Link(c.getInt(0),c.getString(2),c.getString(3),c.getString(4),c.getInt(5),null,false);
+        	linkObj=new Link(c.getInt(0),c.getString(2),c.getString(3),c.getString(4),c.getInt(5),
+        			null,getBooleanByInt(c.getInt(6)));
         
         db.close();
         return linkObj;
@@ -303,31 +384,57 @@ public class DatabaseConnectionCommon {
     	return true;
     }
     /**GET ONE ROW from db**/
-    public static boolean deleteLinkByIdWrappLocalDb(DatabaseAdapter db,ActionLogDbAdapter actionLogDb,int linkId,SharedPreferences sharedPref){
+    public static boolean deleteLinkByIdWrappLocalDb(DatabaseAdapter db,
+    		ActionLogDbAdapter actionLogDb,int linkId,boolean logEnabled){
         db.open();
-        actionLogDb.open();
 
-        //SET delete all links ID
-        actionLogDb.insertActionLog(SharedData.DELETE_LABEL,SharedData.LINK_LABEL,linkId);
-
-	  	db.dropDbTable();
-        db.deleteLinkById(linkId);
+        if(logEnabled){
+        	actionLogDb.open();
+	        //SET delete all links ID
+	        actionLogDb.insertActionLog(SharedData.DELETE_LABEL,SharedData.LINK_LABEL,linkId);
+	        actionLogDb.close();
+        }
         
-        actionLogDb.close();
-    	db.close();
+//	  	db.dropDbTable();
+//        db.deleteLinkById(linkId);
+        db.deleteLinkById(linkId);
+
+        db.close();
     	return true;
     }
-    public static void updateLinkByIdWrappLocalDb(DatabaseAdapter db,ActionLogDbAdapter actionLogDb,Link linkObj,SharedPreferences sharedPref){
+    /**GET ONE ROW from db**/
+    public static boolean deleteLinkByLinkObjWrappLocalDb(DatabaseAdapter db,
+    		ActionLogDbAdapter actionLogDb,Link linkObj,boolean logEnabled){
         db.open();
-        actionLogDb.open();
+
+        if(logEnabled){
+        	actionLogDb.open();
+	        //SET delete all links ID
+	        actionLogDb.insertActionLog(SharedData.DELETE_LABEL,SharedData.LINK_LABEL,linkObj.getLinkId());
+	        actionLogDb.close();
+        }
         
-        actionLogDb.insertActionLog(SharedData.EDIT_LABEL,SharedData.LINK_LABEL,linkObj.getLinkId());
+        Log.d(TAG,"fake delte obj --"+linkObj.getLinkName());
+        db.fakeDeleteLinkById(linkObj.getLinkId());
+        
+        db.close();
+    	return true;
+    }
+    public static void updateLinkByIdWrappLocalDb(DatabaseAdapter db,ActionLogDbAdapter actionLogDb,
+    		Link linkObj,boolean logEnabled){
+        db.open();
+        if(logEnabled){
+            actionLogDb.open();
+            actionLogDb.insertActionLog(SharedData.EDIT_LABEL,SharedData.LINK_LABEL,linkObj.getLinkId());
+    		actionLogDb.close();
+        }
     	
         //TODO not sure if linkId is the same as rowId
         long rowId=linkObj.getLinkId();
-		db.updateLink(rowId,Integer.toString( linkObj.getLinkOrderInList()), linkObj.getLinkName(), linkObj.getIconPath(), linkObj.getLinkUrl(), Integer.toString(linkObj.getUserId()),linkObj.getLinkDeletedStatus());
+		db.updateLink(rowId,Integer.toString( linkObj.getLinkOrderInList()), linkObj.getLinkName(), 
+				linkObj.getIconPath(), linkObj.getLinkUrl(), Integer.toString(linkObj.getUserId()),
+				linkObj.isLinkDeleted());
         
-		actionLogDb.close();
     	db.close();
     }
 
@@ -340,8 +447,10 @@ public class DatabaseConnectionCommon {
     	
 		linkId=SharedData.EMPTY_LINKID;
     	if (mCursor!=null) {
+    		emptyDb=false;
 			mCursor.moveToFirst();
-			linkId=mCursor.getInt(0);
+			if(linkId<mCursor.getInt(0))
+				linkId=mCursor.getInt(0);
 		}
 		db.close();
     	
@@ -387,7 +496,16 @@ public class DatabaseConnectionCommon {
         db.close();
     }
     
-    
+
+    public static boolean getBooleanByInt(int value){
+    	try{
+			if(value==1)
+				return true;
+    	}catch(Exception e){
+    		return false;
+    	}
+    	return false;
+    }
     
 //    public void displayLinkLocalDb(Cursor c){
 //    	Toast.makeText(this,"id "+ c.getString(0)+" icon "+ c.getString(1)+" bool "+ 

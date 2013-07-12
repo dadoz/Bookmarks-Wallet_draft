@@ -70,23 +70,15 @@ public class LinksListFragment extends SherlockFragment {
     	ArrayList<Link> linksDataList = DatabaseConnectionCommon.getLinksWrappLocalDb(db);
     	if(linksDataList==null){
     		Log.d(TAG,"set list from JSON data");
-    		//start dialog
-    		LoadingDialog m = new LoadingDialog();
-            m.show(getFragmentManager(), "EditLinkDialog");
     		try{
 	    		//TODO change iconPath on DB
 				linksDataList = DatabaseConnectionCommon.getLinksListFromJSONData();
 				for(Link link:linksDataList)
-					DatabaseConnectionCommon.insertLinkWrappLocalDb(db,actionLogDb,link);
+					DatabaseConnectionCommon.insertLinkWrappLocalDb(db,actionLogDb,link,false);
 				
-				//TODO fix it - clear all Log
-				DatabaseConnectionCommon.deleteAllActionLogWrappLocalDb(actionLogDb);
-				
-				//close dialog
 	    	}catch(Exception e){
 	    		Log.e(TAG,"error - " + e);
 	    	}
-			m.dismiss();
     	}
     	//TEST - empty list
 //    	if(linksDataList==null){
@@ -101,7 +93,8 @@ public class LinksListFragment extends SherlockFragment {
     		toastMessageWrapper("empty List - img");
 
     		//TEST
-    		Link emptyLink=new Link(SharedData.EMPTY_LINKID,SharedData.EMPTY_STRING,"Empty list - sorry",SharedData.EMPTY_STRING,SharedData.EMPTY_LINKID,SharedData.EMPTY_STRING,false);
+    		Link emptyLink=new Link(SharedData.EMPTY_LINKID,SharedData.EMPTY_STRING,"Empty list - sorry",
+    				SharedData.EMPTY_STRING,SharedData.EMPTY_LINKID,SharedData.EMPTY_STRING,false);
     		linksDataList=new ArrayList<Link>();
     		linksDataList.add(emptyLink);
     	}
@@ -375,9 +368,10 @@ public class LinksListFragment extends SherlockFragment {
 	                    	   //get new link title
 								ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
 								Link linkObj = (Link) linksListView.getAdapter().getItem(SharedData.getLinkPosition());
-								String linkNameMod=((EditText) view.findViewById(R.id.editLink_title_editText_dialog_id)).getText().toString();
+								String linkNameMod=((EditText) view.findViewById(R.id.editLink_title_editText_dialog_id)).
+										getText().toString();
 								linkObj.setLinkName(linkNameMod);
-								DatabaseConnectionCommon.updateLinkByIdWrappLocalDb(db,actionLogDb, linkObj,getActivity().getSharedPreferences(SharedData.LOG_DB, 0));
+								DatabaseConnectionCommon.updateLinkByIdWrappLocalDb(db,actionLogDb, linkObj,true);
 								linksListView.refreshDrawableState();
 								Log.d(TAG,linkNameMod);
                     	   	}catch(Exception e){
@@ -412,12 +406,12 @@ public class LinksListFragment extends SherlockFragment {
 	                    	   //get new link title
 								ListView linksListView = (ListView)getActivity().findViewById(R.id.linksListId);
 								Link linkObj = (Link) linksListView.getAdapter().getItem(SharedData.getLinkPosition());
-								if(DatabaseConnectionCommon.deleteLinkByIdWrappLocalDb(db,actionLogDb,linkObj.getLinkId(),getActivity().getSharedPreferences(SharedData.LOG_DB, 0))){
+								if(DatabaseConnectionCommon.deleteLinkByLinkObjWrappLocalDb(db,actionLogDb,linkObj,true)){
 									((LinkCustomAdapter) linksListView.getAdapter()).remove(linkObj);
 									linksListView.refreshDrawableState();
 	    							//SharedData.removeLink(linkObj);
 									//delete from local db
-									toastMessageWrapper("Item deletedx - "+linkObj.getLinkName());
+									toastMessageWrapper("Item deleted - "+linkObj.getLinkName());
 								}
 	                   	   }catch(Exception e){
 	                   	   		toastMessageWrapper("failed edit Link - editLinkDialog");

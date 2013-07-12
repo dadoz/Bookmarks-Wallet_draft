@@ -122,10 +122,11 @@ public class DatabaseAdapter{
 	}
 
     //update title
-    public boolean fakeDeleteLinkById(long rowId,boolean linkDeletedStatus){
+    public boolean fakeDeleteLinkById(long rowId){
     	
+    	boolean linkDeletedStatus=true;
     	ContentValues initialValues = new ContentValues();
-    	initialValues.put(LINK_ORDER_IN_LIST_KEY, linkDeletedStatus);
+    	initialValues.put(LINK_DELETED_STATUS_KEY, linkDeletedStatus);
 
         return db.update(LINKS_TABLE_NAME, initialValues, 
                          ROWID_KEY + "=" + rowId, null) > 0;
